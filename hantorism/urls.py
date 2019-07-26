@@ -19,4 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hantorism_home.urls')),
+    path('', include('hantorism_post.urls')),
+    path('', include('hantorism_user.urls'))
 ]

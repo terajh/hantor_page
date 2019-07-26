@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'common_hantorism',
     'hantorism_home',
+    'hantorism_post',
+    'hantorism_user',
 ]
 
 MIDDLEWARE = [
