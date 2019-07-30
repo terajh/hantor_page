@@ -1,13 +1,13 @@
-<form action="/sign_up/" method="POST">
-    <input type="text" name="ID" placeholder="ID">
-    <input type="text" name="PW" placeholder="PW">
-    <input type="text" name="name" placeholder="name">
-    <input type="text" name="studentNum" placeholder="student number">
-    <input type="text" name="major" placeholder="major">
-    <input type="radio" name="gender" value="male">Male
-    <input type="radio" name="gender" value="female">Female
-    <input type="text" name="email" placeholder="email">
-    <input type="radio" name="isHantor" value="hantor">예
-    <input type="radio" name="isHantor" value="no_hantor">아니오
-    <input type="submit">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIGN-UP</title>
+</head>
+<body>
+    <form name="test" action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="회원가입">
+    </form>
+</body>
+</html>
