@@ -1,4 +1,14 @@
 <html>
 <p>HANTORISM</p>
-<h1><a href="/post/">Hantorism Blog</a></h1>
+{% if user.is_active %}
+    <h1>Welcome, {{user.username}}</h1>
+{% else %}
+    <h1>Login 하세요.</h1>
+    <h1><a href="/sign_up/">회원가입<br><br></a></h1>
+    <h1><a href="/sign_in/">로그인<br><br></a></h1>
+{% endif %}
+{% if user.is_active %}
+    <h1><a href="/sign_out/">로그아웃<br><br></a></h1>
+{% endif %}
+<h1><a href="/user_list/">목록<br><br></a></h1>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USER-LIST</title>
+</head>
+<body>
+{% if user.is_active %}
+    <h1>Welcome, {{user.username}}</h1>
+{% endif %}
+
+{% if user_list %}
+    <ul>
+        {% for user in user_list %}
+            <li><a href="/user_list/detail-{{user.name}}/">{{user.name}}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>
