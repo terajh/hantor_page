@@ -1,14 +1,106 @@
+<!doctype html>
 <html>
+        {% load staticfiles %}
+
+    <body class="pt-5">
+        <!-- Navbar -->
+        {% include 'header.html' %}
+        <!-- carousel -->
+
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+                <li data-target="#demo" data-slide-to="4"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item active" id="k1">
+                    <img src="{% static "images/kakao1.jpg" %}" alt="kakao1" class="w-100">
+                </div>
+                <div class="carousel-item " id="k2">
+                    <img src="{% static "images/kakao2.jpg" %}" class="w-100">
+
+                </div>
+                <div class="carousel-item " id="k3">
+                    <img src="{% static "images/kakao6.jpg" %}" alt="kakao3" class="w-100">
+
+                </div>
+                <div class="carousel-item" id="k4">
+                    <img src="{% static "images/kakao7.jpg" %}" alt="kakao4" class="w-100">
+
+                </div>
+                <div class="carousel-item" id="k5">
+                    <img src="{% static "images/kakao8.jpg" %}" alt="kakao5" class="w-100">
+
+                </div>
+                <div class="carousel-caption ">
+                    <div style="font-size: 6vw">
+                        KAKAO Frineds fan page
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1><a href="/sign_up/">Hantorism Blog</a></h1>
+
+        <!-- card -->
+        <p>
+        <h2 class="text-center text-custom">Introduction to KAKAO FRIENDS</h2>
+        </p>
+        <div class="container">
+            <div class="card-column w-100 ">
+                <div class="card ">
+                    <div class="row no-gutters ">
+                        <img src="../../static/images/ryan.png" class="col-md-3 col-5" alt="k1">
+                        <div class="card-body col-md-9 col-12">
+                            <h5 class="card-title">RYAN</h5>
+                            <p class="card-text text-custom">믿음직스러운 카카오 프렌즈의 조언자 라이언! 갈기가 없어 컴플렉스가 많은 수사자. 항상 무뚝뚝한 표정을 짓고 있지만
+                                소녀처럼
+                                여리고, 섬세한 감성을 가지고 있습니다.</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <img src="../../static/images/apeach.png" class="col-md-3 col-5" alt="k2">
+                            <div class="card-body col-md-9 col-12">
+                                <h5 class="card-title">APEACH</h5>
+                                <p class="card-text">유전자변이로 자웅동주가 된 것을 알고 복숭아 나무에서 탈출한 악동복숭아 어피치. 섹시한 뒷태로 사람들을 매혹시키지만
+                                    성격이 매우
+                                    급하고 과격합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <img src="../../static/images/muzi.png" class="col-md-3 col-5" alt="k3">
+                            <div class="card-body col-md-9 col-12">
+                                <h5 class="card-title">MUZI & CON</h5>
+                                <p class="card-text">호기심 많은 장난꾸러기 무지! 토끼옷을 입고 있지만 정체는 단무지. 토끼옷을 벗으면 부끄러움을 많이 탑니다. 단무지를
+                                    키워
+                                    무지를 만든 말없는 정체불명의 악어 콘! 이제는 복숭아를 키우고 싶어 어피치를 찾아 다닙니다.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card">
+                        <div class="row no-gutters">
+
+                            <img src="../../static/images/tube.png" class="col-md-3 col-5" alt="k4">
+                            <div class="card-body col-md-9 col-12">
+                                <h5 class="card-title">TUBE </h5>
+                                <p class="card-text">겁 먹고 마음약한 오르 튜브. 극도의 공포를 느끼면 미친오리로 변신합니다. 작은 발이 콤플렉스여서 큰 오리발을
+                                    착용합니다. 미운오리새끼가 먼 친척입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </body>
+</html>
 <p>HANTORISM</p>
-{% if user.is_active %}
-    <h1>Welcome, {{user.username}}</h1>
-{% else %}
-    <h1>Login 하세요.</h1>
-    <h1><a href="/sign_up/">회원가입<br><br></a></h1>
-    <h1><a href="/sign_in/">로그인<br><br></a></h1>
-{% endif %}
-{% if user.is_active %}
-    <h1><a href="/sign_out/">로그아웃<br><br></a></h1>
-{% endif %}
 <h1><a href="/user_list/">목록<br><br></a></h1>
 </html>
