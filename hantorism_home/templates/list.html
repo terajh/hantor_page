@@ -1,24 +1,12 @@
 <!doctype html>
 <html>
-    <head>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>Jechan small_project</title>
-        <link rel="stylesheet" href="static/css/index.css">
-    </head>
-    <body>
+        {% load staticfiles %}
+
+    <body class="pt-5">
         <!-- Navbar -->
         {% include 'header.html' %}
         <!-- carousel -->
+
         <div id="demo" class="carousel slide" data-ride="carousel">
             <ul class="carousel-indicators">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -29,22 +17,22 @@
             </ul>
             <div class="carousel-inner">
                 <div class="carousel-item active" id="k1">
-                    <img src="static/images/kakao1.jpg" alt="kakao1" class="w-100">
+                    <img src="{% static "images/kakao1.jpg" %}" alt="kakao1" class="w-100">
                 </div>
                 <div class="carousel-item " id="k2">
-                    <img src="static/images/kakao2.jpg" alt="kakao2" class="w-100">
+                    <img src="{% static "images/kakao2.jpg" %}" class="w-100">
 
                 </div>
                 <div class="carousel-item " id="k3">
-                    <img src="static/images/kakao6.jpg" alt="kakao3" class="w-100">
+                    <img src="{% static "images/kakao6.jpg" %}" alt="kakao3" class="w-100">
 
                 </div>
                 <div class="carousel-item" id="k4">
-                    <img src="static/images/kakao7.jpg" alt="kakao4" class="w-100">
+                    <img src="{% static "images/kakao7.jpg" %}" alt="kakao4" class="w-100">
 
                 </div>
                 <div class="carousel-item" id="k5">
-                    <img src="static/images/kakao8.jpg" alt="kakao5" class="w-100">
+                    <img src="{% static "images/kakao8.jpg" %}" alt="kakao5" class="w-100">
 
                 </div>
                 <div class="carousel-caption ">
@@ -52,9 +40,9 @@
                         KAKAO Frineds fan page
                     </div>
                 </div>
-
             </div>
         </div>
+        <h1><a href="/sign_up/">Hantorism Blog</a></h1>
 
         <!-- card -->
         <p>
@@ -64,7 +52,7 @@
             <div class="card-column w-100 ">
                 <div class="card ">
                     <div class="row no-gutters ">
-                        <img src="static/images/ryan.png" class="col-md-3 col-5" alt="k1">
+                        <img src="../../static/images/ryan.png" class="col-md-3 col-5" alt="k1">
                         <div class="card-body col-md-9 col-12">
                             <h5 class="card-title">RYAN</h5>
                             <p class="card-text text-custom">믿음직스러운 카카오 프렌즈의 조언자 라이언! 갈기가 없어 컴플렉스가 많은 수사자. 항상 무뚝뚝한 표정을 짓고 있지만
@@ -75,7 +63,7 @@
                     </div>
                     <div class="card">
                         <div class="row no-gutters">
-                            <img src="static/images/apeach.png" class="col-md-3 col-5" alt="k2">
+                            <img src="../../static/images/apeach.png" class="col-md-3 col-5" alt="k2">
                             <div class="card-body col-md-9 col-12">
                                 <h5 class="card-title">APEACH</h5>
                                 <p class="card-text">유전자변이로 자웅동주가 된 것을 알고 복숭아 나무에서 탈출한 악동복숭아 어피치. 섹시한 뒷태로 사람들을 매혹시키지만
@@ -86,7 +74,7 @@
                     </div>
                     <div class="card">
                         <div class="row no-gutters">
-                            <img src="static/images/muzi.png" class="col-md-3 col-5" alt="k3">
+                            <img src="../../static/images/muzi.png" class="col-md-3 col-5" alt="k3">
                             <div class="card-body col-md-9 col-12">
                                 <h5 class="card-title">MUZI & CON</h5>
                                 <p class="card-text">호기심 많은 장난꾸러기 무지! 토끼옷을 입고 있지만 정체는 단무지. 토끼옷을 벗으면 부끄러움을 많이 탑니다. 단무지를
@@ -99,7 +87,7 @@
                     <div class="card">
                         <div class="row no-gutters">
 
-                            <img src="static/images/tube.png" class="col-md-3 col-5" alt="k4">
+                            <img src="../../static/images/tube.png" class="col-md-3 col-5" alt="k4">
                             <div class="card-body col-md-9 col-12">
                                 <h5 class="card-title">TUBE </h5>
                                 <p class="card-text">겁 먹고 마음약한 오르 튜브. 극도의 공포를 느끼면 미친오리로 변신합니다. 작은 발이 콤플렉스여서 큰 오리발을

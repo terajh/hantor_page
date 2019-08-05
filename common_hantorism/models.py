@@ -16,7 +16,7 @@ class HantorismUser(models.Model):
     PW = models.CharField(max_length=20)
 
     name = models.CharField(max_length=20)
-    studentNum = models.IntegerField()
+    studentNum = models.CharField(max_length=10)
     major = models.CharField(max_length=20)
 
     gender = models.CharField(max_length=8, choices=GENDER_CHOICES)
@@ -25,6 +25,8 @@ class HantorismUser(models.Model):
     isHantor = models.CharField(
         max_length=10,
         choices=ISHANTOR_CHOICES)
+
+    object=models.Manager()
 
 
 class HantorismPost(models.Model):

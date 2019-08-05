@@ -7,5 +7,5 @@ as_view = ViewSet.as_view({
 })
 
 urlpatterns = [
-    path('post/', as_view, name='post_list'),
+    path('posts/', as_view, name='post_list'),
 ]
