@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'hantorism_home',
     'hantorism_post',
     'hantorism_user',
+    'hantorism_library',
 ]
 
 MIDDLEWARE = [
