@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>SIGN-UP</title>
+    {% load staticfiles %}
+    <script src="{% static "js/sign_up.js" %}"></script>
+
 </head>
 
 <body class="pt-5 m-3">
 
     {% include 'header.html' %}
 
-    <form name="test" action="{%url 'sign_up'%}" method="post">{% csrf_token %}
+    <form name="test" action="{%url 'sign_up'%}" method="post" onsubmit="return chk_value(this)">{% csrf_token %}
         <div class="section">
             <div class="container p-5 border border-light">
                 <div class="row p-5">
@@ -23,26 +26,21 @@
                         <input type="text" class="form-control" placeholder="ID" name="ID">
                     </div>
                     <div class="form-group col-md-6">
+                        <input type="text" class="form-control" placeholder="Name" name="name">
+                    </div>
+                    <div class="form-group col-md-6">
                         <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="password" class="form-control" placeholder="Password 확인 " name="password2">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="number" class="form-control" placeholder="StudentNumber" name="studentNum">
                     </div>
                     <div class="form-group col-md-12">
                         <input type="email" class="form-control" placeholder="Email" name="email">
                     </div>
-                    <div class="form-group col-md-6">
-                        <input type="number" class="form-control" placeholder="StudentNumber" name="studentNum">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="text" class="form-control" placeholder="Name" name="name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="주소를 입력하세요.." name="address">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="city">
-                    </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label for="major">학과</label>
                         <select id="major" class="form-control" name="major">
                             <option value="Software" selected>Software</option>
@@ -52,19 +50,32 @@
                             <option value="etc">기타</option>
                         </select>
                     </div>
-                    <div class="form-row col-12">
-                        <div class="form-group col-6">
-                            <label for="gender">Gender</label>
-                            <input type="radio" name="gender" value="male">male
-                            <input type="radio" name="gender" value="female">female
+
+                    <div class="form-group col-12">
+                        <label for="gender">gender</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="male_id" value="male">
+                            <label class="form-check-label" for="male_id">male</label>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="gender">isHanto</label>
-                            <input type="radio" name="isHantor" value="Y">Yes
-                            <input type="radio" name="isHantor" value="female">No
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="female_id" value="female">
+                            <label class="form-check-label" for="female_id">female</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label for="isHantor">isHantor?</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="isHantor" id="inlineRadio1" value="y">
+                            <label class="form-check-label" for="inlineRadio1">Y</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="isHantor" id="inlineRadio2" value="n">
+                            <label class="form-check-label" for="inlineRadio2">N</label>
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1" class="h4 font-weight-bold  pb-2">개인정보수집동의</label>
                     <textarea class="w-100 text-left" wrap="hard" style="display:block;" readonly="ed"
@@ -83,6 +94,7 @@
                 </div>
             </div>
         </div>
+
     </form>
     <!-- <form name="test" action="{%url 'sign_up'%}" method="post">{% csrf_token %}
         ID :

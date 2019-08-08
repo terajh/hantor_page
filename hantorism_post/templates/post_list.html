@@ -1,13 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
-    <h1><a href="/post/">Hantorism Blog</a></h1>
-</div>
+<!doctype html>
+<html>
+{% load staticfiles %}
+
+<body class="pt-5">
+    <!-- Navbar -->
+    {% include 'header.html' %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td>{{post}}</td>
+                        <td><a href="">{{ post.title }}</a></td>
+                        <td>{{ post.userID }}</td>
+                        <td>{{ post.created_date }}</td>
+                        <td>{{ post.text|linebreaksbr }}</td>
+                    </tr>
+                    {% endfor %}
+
+                <tr>
+                    
+                    <td>d</td>
+                    <td>d</td>
+                    <td>d</td>
+                    <td>d</td>
+                    <td>d</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card">
+                <div class="card-header" id="heading2">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapseTwo">
+                    게시글 A
+                    </button>
+                </h2>
+                </div>
+                <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+                </div>
+            </div>
+    </div>
+    {% include 'footer.html' %}
+
+</html>
+
 <div>
     <form action="/post/" method="POST">
         <input type="text" name="title" placeholder="Title">
@@ -16,11 +65,12 @@
     </form>
 </div>
 {% for post in posts %}
-    <div>
-        <p>published: {{ post.created_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
+<div>
+    <p>published: {{ post.created_date }}</p>
+    <h1><a href="">{{ post.title }}</a></h1>
+    <p>{{ post.text|linebreaksbr }}</p>
+</div>
 {% endfor %}
 </body>
+
 </html>
