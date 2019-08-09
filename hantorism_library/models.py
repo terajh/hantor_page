@@ -14,7 +14,7 @@ from django.utils import timezone
 from common_hantorism.models import HantorismUser
 
 
-class Book(models.Model):
+class Library(models.Model):
     book_name = models.CharField(max_length=20)
     book_rent_state = models.BooleanField(default=False)
     rent_date = models.DateTimeField(default=timezone.now)
@@ -22,4 +22,8 @@ class Book(models.Model):
     book_owner_name = models.CharField(max_length=20)
 
     def __str__(self):
-        return 'Book name : %s Book owner : %s Book user : %s' % (self.book_name, self.book_owner_name, self.book_user.name)
+        return self.book_name
+
+    def rent(self):
+        self.book_rent_state = True
+        self.book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)

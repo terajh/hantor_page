@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Book List</title>>
+</head>
+<body>
+<ul>
+    {% for book in books %}
+        <p>책 이름 : {{book.book_name}}<br>책 주인 : {{book.book_owner_name}}<br>
+            {% if book.book_rent_state %}
+                대여중<br>대여자 : {{book.book_user.name}}<br>
+            {% else %}
+                대여가능<br>
+            {% endif %}
+        </p>
+    {% endfor %}
+</ul>
+</body>
+</html>
