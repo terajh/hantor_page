@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Library
+from common_hantorism.models import HantorismLibrary as Model
 
-admin.site.register(Library)
+admin.site.register(Model)
