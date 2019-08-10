@@ -42,4 +42,17 @@ class HantorismPost(models.Model):
         return self.title
 
 
+class HantorismLibrary(models.Model):
+    book_name = models.CharField(max_length=20)
+    book_rent_state = models.BooleanField(default=False)
+    rent_date = models.DateTimeField(default=timezone.now)
+    book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    book_owner_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.book_name
+
+    def rent(self):
+        self.book_rent_state = True
+        self.book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
