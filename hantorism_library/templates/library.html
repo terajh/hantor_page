@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" context="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <td><B>이름</B></td>
+            <td><B>책주인</B></td>
+            <td><B>대여상태</B></td>
+        </tr>
+        </thead>
+<tbody>
+        {% for book in books %}
+        <tr>
+            <td> {{book.book_name}} </td>
+            <td> {{book.book_owner_name}} </td>
+            {% if book.book_rent_state %}
+                <td>대여자 : {{book.book_user.name}}</td>
+            {% else %}
+                <td>대여가능</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tbody>
+    </table>
+</div>
+</body>
+</html>
