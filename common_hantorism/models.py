@@ -34,10 +34,12 @@ class HantorismUser(models.Model):
 
 class HantorismPost(models.Model):
     userID = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+
+    name=models.CharField(max_length=10)
     title = models.CharField(max_length=200)
     body = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-
+    view_count = models.IntegerField(null=True, default=0)
     def __str__(self):
         return self.title
 
