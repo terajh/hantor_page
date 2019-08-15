@@ -1,48 +1,98 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 {% load staticfiles %}
-
+<head>
+    <meta charset="UTF-8">
+    <title>PostList</title>
+</head>
 <body class="pt-5">
-    <!-- Navbar -->
-    {% include 'header.html' %}
-    <div class="container">
-        <table class="table table-striped table-condensed" id="myTable">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>날짜</th>
-                    <th>조회수</th>
-                </tr>
-            </thead>
-            <tbody class="panel">
-                {% for post in posts %}
-                <tr data-toggle="collapse" data-target="#d{{post.id}}" data-parent="#myTable">
-                    <td>{{post}}</td>
-                    <td><a href="">{{ post.title }}</a></td>
-                    <td>{{ post.userID }}</td>
-                    <td>{{ post.created_date }}</td>
-                    <td>{{ post.text|linebreaksbr }}</td>
-                </tr>
-                <tr id="d{{post.id}}" class="collapse">
-                    <td colspan="5" class="hiddenRow text-center">
-                        {{post.body}}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <form action="/post/" method="POST">
-            <input type="text" name="title" placeholder="Title">
-            <input type="text" name="body" placeholder="Body">
-            <input type="submit">
-        </form>
-    </div>
-    {% include 'footer.html' %}
+{% include 'header.html' %}
+<div class="container">
 
+    <table cellspacing=1 width=700 border=0>
+        <tr>
+            <td>총 게시물수: {{ totalCnt }}</td>
+            <td><p align=right> 페이지:{{ current_page }}
+            </td>
+        </tr>
+    </table>
+
+    <table cellspacing=1 width=700 border=1>
+        <tr>
+            <td width=50><p align=center>번호</p>
+            </td>
+            <td width=100><p align=center>이름</p>
+            </td>
+            <td width=320><p align=center>제목</p>
+            </td>
+            <td width=100><p align=center>등록일</p>
+            </td>
+            <td width=100><p align=center>조회수</p>
+            </td>
+        </tr>
+
+        {% if postList %}
+            <ul>
+                {% for postRow in postList %}
+                    <tr>
+                        <td width=50><p align=center>{{ postRow.id }}</p></td>
+                        <td width=100><p align=center>{{ postRow.name }}</p></td>
+                        <td width=320>
+                            <p align=center>
+                                <a href="/post_view?post_id={{ postRow.id }}&current_page={{ current_page }}&searchStr=None"
+                                   title="{{ postRow.title }}"> {{ postRow.title }}
+                            </p>
+                        </td>
+                        <td width=100><p align=center>{{ postRow.created_date }}</p></td>
+                        <td width=100><p align="center">{{ postRow.view_count }}</p></td>
+
+                    </tr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No Data.</p>
+        {% endif %}
+    </table>
+
+
+    <table cellspacing=1 width=700 border=1>
+        <tr>
+            <td>
+                {% for page in totalPageList %}
+                    <a href="/posts?current_page={{ page }}">
+                        [
+                        {% ifequal page current_page %}
+                            <b>
+                        {% endifequal %}
+                        {{ page }}
+                        {% ifequal page current_page %}
+                            </b>
+                        {% endifequal %}
+                        ]
+                    </a>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <table width=700>
+        <tr>
+            {% if user.is_active %}
+                <td>
+                    <input type="button" value="글쓰기" OnClick="window.location='/post_write'">
+                </td>
+            {% endif %}
+            <td>
+                <form name="searchf" method="post" action="{% url 'title_search' %}">{% csrf_token %}
+                    <p align=right>
+                        <input type="text" name="searchStr" size=50 maxlength=50>
+                        <input type="submit" value="글찾기">
+                    </p>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+{% include 'footer.html' %}
 </body>
 
 </html>
