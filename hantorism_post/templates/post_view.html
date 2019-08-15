@@ -5,51 +5,65 @@
     <title>PostView</title>
 </head>
 <script language="javascript">
-      function boardlist()
-      {
-          var s = "{{searchStr}}";
+  function boardlist() {
+    var s = "{{searchStr}}";
 
-          if(s=="None")
-              location.href = '/posts?current_page={{current_page}}';
-          else
-              location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
-      }
+    if (s == "None")
+      location.href = '/posts?current_page={{current_page}}';
+    else
+      location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
+  }
 
-      function boardmodify()
-      {
-          location.href='/post_modify?post_id={{post_id}}&current_page={{current_page}}&searchStr={{searchStr}}';
-      }
+  function boardmodify() {
+    location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&searchStr={{searchStr}}';
+  }
 
-      function boarddelete()
-      {
-          location.href='/post_delete?post_id={{post_id}}&current_page={{current_page}}';
-      }
-  </script>
-<body>
-<table cellspacing = 0 cellpadding = 5 border = 1 width=500>
-      <tr><td><b>조회수</b></td><td> {{ postData.view_count }} </td></tr>
-      <tr><td><b>이름 </b></td><td> {{ postData.name }} </td></tr>
-      <tr><td><b>제목 </b></td><td> {{ postData.title }} </td></tr>
-      <tr><td><b>내용 </b></td><td width=350> {{ postData.body }} </td></tr>
-  </table>
+  function boarddelete() {
+    location.href = '/post_delete?post_id={{post_id}}&current_page={{current_page}}';
+  }
+</script>
+<body class="pt-5">
+{% include 'header.html' %}
+<div class="container">
+    <table cellspacing=0 cellpadding=5 border=1 width=500>
+        <tr>
+            <td><b>조회수</b></td>
+            <td> {{ postData.view_count }} </td>
+        </tr>
+        <tr>
+            <td><b>이름 </b></td>
+            <td> {{ postData.name }} </td>
+        </tr>
+        <tr>
+            <td><b>제목 </b></td>
+            <td> {{ postData.title }} </td>
+        </tr>
+        <tr>
+            <td><b>내용 </b></td>
+            <td width=350> {{ postData.body }} </td>
+        </tr>
+    </table>
 
-  <table  cellspacing = 0 cellpadding = 0 border = 0 width=500>
-      <tr><td>
-          {% if user.is_active %}
-          {% if user.username == postData.name %}
-          <input type="button" value="수정" OnClick="javascript:boardmodify()">
-          {% endif %}
-          {% endif %}
+    <table cellspacing=0 cellpadding=0 border=0 width=500>
+        <tr>
+            <td>
+                {% if user.is_active %}
+                    {% if user.username == postData.name %}
+                        <input type="button" value="수정" OnClick="javascript:boardmodify()">
+                    {% endif %}
+                {% endif %}
 
-          <input type="button" value="목록" OnClick="javascript:boardlist()">
+                <input type="button" value="목록" OnClick="javascript:boardlist()">
 
-          {% if user.is_active %}
-          {% if user.username == postData.name %}
-          <input type="button" value="삭제" OnClick="javascript:boarddelete()">
-          {% endif %}
-          {% endif %}
-      </td></tr>
-  </table>
-
+                {% if user.is_active %}
+                    {% if user.username == postData.name %}
+                        <input type="button" value="삭제" OnClick="javascript:boarddelete()">
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
+{% include 'footer.html' %}
 </html>

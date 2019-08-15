@@ -5,53 +5,61 @@
     <title>PostModify</title>
 </head>
 <script language="javascript">
- function writeCheck()
- {
-     var form = document.modifyform;
+  function writeCheck() {
+    var form = document.modifyform;
 
-      if( !form.title.value )
-     {
-         alert( "제목을 적어주세요" );
-         form.title.focus();
-         return;
-     }
-     if( !form.body.value )
-     {
-         alert( "내용을 적어주세요" );
-         form.body.focus();
-         return;
-     }
-     form.submit();
- }
+    if (!form.title.value) {
+      alert("제목을 적어주세요");
+      form.title.focus();
+      return;
+    }
+    if (!form.body.value) {
+      alert("내용을 적어주세요");
+      form.body.focus();
+      return;
+    }
+    form.submit();
+  }
 
-  function postlist()
- {
-     var s = "{{searchStr}}";
+  function postlist() {
+    var s = "{{searchStr}}";
 
-        if(s=="None")
-            location.href = '/posts?current_page={{current_page}}';
-        else
-            location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
- }
+    if (s == "None")
+      location.href = '/posts?current_page={{current_page}}';
+    else
+      location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
+  }
 </script>
 
-<body>
-<table cellspacing = 0 cellpadding = 5 border = 1 width=500>
-<form name="modifyform" method="post" action="{%url 'update_post'%}">{% csrf_token %}
-    <input type="hidden" name="post_id"  value="{{post_id}}">
-    <input type="hidden" name="current_page"  value="{{current_page}} ">
-    <input type="hidden" name="searchStr"  value="{{searchStr}} ">
+<body class="pt-5">
+{% include 'header.html' %}
+<div class="container">
+    <table cellspacing=0 cellpadding=5 border=1 width=500>
+        <form name="modifyform" method="post" action="{% url 'update_post' %}">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="hidden" name="current_page" value="{{ current_page }} ">
+            <input type="hidden" name="searchStr" value="{{ searchStr }} ">
 
-    <tr><td><b>제목</b></td><td><input type="text" name="title" size=50  maxlength=50 value="{{ postData.title }}"></td></tr>
-    <tr><td><b>내용</b></td><td><textarea name="body" cols=50 rows=10>{{ postData.body }}</textarea></td></tr>
-</form>
-</table>
+            <tr>
+                <td><b>제목</b></td>
+                <td><input type="text" name="title" size=50 maxlength=50 value="{{ postData.title }}"></td>
+            </tr>
+            <tr>
+                <td><b>내용</b></td>
+                <td><textarea name="body" cols=50 rows=10>{{ postData.body }}</textarea></td>
+            </tr>
+        </form>
+    </table>
 
-<table  cellspacing = 0 cellpadding = 0 border = 0 width=500>
-    <tr><td>
-        <input type="button" value="재등록" OnClick="javascript:writeCheck();">
-        <input type="button" value="목록" OnClick="javascript:postlist()">
-    </td></tr>
-</table>
+    <table cellspacing=0 cellpadding=0 border=0 width=500>
+        <tr>
+            <td>
+                <input type="button" value="재등록" OnClick="javascript:writeCheck();">
+                <input type="button" value="목록" OnClick="javascript:postlist()">
+            </td>
+        </tr>
+    </table>
+</div>
+{% include 'footer.html' %}
 </body>
 </html>
