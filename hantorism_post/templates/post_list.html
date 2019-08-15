@@ -107,15 +107,15 @@
         {% for page in totalPageList %}
             <a href="/posts?current_page={{page}}" >
             [
-            {% ifequal page current_page %}
-                <b>
-            {% endifequal %}
-            {{page}}
-
-            {% ifequal page current_page  %}
-                </b>
-            {% endifequal %}
-            ]
+                {% ifequal page current_page %}
+                    <b>
+                {% endifequal %}
+                {{page}}
+                {% ifequal page current_page  %}
+                    </b>
+                {% endifequal %}
+                ]
+            </a>
         {% endfor %}
         </td>
     </tr>
@@ -124,11 +124,16 @@
 <table width=700>
     <tr>
         {% if user.is_active %}
-        <td><input type="button" value="글쓰기"  OnClick="window.location='/post_write'">    </td>
+        <td>
+            <input type="button" value="글쓰기"  OnClick="window.location='/post_write'">
+        </td>
         {% endif %}
-        <td><form name="searchf" method="post" action="{%url 'title_search'%}">{% csrf_token %}
-            <p align=right><input type="text" name="searchStr" size=50  maxlength=50>
-            <input type="submit" value="글찾기"></p>
+        <td>
+            <form name="searchf" method="post" action="{%url 'title_search'%}">{% csrf_token %}
+            <p align=right>
+                <input type="text" name="searchStr" size=50  maxlength=50>
+                <input type="submit" value="글찾기">
+            </p>
         </td>
     </tr>
 </table>
