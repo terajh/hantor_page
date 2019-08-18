@@ -18,16 +18,16 @@
             <td><B>책주인</B></td>
             <td><B>대여상태</B></td>
         </tr>
-        </thead>
-<tbody>
+    </thead>
+        <tbody>
         {% for book in books %}
         <tr>
             <td> {{book.book_name}} </td>
             <td> {{book.book_owner_name}} </td>
             {% if book.book_rent_state %}
-                <td>대여자 : {{book.book_user.name}}</td>
+                <td><a href="/book_return/{{book.book_name}}/{{book.book_owner_name}}/">대여자 : {{book.book_user.name}}</a></td>
             {% else %}
-                <td>대여가능</td>
+                <td><a href="/book_rent/{{book.book_name}}/{{book.book_owner_name}}">대여가능</a></td>
             {% endif %}
         </tr>
         {% endfor %}
