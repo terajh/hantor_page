@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<script language="javascript">
+  function writeCheck() {
+    var form = document.writeform;
+
+    if (!form.title.value) {
+      alert("제목을 적어주세요");
+      form.title.focus();
+      return;
+    }
+    if (!form.body.value) {
+      alert("내용을 적어주세요");
+      form.body.focus();
+      return;
+    }
+    form.submit();
+  }
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PostWrite</title>
+</head>
+<body class="pt-5">
+{% include 'header.html' %}
+<div class="container">
+    <table width=700 border=1 cellspacing=0 cellpadding=5>
+        <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
+            <tr>
+                <td><b>제목</b></td>
+                <td><input type="text" name="title" size=50 maxlength=50></td>
+            </tr>
+            <tr>
+                <td><b>내용</b></td>
+                <td><textarea name="body" cols=50 rows=10></textarea></td>
+            </tr>
+        </form>
+    </table>
+
+    <table width=700 border=1 cellspacing=0 cellpadding=0>
+        <tr>
+            <td>
+                <input type="button" value="등록" OnClick="javascript:writeCheck();">
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+{% include 'footer.html' %}
+</html>

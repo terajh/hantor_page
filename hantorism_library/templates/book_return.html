@@ -3,7 +3,12 @@
 <head>
     <title>{{book_name}} return</title>
     <meta charset="utf-8">
+
 </head>
 <body>
+<form action="/library/" method="PUT">
+    <B>{{ book.book_rent_state }}</B>
+    <button name="return" class="btn btn-warning" >반납요청</button>
+</form>
 <B>반납</B>
 </body>
