@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 {% load staticfiles %}
-
 <body class="pt-5 mt-3">
     <!-- Navbar -->
     {% include 'header.html' %}
@@ -30,7 +29,17 @@
                 <tr id="d{{book.id}}" class="collapse">
                     <td colspan="3" class="hiddenRow text-center">
                         <!-- 만들어주세요 book lent form -->
-                        <a href="#" class="btn btn-warning">대여요청</a>
+
+                        {% if book.book_rent_state %}
+                            <form action="/book_return/{{ book.book_name }}/{{ book.book_owner_name }}/" method="PUT">
+                                <button name="return" class="btn btn-warning" >반납요청</button>
+                            </form>
+                        {% else %}
+                            <form action="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" method="PUT">
+                                <button name="rent" class="btn btn-warning" >대여요청</button>
+{#                                <a href="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" class="btn btn-warning">대여요청</a>#}
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -39,7 +48,6 @@
     </div>
 
     {% include 'footer.html' %}
-
 </body>
 
 </html>

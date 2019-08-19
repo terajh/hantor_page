@@ -58,3 +58,6 @@ class HantorismLibrary(models.Model):
         self.book_rent_state = True
         self.book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
+    def book_return(self):
+        self.book_rent_state = False
+
