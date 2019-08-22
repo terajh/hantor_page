@@ -63,7 +63,15 @@
             </td>
         </tr>
     </table>
+    <div>
+        <form method="post" action="/create_comment/">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="text" name="context">
+            <input type="submit" value="댓글 작성" class="btn">
+        </form>
+    </div>
 </div>
+
 </body>
 {% include 'footer.html' %}
 </html>

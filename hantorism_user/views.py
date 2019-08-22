@@ -20,9 +20,9 @@ class SignUpViewSet(viewsets.ModelViewSet):
             name=request.POST['name'],
             student_number=request.POST['student_number'],
             major=request.POST['major'],
-            #                        gender=request.POST['gender'],
-            email=request.POST['email'])
-#                        is_hantor=request.data['is_hantor'])
+            gender=request.POST['gender'],
+            email=request.POST['email'],
+            is_hantor=request.data['is_hantor'])
         hantorism_user.save()
         auth.login(request, user)
         return redirect('list')

@@ -2,18 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-GENDER_CHOICES = [
-('male','Male'),
-('female','Female'),
-]
-ISHANTOR_CHOICES = [
-('hantor','YES'),
-('no_hantor','NO'),
-]
-
 
 class HantorismUser(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     name = models.CharField(max_length=20)
     student_number = models.CharField(max_length=10)
@@ -21,21 +12,17 @@ class HantorismUser(models.Model):
 
     gender = models.CharField(
         max_length=8,
-        choices=GENDER_CHOICES,
         null=True)
     email = models.CharField(
         max_length=20)
-    is_hantor = models.CharField(
-        max_length=10,
-        choices=ISHANTOR_CHOICES,
-        null=True)
+    is_hantor = models.BooleanField()
     objects = models.Manager()
 
 
 class HantorismPost(models.Model):
-    user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
-    name=models.CharField(max_length=10)
+    name = models.CharField(max_length=10)
     title = models.CharField(max_length=200)
     body = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -43,6 +30,12 @@ class HantorismPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class HantorismPostComment(models.Model):
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(HantorismPost, on_delete=models.CASCADE)
+    context = models.CharField(max_length=200)
 
 
 class HantorismBook(models.Model):
@@ -60,12 +53,12 @@ class HantorismBook(models.Model):
 
 class HantorismRentBook(models.Model):
     date = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     book = models.ForeignKey(HantorismBook, on_delete=models.CASCADE)
 
     def rent(self):
         self.book.state = True
-        self.user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+        self.user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.book.title

@@ -1,4 +1,4 @@
-from common_hantorism.models import HantorismPost, HantorismUser
+from common_hantorism.models import HantorismPost, HantorismPostComment
 from rest_framework import viewsets
 from django.shortcuts import render, render_to_response,redirect
 from django.utils import timezone
@@ -41,12 +41,12 @@ class pagingHelper:
         self.total_page_list=0
 
 def postWrite(request):
-    return render_to_response('post_write.html')
+    return render(request, 'post_write.html')
 
 @csrf_exempt
 @login_required
 def doPost(request):
-    p=HantorismPost(user_id=request.user.id,
+    p=HantorismPost(user_info_id=request.user.id,
                     name=request.user.username,
                     title=request.POST['title'],
                     body=request.POST['body'])
@@ -60,8 +60,6 @@ def postView(request):
     HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count+1)
     post_data=HantorismPost.objects.get(id=pk)
     return render(request,'post_view.html',{'post_id':request.GET['post_id'],
-                                    'current_page':request.GET['current_page'],
-                                    'searchStr':request.GET['searchStr'],
                                     'post_data':post_data})
 
 def postSearch(request):
@@ -127,4 +125,17 @@ def titleSearch(request):
     searchStr=request.POST['searchStr']
 
     url='/post_search?page_for_view=1&searchStr='+searchStr
+    return redirect(url)
+
+@csrf_exempt
+@login_required
+def create_comment(request):
+    comment_context = request.POST['context']
+    post_id = request.POST['post_id']
+    user_id = request.user.id
+    HantorismPostComment.objects.create(user_info_id=user_id,
+                                        post_id=post_id,
+                                        context=comment_context)
+
+    url = '/post_view/?post_id=' + str(post_id)
     return redirect(url)
