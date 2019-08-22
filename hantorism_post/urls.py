@@ -2,7 +2,7 @@ from django.urls import path,re_path
 from .views import ViewSet,postWrite,doPost,postView,postSearch,postModify,updatePost,postDelete,titleSearch
 
 as_view = ViewSet.as_view({
-    'get': 'postList',
+    'get': 'post_list',
     'post': 'create'
 })
 
