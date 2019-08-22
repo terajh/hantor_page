@@ -13,19 +13,23 @@ class SignUpViewSet(viewsets.ModelViewSet):
 
     def signUp(self, request):
         user = User.objects.create_user(
-            username=request.POST['ID'],
-            password=request.POST['password'])
+        username=request.POST['ID'],
+        password=request.POST['password'])
         hantorism_user = HantorismUser(
             user=user,
             name=request.POST['name'],
             studentNum=request.POST['studentNum'],
             major=request.POST['major'],
-            #                        gender=request.POST['gender'],
-            email=request.POST['email'])
-#                        isHantor=request.data['isHantor'])
-        hantorism_user.save()
-        auth.login(request, user)
-        return redirect('list')
+            gender=request.POST['gender'],
+            email=request.POST['email'],
+            isHantor=request.data['isHantor'])
+        try:
+            hantorism_user.save()
+            auth.login(request, user)
+            return redirect('list')
+        except Exception as ex:
+            print(ex)
+
 
 
 class SignInViewSet(viewsets.ModelViewSet):
