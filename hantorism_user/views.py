@@ -13,16 +13,16 @@ class SignUpViewSet(viewsets.ModelViewSet):
 
     def signUp(self, request):
         user = User.objects.create_user(
-            username=request.POST['ID'],
+            username=request.POST['username'],
             password=request.POST['password'])
         hantorism_user = HantorismUser(
             user=user,
             name=request.POST['name'],
-            studentNum=request.POST['studentNum'],
+            student_number=request.POST['student_number'],
             major=request.POST['major'],
             #                        gender=request.POST['gender'],
             email=request.POST['email'])
-#                        isHantor=request.data['isHantor'])
+#                        is_hantor=request.data['is_hantor'])
         hantorism_user.save()
         auth.login(request, user)
         return redirect('list')
@@ -34,9 +34,9 @@ class SignInViewSet(viewsets.ModelViewSet):
 
     def signIn(self, request):
         if request.method == "POST":
-            userID = request.POST['ID']
-            userPW = request.POST['password']
-            user = auth.authenticate(request, username=userID, password=userPW)
+            username = request.POST['username']
+            password = request.POST['password']
+            user = auth.authenticate(request, username=username, password=password)
             if user is not None:
                 auth.login(request, user)
                 return render(request, 'WelcomLogin.html', {})

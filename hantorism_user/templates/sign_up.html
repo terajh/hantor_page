@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <input type="text" class="form-control" placeholder="ID" name="ID">
+                        <input type="text" class="form-control" placeholder="ID" name="username">
                     </div>
                     <div class="form-group col-md-6">
                         <input type="password" class="form-control" placeholder="Password" name="password">
@@ -35,7 +35,7 @@
                         <input type="email" class="form-control" placeholder="Email" name="email">
                     </div>
                     <div class="form-group col-md-12">
-                        <input type="text" class="form-control" placeholder="학번" name="studentNum">
+                        <input type="text" class="form-control" placeholder="학번" name="student_number">
                     </div>
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" placeholder="이름" name="name">
@@ -66,9 +66,9 @@
                             <input type="radio" name="gender" value="female">female
                         </div>
                         <div class="form-group col-6">
-                            <label for="isHantor">isHantor</label>
-                            <input type="radio" name="isHantor" value="Y">Yes
-                            <input type="radio" name="isHantor" value="female">No
+                            <label for="is_hantor">is_hantor</label>
+                            <input type="radio" name="is_hantor" value="Y">Yes
+                            <input type="radio" name="is_hantor" value="female">No
                         </div>
                         </div>
                     </div>
@@ -99,9 +99,9 @@
       function signUpCheck() {
           var form = document.signUpForm;
 
-          if (!form.ID.value) {
+          if (!form.username.value) {
               alert("아이디를 적어주세요");
-              form.ID.focus();
+              form.username.focus();
               return;
           }
           if (!form.password.value) {
@@ -114,9 +114,9 @@
               form.email.focus();
               return;
           }
-          if (!form.studentNum.value) {
+          if (!form.student_number.value) {
               alert("학번을 적어주세요");
-              form.studentNum.focus();
+              form.student_number.focus();
               return;
           }
           if (!form.major.value) {
@@ -129,9 +129,9 @@
               form.gender.focus();
               return;
           }
-          if (!form.isHantor.value) {
+          if (!form.is_hantor.value) {
               alert("한터 여부를 적어주세요");
-              form.isHantor.focus();
+              form.is_hantor.focus();
               return;
           }
           form.submit();
