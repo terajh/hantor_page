@@ -37,10 +37,8 @@
                                 <button class="btn btn-warning" >반납요청</button>
                             </form>
                         {% else %}
-                            <form action="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" method="POST">
-                                {% csrf_token %}
+                            <form action="/book_rent/{{book.id}}/" method="POST">{% csrf_token %}
                                 <button name="rent" class="btn btn-warning" >대여요청</button>
-{#                                <a href="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" class="btn btn-warning">대여요청</a>#}
                             </form>
                         {% endif %}
                     </td>
