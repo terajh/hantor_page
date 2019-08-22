@@ -41,11 +41,8 @@
         <input type="submit" value="free">
     </form>
     <div id="fon" class="row justify-content-between">
-        <table cellspacing=1 width=700 border=0>
-            <tr>
-                <td>총 게시물수: {{ totalCnt }}</td>
-                <td>
-                    <form>
+                <p>총 게시물수: {{ totalCnt }}</p>
+                    <form class="form-row">
                         <p align=right>
                             {% if filter_params %}
                                 {% if filter_params.status %}
@@ -57,13 +54,16 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <input type="text" name="search" size=50 maxlength=50>
-                            <input type="submit" value="글 찾기">
+                        <div>
+                            <input type="text" style="font-size: small;" class="form-control" name="search" size=50 maxlength=50>
+                        </div>
+                           <div>
+                               <input type="submit" class="btn border border-1" value="글 찾기">
+                           </div>
+
                         </p>
                     </form>
                 </td>
-            </tr>
-        </table>
     </div>
     <table class="table " cellspacing=1>
         <thead>
