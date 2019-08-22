@@ -27,7 +27,7 @@
     if (s == "None")
       location.href = '/posts?current_page={{current_page}}';
     else
-      location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
+      location.href = '/post_search?page_for_view={{current_page}}&searchStr={{searchStr}}';
   }
 </script>
 
@@ -42,11 +42,11 @@
 
             <tr>
                 <td><b>제목</b></td>
-                <td><input type="text" name="title" size=50 maxlength=50 value="{{ postData.title }}"></td>
+                <td><input type="text" name="title" size=50 maxlength=50 value="{{ post_data.title }}"></td>
             </tr>
             <tr>
                 <td><b>내용</b></td>
-                <td><textarea name="body" cols=50 rows=10>{{ postData.body }}</textarea></td>
+                <td><textarea name="body" cols=50 rows=10>{{ post_data.body }}</textarea></td>
             </tr>
         </form>
     </table>

@@ -2,59 +2,65 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-GENDER_CHOICES = [
-('male','Male'),
-('female','Female'),
-]
-ISHANTOR_CHOICES = [
-('hantor','YES'),
-('no_hantor','NO'),
-]
-
 
 class HantorismUser(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     name = models.CharField(max_length=20)
-    studentNum = models.CharField(max_length=10)
+    student_number = models.CharField(max_length=10)
     major = models.CharField(max_length=20)
 
     gender = models.CharField(
         max_length=8,
-        choices=GENDER_CHOICES,
         null=True)
     email = models.CharField(
         max_length=20)
-    isHantor = models.CharField(
-        max_length=10,
-        choices=ISHANTOR_CHOICES,
-        null=True)
+    is_hantor = models.BooleanField()
     objects = models.Manager()
 
 
 class HantorismPost(models.Model):
-    userID = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
-    name=models.CharField(max_length=10)
+    name = models.CharField(max_length=10)
     title = models.CharField(max_length=200)
     body = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     view_count = models.IntegerField(null=True, default=0)
+
     def __str__(self):
         return self.title
 
 
-class HantorismLibrary(models.Model):
-    book_name = models.CharField(max_length=20)
-    book_rent_state = models.BooleanField(default=False)
-    rent_date = models.DateTimeField(default=timezone.now)
-    book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
-    book_owner_name = models.CharField(max_length=20)
+class HantorismPostComment(models.Model):
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(HantorismPost, on_delete=models.CASCADE)
+    context = models.CharField(max_length=200)
+
+
+class HantorismBook(models.Model):
+    title = models.CharField(max_length=40)
+    state = models.BooleanField(default=False)
+    owner = models.CharField(max_length=20)
+
+    def book_return(self):
+        self.state = False
+        self.save()
 
     def __str__(self):
-        return self.book_name
+        return self.title
+
+
+class HantorismRentBook(models.Model):
+    date = models.DateTimeField(default=timezone.now)
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    book = models.ForeignKey(HantorismBook, on_delete=models.CASCADE)
 
     def rent(self):
-        self.book_rent_state = True
-        self.book_user = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+        self.book.state = True
+        self.user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.book.title
+
 

@@ -11,7 +11,7 @@
     if (s == "None")
       location.href = '/posts?current_page={{current_page}}';
     else
-      location.href = '/post_search?pageForView={{current_page}}&searchStr={{searchStr}}';
+      location.href = '/post_search?page_for_view={{current_page}}&searchStr={{searchStr}}';
   }
 
   function boardmodify() {
@@ -28,19 +28,19 @@
     <table cellspacing=0 cellpadding=5 border=1 width=500>
         <tr>
             <td><b>조회수</b></td>
-            <td> {{ postData.view_count }} </td>
+            <td> {{ post_data.view_count }} </td>
         </tr>
         <tr>
             <td><b>이름 </b></td>
-            <td> {{ postData.name }} </td>
+            <td> {{ post_data.name }} </td>
         </tr>
         <tr>
             <td><b>제목 </b></td>
-            <td> {{ postData.title }} </td>
+            <td> {{ post_data.title }} </td>
         </tr>
         <tr>
             <td><b>내용 </b></td>
-            <td width=350> {{ postData.body }} </td>
+            <td width=350> {{ post_data.body }} </td>
         </tr>
     </table>
 
@@ -48,7 +48,7 @@
         <tr>
             <td>
                 {% if user.is_active %}
-                    {% if user.username == postData.name %}
+                    {% if user.username == post_data.name %}
                         <input type="button" value="수정" OnClick="javascript:boardmodify()">
                     {% endif %}
                 {% endif %}
@@ -56,14 +56,22 @@
                 <input type="button" value="목록" OnClick="javascript:boardlist()">
 
                 {% if user.is_active %}
-                    {% if user.username == postData.name %}
+                    {% if user.username == post_data.name %}
                         <input type="button" value="삭제" OnClick="javascript:boarddelete()">
                     {% endif %}
                 {% endif %}
             </td>
         </tr>
     </table>
+    <div>
+        <form method="post" action="/create_comment/">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="text" name="context">
+            <input type="submit" value="댓글 작성" class="btn">
+        </form>
+    </div>
 </div>
+
 </body>
 {% include 'footer.html' %}
 </html>

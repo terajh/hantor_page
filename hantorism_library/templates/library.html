@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 {% load staticfiles %}
-
 <body class="pt-5 mt-3">
     <!-- Navbar -->
     {% include 'header.html' %}
@@ -18,19 +17,30 @@
                 {% for book in books %}
                 <tr data-toggle="collapse" data-target="#d{{book.id}}" data-parent="#myTable">
                     <td>
-                        {{book.book_name}}
+                        {{book.title}}
                     </td>
-                    <td> {{book.book_owner_name}} </td>
-                    {% if book.book_rent_state %}
-                    <td>대여자 : {{book.book_user.name}}</td>
+                    <td> {{book.owner}} </td>
+                    {% if book.state %}
+                        {% for return_book in return_books %}
+                            {% if book.id == return_book.book.id %}
+                                <td>대여자 : {{return_book.user.name}}</td>
+                            {% endif %}
+                        {% endfor %}
                     {% else %}
                     <td>대여가능</td>
                     {% endif %}
                 </tr>
                 <tr id="d{{book.id}}" class="collapse">
                     <td colspan="3" class="hiddenRow text-center">
-                        <!-- 만들어주세요 book lent form -->
-                        <a href="#" class="btn btn-warning">대여요청</a>
+                        {% if book.state %}
+                            <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
+                                <button class="btn btn-warning" >반납요청</button>
+                            </form>
+                        {% else %}
+                            <form action="/book_rent/{{book.id}}/" method="POST">{% csrf_token %}
+                                <button name="rent" class="btn btn-warning" >대여요청</button>
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -39,7 +49,6 @@
     </div>
 
     {% include 'footer.html' %}
-
 </body>
 
 </html>

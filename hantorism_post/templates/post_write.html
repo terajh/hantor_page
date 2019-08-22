@@ -24,8 +24,8 @@
 <body class="pt-5">
 {% include 'header.html' %}
 <div class="container">
-    <table width=700 border=1 cellspacing=0 cellpadding=5>
-        <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
+    <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
+        <table width=700 border=1 cellspacing=0 cellpadding=5>
             <tr>
                 <td><b>제목</b></td>
                 <td><input type="text" name="title" size=50 maxlength=50></td>
@@ -34,16 +34,15 @@
                 <td><b>내용</b></td>
                 <td><textarea name="body" cols=50 rows=10></textarea></td>
             </tr>
-        </form>
-    </table>
-
-    <table width=700 border=1 cellspacing=0 cellpadding=0>
-        <tr>
-            <td>
-                <input type="button" value="등록" OnClick="javascript:writeCheck();">
-            </td>
-        </tr>
-    </table>
+        </table>
+        <table width=700 border=1 cellspacing=0 cellpadding=0>
+            <tr>
+                <td>
+                    <input type="button" value="등록" OnClick="javascript:writeCheck();">
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 </body>
 {% include 'footer.html' %}

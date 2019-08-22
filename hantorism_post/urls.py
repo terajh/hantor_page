@@ -1,19 +1,20 @@
 from django.urls import path,re_path
-from .views import ViewSet,postWrite,doPost,postView,postSearch,postModify,updatePost,postDelete,titleSearch
+from . import views
 
-as_view = ViewSet.as_view({
-    'get': 'postList',
+as_view = views.ViewSet.as_view({
+    'get': 'post_list',
     'post': 'create'
 })
 
 urlpatterns = [
     path('posts/', as_view, name='post_list'),
-    path('post_write/', postWrite,name='post_write'),
-    path('do_post/',doPost,name='do_post'),
-    path('post_view/',postView,name='post_view'),
-    path('post_search/',postSearch,name='post_search'),
-    path('post_modify/',postModify,name='post_modify'),
-    path('update_post/',updatePost,name='update_post'),
-    path('post_delete/',postDelete,name='post_delete'),
-    path('title_search/',titleSearch,name='title_search')
+    path('post_write/', views.postWrite,name='post_write'),
+    path('do_post/',views.doPost,name='do_post'),
+    path('post_view/',views.postView,name='post_view'),
+    path('post_search/',views.postSearch,name='post_search'),
+    path('post_modify/',views.postModify,name='post_modify'),
+    path('update_post/',views.updatePost,name='update_post'),
+    path('post_delete/',views.postDelete,name='post_delete'),
+    path('title_search/',views.titleSearch,name='title_search'),
+    path('create_comment/', views.create_comment, name='create_comment')
 ]
