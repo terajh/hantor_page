@@ -1,4 +1,5 @@
 from django.contrib import admin
-from common_hantorism.models import HantorismLibrary as Model
+from common_hantorism.models import HantorismBook, HantorismRentBook
 
-admin.site.register(Model)
+admin.site.register(HantorismBook)
+admin.site.register(HantorismRentBook)

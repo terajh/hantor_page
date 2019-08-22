@@ -6,9 +6,9 @@
 
 </head>
 <body>
-<form action="/library/" method="PUT">
+<form action="/book_return/{{ book.book_name }}/{{ book.book_owner_name }}/" method="PUT">
     <B>{{ book.book_rent_state }}</B>
-    <button name="return" class="btn btn-warning" >반납요청</button>
+    <button class="btn btn-warning" >반납요청</button>
 </form>
 <B>반납</B>
 </body>

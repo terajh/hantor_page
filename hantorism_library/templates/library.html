@@ -21,7 +21,11 @@
                     </td>
                     <td> {{book.book_owner_name}} </td>
                     {% if book.book_rent_state %}
-                    <td>대여자 : {{book.book_user.name}}</td>
+                        {% for return_book in return_books %}
+                            {% if book.id == return_book.rent_book.id %}
+                                <td>대여자 : {{return_book.book_user.name}}</td>
+                            {% endif %}
+                        {% endfor %}
                     {% else %}
                     <td>대여가능</td>
                     {% endif %}
@@ -31,11 +35,13 @@
                         <!-- 만들어주세요 book lent form -->
 
                         {% if book.book_rent_state %}
-                            <form action="/book_return/{{ book.book_name }}/{{ book.book_owner_name }}/" method="PUT">
+                            <form action="/book_return/{{ book.book_name }}/{{ book.book_owner_name }}/">
+                                {% csrf_token %}
                                 <button name="return" class="btn btn-warning" >반납요청</button>
                             </form>
                         {% else %}
-                            <form action="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" method="PUT">
+                            <form action="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" method="POST">
+                                {% csrf_token %}
                                 <button name="rent" class="btn btn-warning" >대여요청</button>
 {#                                <a href="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" class="btn btn-warning">대여요청</a>#}
                             </form>
