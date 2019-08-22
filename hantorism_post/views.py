@@ -1,4 +1,4 @@
-from common_hantorism.models import HantorismPost, HantorismPostComment
+from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
 from rest_framework import viewsets
 from django.shortcuts import render, render_to_response,redirect
 from django.utils import timezone
@@ -59,8 +59,10 @@ def postView(request):
     post_data=HantorismPost.objects.get(id=pk)
     HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count+1)
     post_data=HantorismPost.objects.get(id=pk)
-    return render(request,'post_view.html',{'post_id':request.GET['post_id'],
-                                    'post_data':post_data})
+    post_comment = HantorismPostComment.objects.filter(post_id=pk)
+    return render(request,'post_view.html', {'post_id': request.GET['post_id'],
+                                             'post_data':post_data,
+                                             'post_comment':post_comment})
 
 def postSearch(request):
     searchStr=request.GET['searchStr']
@@ -98,7 +100,7 @@ def updatePost(request):
         title=request.POST['title'],
         body=request.POST['body']
     )
-    url='/posts?current_page='+str(current_page)
+    url='/post_view/?post_id='+str(post_id)
     return redirect(url)
 
 def postDelete(request):
@@ -133,7 +135,8 @@ def create_comment(request):
     comment_context = request.POST['context']
     post_id = request.POST['post_id']
     user_id = request.user.id
-    HantorismPostComment.objects.create(user_info_id=user_id,
+    user = HantorismUser.objects.filter(user_id=user_id).first()
+    HantorismPostComment.objects.create(user_info_id=user.id,
                                         post_id=post_id,
                                         context=comment_context)
 

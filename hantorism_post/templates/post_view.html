@@ -69,6 +69,14 @@
             <input type="text" name="context">
             <input type="submit" value="댓글 작성" class="btn">
         </form>
+        <table>
+            {% for comment in post_comment %}
+                <tr>
+                    <td>{{ comment.user_info.user.username }}</td>
+                    <td>{{ comment.context }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 </div>
 
