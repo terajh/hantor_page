@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
+<<<<<<< HEAD
 from common_hantorism.models import HantorismBook, HantorismRentBook
+=======
+from common_hantorism.models import HantorismBook, HantorismRentBook, HantorismUser
+from django.utils import timezone
+>>>>>>> f96f71bd7b1573c75038f66dcfd3567e213f2085
 
 
 def book_return(request, book_id):
@@ -15,12 +20,16 @@ def book_return(request, book_id):
         context = {'book': book, 'return_books': return_books}
         return render(request, 'book_return.html', context)
 
-
-def book_rent(request, book_name, book_owner_name):
-    book = HantorismBook.objects.filter(book_name=book_name).get(book_owner_name=book_owner_name)
-    context = {'book': book, 'book_name': book_name, 'book_owner_name': book_owner_name}
-    return render(request, 'book_rent.html', context)
-
+def book_rent(request, book_id):
+    book = HantorismBook.objects.get(id=book_id)
+    current_user = HantorismUser.objects.get(user=request.user)
+    time = timezone.now()
+    if request.method == "POST":
+        book.book_rent_state = True;
+        book.save()
+        rent_book = HantorismRentBook(rent_date=time, book_user=current_user, rent_book=book)
+        rent_book.save()
+        return redirect('/../../library/')
 
 def library(request):
     books = HantorismBook.objects.all()
