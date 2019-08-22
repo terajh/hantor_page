@@ -31,20 +31,20 @@
             </td>
         </tr>
 
-        {% if postList %}
+        {% if post_list %}
             <ul>
-                {% for postRow in postList %}
+                {% for post_row in post_list %}
                     <tr>
-                        <td width=50><p align=center>{{ postRow.id }}</p></td>
-                        <td width=100><p align=center>{{ postRow.name }}</p></td>
+                        <td width=50><p align=center>{{ post_row.id }}</p></td>
+                        <td width=100><p align=center>{{ post_row.name }}</p></td>
                         <td width=320>
                             <p align=center>
-                                <a href="/post_view?post_id={{ postRow.id }}&current_page={{ current_page }}&searchStr=None"
-                                   title="{{ postRow.title }}"> {{ postRow.title }}
+                                <a href="/post_view?post_id={{ post_row.id }}&current_page={{ current_page }}&searchStr=None"
+                                   title="{{ post_row.title }}"> {{ post_row.title }}
                             </p>
                         </td>
-                        <td width=100><p align=center>{{ postRow.created_date }}</p></td>
-                        <td width=100><p align="center">{{ postRow.view_count }}</p></td>
+                        <td width=100><p align=center>{{ post_row.created_date }}</p></td>
+                        <td width=100><p align="center">{{ post_row.view_count }}</p></td>
 
                     </tr>
                 {% endfor %}
@@ -58,7 +58,7 @@
     <table cellspacing=1 width=700 border=1>
         <tr>
             <td>
-                {% for page in totalPageList %}
+                {% for page in total_page_list %}
                     <a href="/posts?current_page={{ page }}">
                         [
                         {% ifequal page current_page %}

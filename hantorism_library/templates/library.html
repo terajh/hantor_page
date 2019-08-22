@@ -17,13 +17,13 @@
                 {% for book in books %}
                 <tr data-toggle="collapse" data-target="#d{{book.id}}" data-parent="#myTable">
                     <td>
-                        {{book.book_name}}
+                        {{book.title}}
                     </td>
-                    <td> {{book.book_owner_name}} </td>
-                    {% if book.book_rent_state %}
+                    <td> {{book.owner}} </td>
+                    {% if book.state %}
                         {% for return_book in return_books %}
-                            {% if book.id == return_book.rent_book.id %}
-                                <td>대여자 : {{return_book.book_user.name}}</td>
+                            {% if book.id == return_book.book.id %}
+                                <td>대여자 : {{return_book.user.name}}</td>
                             {% endif %}
                         {% endfor %}
                     {% else %}
@@ -32,7 +32,7 @@
                 </tr>
                 <tr id="d{{book.id}}" class="collapse">
                     <td colspan="3" class="hiddenRow text-center">
-                        {% if book.book_rent_state %}
+                        {% if book.state %}
                             <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
                                 <button class="btn btn-warning" >반납요청</button>
                             </form>
