@@ -32,12 +32,9 @@
                 </tr>
                 <tr id="d{{book.id}}" class="collapse">
                     <td colspan="3" class="hiddenRow text-center">
-                        <!-- 만들어주세요 book lent form -->
-
                         {% if book.book_rent_state %}
-                            <form action="/book_return/{{ book.book_name }}/{{ book.book_owner_name }}/">
-                                {% csrf_token %}
-                                <button name="return" class="btn btn-warning" >반납요청</button>
+                            <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
+                                <button class="btn btn-warning" >반납요청</button>
                             </form>
                         {% else %}
                             <form action="/book_rent/{{ book.book_name }}/{{ book.book_owner_name }}/" method="POST">

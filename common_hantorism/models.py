@@ -52,6 +52,7 @@ class HantorismBook(models.Model):
 
     def book_return(self):
         self.book_rent_state = False
+        self.save()
 
     def __str__(self):
         return self.book_name
