@@ -6,14 +6,13 @@
     <title>SIGN-UP</title>
     {% load staticfiles %}
     <script src="{% static "js/sign_up.js" %}"></script>
-
 </head>
 
 <body class="pt-5 m-3">
 
     {% include 'header.html' %}
 
-    <form name="signUpForm" action="{%url 'sign_up'%}" method="post" onsubmit="return chk_value(this)">{% csrf_token %}
+    <form name="signUpForm" action="{%url 'sign_up'%}" method="post" onsubmit="return chk_value(this)" >{% csrf_token %}
         <div class="section">
             <div class="container p-5 border border-light">
                 <div class="row p-5">
@@ -22,7 +21,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <input type="text" class="form-control" placeholder="ID" name="username">
                     </div>
                     <div class="form-group col-md-6">
@@ -88,53 +87,11 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <input type="button" value="회원가입" OnClick="javascript:signUpCheck();">
+                    <input type="button" value="회원가입" onclick="signUpCheck()" >
                 </div>
             </div>
         </div>
-
     </form>
 </body>
-<script language="javascript">
-      function signUpCheck() {
-          var form = document.signUpForm;
 
-          if (!form.username.value) {
-              alert("아이디를 적어주세요");
-              form.username.focus();
-              return;
-          }
-          if (!form.password.value) {
-              alert("비밀번호를 적어주세요");
-              form.password.focus();
-              return;
-          }
-          if (!form.email.value) {
-              alert("이메일을 적어주세요");
-              form.email.focus();
-              return;
-          }
-          if (!form.student_number.value) {
-              alert("학번을 적어주세요");
-              form.student_number.focus();
-              return;
-          }
-          if (!form.major.value) {
-              alert("학과를 적어주세요");
-              form.major.focus();
-              return;
-          }
-          if (!form.gender.value) {
-              alert("성별을 적어주세요");
-              form.gender.focus();
-              return;
-          }
-          if (!form.is_hantor.value) {
-              alert("한터 여부를 적어주세요");
-              form.is_hantor.focus();
-              return;
-          }
-          form.submit();
-      }
-  </script>
 </html>
