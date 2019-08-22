@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{book_name}} return</title>
+    <meta charset="utf-8">
+
+</head>
+<body>
+<form action="/book_return/{{ book.id }}" method="POST">{% csrf_token %}
+    <B>{{ book.id }}</B>
+    <button class="btn btn-warning" >반납요청</button>
+</form>
+<form action="/library/" method="GET">
+    <button class="btn btn-warning" >반납안함</button>
+</form>
+<B>반납</B>
+</body>
