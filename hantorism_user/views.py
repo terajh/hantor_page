@@ -15,6 +15,7 @@ class SignUpViewSet(viewsets.ModelViewSet):
         user = User.objects.create_user(
             username=request.POST['username'],
             password=request.POST['password'])
+
         hantorism_user = HantorismUser(
             user=user,
             name=request.POST['name'],
@@ -22,10 +23,13 @@ class SignUpViewSet(viewsets.ModelViewSet):
             major=request.POST['major'],
             gender=request.POST['gender'],
             email=request.POST['email'],
-            is_hantor=request.data['is_hantor'])
-        hantorism_user.save()
-        auth.login(request, user)
-        return redirect('list')
+            isHantor=request.data['is_hantor'])
+        try:
+            hantorism_user.save()
+            auth.login(request, user)
+            return redirect('list')
+        except Exception as ex:
+            print(ex)
 
 
 class SignInViewSet(viewsets.ModelViewSet):
