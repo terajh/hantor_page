@@ -8,7 +8,30 @@
 <body class="pt-5">
 {% include 'header.html' %}
 <div class="container">
-
+    <form>
+        {% if filter_params %}
+            {% for kk, vv in filter_params.items %}
+                {% if kk == 'category' %}
+                {% else %}
+                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="category" value="notice">
+        <input type="submit" value="notice">
+    </form>
+    <form>
+        {% if filter_params %}
+            {% for kk, vv in filter_params.items %}
+                {% if kk == 'category' %}
+                {% else %}
+                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="category" value="free">
+        <input type="submit" value="free">
+    </form>
     <table cellspacing=1 width=700 border=0>
         <tr>
             <td>총 게시물수: {{ totalCnt }}</td>
@@ -82,10 +105,20 @@
                 </td>
             {% endif %}
             <td>
-                <form name="searchf" method="post" action="{% url 'title_search' %}">{% csrf_token %}
+                <form>
                     <p align=right>
-                        <input type="text" name="searchStr" size=50 maxlength=50>
-                        <input type="submit" value="글찾기">
+                        {% if filter_params %}
+                            {% if filter_params.status %}
+                            {% endif %}
+                            {% for kk, vv in filter_params.items %}
+                                {% if kk == 'search' %}
+                                {% else %}
+                                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <input type="text" name="search" size=50 maxlength=50>
+                        <input type="submit" value="글 찾기">
                     </p>
                 </form>
             </td>

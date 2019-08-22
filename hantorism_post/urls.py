@@ -15,6 +15,5 @@ urlpatterns = [
     path('post_modify/',views.postModify,name='post_modify'),
     path('update_post/',views.updatePost,name='update_post'),
     path('post_delete/',views.postDelete,name='post_delete'),
-    path('title_search/',views.titleSearch,name='title_search'),
     path('create_comment/', views.create_comment, name='create_comment')
 ]

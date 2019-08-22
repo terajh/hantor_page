@@ -27,6 +27,7 @@ class HantorismPost(models.Model):
     body = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     view_count = models.IntegerField(null=True, default=0)
+    category = models.CharField(max_length=20)
 
     def __str__(self):
         return self.title

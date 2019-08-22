@@ -6,20 +6,33 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 rowsPerPage = 10
+
+
 class ViewSet(viewsets.ModelViewSet):
     def post_list(self, request):
         current_page = request.GET.get('current_page','1')
         cur=int(current_page)
-        posts = HantorismPost.objects.order_by('-created_date')[(cur-1)*10:cur*10]
+        posts = HantorismPost.objects
+
+        filter_params = dict()
+        if request.GET.get('category'):
+            category = request.GET.get('category')
+            posts = posts.filter(category=category)
+            filter_params['category'] = category
+
+        if request.GET.get('search'):
+            search = request.GET.get('search')
+            posts = posts.filter(title__contains=search).order_by('-created_date')
+            filter_params['search'] = search
+
+        posts = posts.order_by('-created_date')[(cur-1)*10:cur*10]
         totalCnt=HantorismPost.objects.all().count()
 
         pagingHelperIns = pagingHelper();
         total_page_list = pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-        return render(request, 'post_list.html', {'post_list':posts,
-                                                              'totalCnt':totalCnt,
-                                                              'current_page':current_page,
-                                                              'total_page_list':total_page_list
-        })
+        return render(request, 'post_list.html', {'post_list': posts,
+                                                  'filter_params': filter_params})
+
     def create(self, request):
        redirect('/posts')
 
@@ -49,7 +62,8 @@ def doPost(request):
     p=HantorismPost(user_info_id=request.user.id,
                     name=request.user.username,
                     title=request.POST['title'],
-                    body=request.POST['body'])
+                    body=request.POST['body'],
+                    category=request.POST['category'])
     p.save()
     url='/posts?current_page=1'
     return redirect(url)
@@ -78,6 +92,7 @@ def postSearch(request):
                                               'page_for_view':page_for_view,
                                               'searchStr':searchStr,
                                               'total_page_list':total_page_list})
+
 
 def postModify(request):
     post_id=request.GET['post_id']
