@@ -23,7 +23,7 @@ class SignUpViewSet(viewsets.ModelViewSet):
             major=request.POST['major'],
             gender=request.POST['gender'],
             email=request.POST['email'],
-            isHantor=request.data['is_hantor'])
+            is_hantor=request.data['is_hantor'])
         try:
             hantorism_user.save()
             auth.login(request, user)

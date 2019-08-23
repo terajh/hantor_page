@@ -23,7 +23,7 @@
                     {% if book.state %}
                         {% for return_book in return_books %}
                             {% if book.id == return_book.book.id %}
-                                <td>대여자 : {{return_book.user.name}}</td>
+                                <td>대여자 : {{return_book.user_info.name}}</td>
                             {% endif %}
                         {% endfor %}
                     {% else %}
