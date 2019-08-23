@@ -20,23 +20,25 @@
                         {{book.title}}
                     </td>
                     <td> {{book.owner}} </td>
-                    {% if book.state %}
+                    {% if book.state == 'Unable'%}
                         {% for return_book in return_books %}
                             {% if book.id == return_book.book.id %}
                                 <td>대여자 : {{return_book.user_info.name}}</td>
                             {% endif %}
                         {% endfor %}
+                    {% elif book.state == 'Able' %}
+                        <td>대여가능</td>
                     {% else %}
-                    <td>대여가능</td>
+                        <td>관리자 확인중</td>
                     {% endif %}
                 </tr>
                 <tr id="d{{book.id}}" class="collapse">
                     <td colspan="3" class="hiddenRow text-center">
-                        {% if book.state %}
+                        {% if book.state == 'Unable'%}
                             <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
                                 <button class="btn btn-warning" >반납요청</button>
                             </form>
-                        {% else %}
+                        {% elif book.state == 'Able' %}
                             <form action="/book_rent/{{book.id}}/" method="POST">{% csrf_token %}
                                 <button name="rent" class="btn btn-warning" >대여요청</button>
                             </form>

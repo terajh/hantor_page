@@ -3,6 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+STATE_CHOICE = (('Able', 'able'), ('Wait', 'wait'), ('Unable', 'unable'))
+
+
 class HantorismUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -41,11 +44,12 @@ class HantorismPostComment(models.Model):
 
 class HantorismBook(models.Model):
     title = models.CharField(max_length=40)
-    state = models.BooleanField(default=False)
+    state = models.CharField(default='able', max_length=40, choices=STATE_CHOICE)
     owner = models.CharField(max_length=20)
 
     def book_return(self):
         self.state = False
+        self.state = 'Wait'
         self.save()
 
     def __str__(self):
@@ -58,7 +62,7 @@ class HantorismRentBook(models.Model):
     book = models.ForeignKey(HantorismBook, on_delete=models.CASCADE)
 
     def rent(self):
-        self.book.state = True
+        self.book.state = 'Wait'
         self.user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
 
     def __str__(self):

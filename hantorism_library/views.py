@@ -20,7 +20,7 @@ def book_rent(request, book_id):
     current_user = HantorismUser.objects.get(user=request.user)
     time = timezone.now()
     if request.method == "POST":
-        book.state = True
+        book.state = "Wait"
         book.save()
         rent_book = HantorismRentBook(date=time, user_info=current_user, book=book)
         rent_book.save()
