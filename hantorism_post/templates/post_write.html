@@ -1,58 +1,73 @@
 <!DOCTYPE html>
 <script language="javascript">
-  function writeCheck() {
-    var form = document.writeform;
+    function writeCheck() {
+        var form = document.writeform;
 
-    if (!form.title.value) {
-      alert("제목을 적어주세요");
-      form.title.focus();
-      return;
+        if (!form.title.value) {
+            alert("제목을 적어주세요");
+            form.title.focus();
+            return;
+        }
+        if (!form.body.value) {
+            alert("내용을 적어주세요");
+            form.body.focus();
+            return;
+        }
+        form.submit();
     }
-    if (!form.body.value) {
-      alert("내용을 적어주세요");
-      form.body.focus();
-      return;
-    }
-    form.submit();
-  }
 </script>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>PostWrite</title>
+  
 </head>
-<body class="pt-5">
-{% include 'header.html' %}
-<div class="container">
-    <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
-        <table width=700 border=1 cellspacing=0 cellpadding=5>
-            <tr>
-                <td><b>제목</b></td>
-                <td><input type="text" name="title" size=50 maxlength=50></td>
-            </tr>
-            <tr>
-                <td><b>내용</b></td>
-                <td><textarea name="body" cols=50 rows=10></textarea></td>
-            </tr>
-            <tr>
-                <td>카테고리</td>
-                <td>
-                    <select name="category">
-                        <option value="notice">공지사항</option>
-                        <option value="free">자유게시판</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <table width=700 border=1 cellspacing=0 cellpadding=0>
-            <tr>
-                <td>
-                    <input type="button" value="등록" OnClick="javascript:writeCheck();">
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+
+<body class="pt-5 mt-3">
+    {% include 'header.html' %}
+    <div class="container">
+        <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
+            <table class="table">
+                <tr>
+                    <td><b>카테고리</b></td>
+                    <td>
+                        <select class="form-control" name="category">
+                            <option value="notice">공지사항</option>
+                            <option value="free">자유게시판</option>
+                        </select>
+                    </td>
+                    <td><b>작성자</b></td>
+                    <td>
+                        <div>
+                            {{user.username}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"><b>제목</b></td>
+                    <td colspan="3"><input class="form-control" type="text" name="title" size=50 maxlength=50></td>
+                </tr>
+                <tr>
+                    <td colspan="1"><b>내용</b></td>
+                    <td colspan="3"><textarea class="form-control" name="body" cols=50 rows=10></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <div class="text-center">
+                            <input class="btn text-center border border-1" type="button" value="등록"
+                                OnClick="javascript:writeCheck();">
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+
+        </form>
+    </div>
 </body>
 {% include 'footer.html' %}
+
 </html>
