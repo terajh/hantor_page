@@ -5,3 +5,4 @@ __pycache__
 *.pyc
 *_initial.py
 .vscode
+*/migrations/*
