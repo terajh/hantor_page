@@ -7,10 +7,12 @@
     <title>PostList</title>
     <style>
         td,
-        .row {
+        .row,
+        .btn {
             padding: 0px;
-            font-size: small;
+            font-size: small !important;
         }
+        
     </style>
 </head>
 <body class="pt-5 mt-3">
@@ -136,7 +138,7 @@
         </div>
         {% if user.is_active %}
             <div>
-                <input type="button" style="font-size: small;" class="btn border border-1" value="글쓰기"
+                <input type="button" class="btn border border-1" value="글쓰기"
                        OnClick="window.location='/post_write'">
             </div>
         {% endif %}
