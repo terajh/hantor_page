@@ -1,26 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>PostList</title>
+    <style>
+        td,
+        .row {
+            padding: 0px;
+            font-size: small;
+        }
+    </style>
 </head>
-<body>
-<div>
-    <h1><a href="/post/">Hantorism Blog</a></h1>
-</div>
-<div>
-    <form action="/post/" method="POST">
-        <input type="text" name="title" placeholder="Title">
-        <input type="text" name="body" placeholder="Body">
-        <input type="submit">
+<body class="pt-5 mt-3">
+{% include 'header.html' %}
+<div class="container">
+    <form>
+        {% if filter_params %}
+            {% for kk, vv in filter_params.items %}
+                {% if kk == 'category' %}
+                {% else %}
+                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="category" value="notice">
+        <input type="submit" value="notice">
     </form>
-</div>
-{% for post in posts %}
-    <div>
-        <p>published: {{ post.created_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+    <form>
+        {% if filter_params %}
+            {% for kk, vv in filter_params.items %}
+                {% if kk == 'category' %}
+                {% else %}
+                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="category" value="free">
+        <input type="submit" value="free">
+    </form>
+    <div id="fon" class="row justify-content-between">
+                <p>총 게시물수: {{ totalCnt }}</p>
+                    <form class="form-row">
+                        <p align=right>
+                            {% if filter_params %}
+                                {% if filter_params.status %}
+                                {% endif %}
+                                {% for kk, vv in filter_params.items %}
+                                    {% if kk == 'search' %}
+                                    {% else %}
+                                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        <div>
+                            <input type="text" style="font-size: small;" class="form-control" name="search" size=50 maxlength=50>
+                        </div>
+                           <div>
+                               <input type="submit" class="btn border border-1" value="글 찾기">
+                           </div>
+
+                        </p>
+                    </form>
+                </td>
     </div>
-{% endfor %}
+    <table class="table " cellspacing=1>
+        <thead>
+        <tr>
+            <td class=" text-center" scope="col">
+                번호
+            </td>
+            <td class="text-center" scope="col">
+                이름
+            </td>
+            <td class=" text-center" scope="col">
+                제목
+            </td>
+            <td class="text-center" scope="col">
+                등록일
+            </td>
+            <td class="text-center" scope="col">
+                조회수
+            </td>
+        </tr>
+        </thead>
+
+        {% if post_list %}
+            <ul>
+                {% for post_row in post_list %}
+                    <tr>
+                        <td class="text-center">
+                            {{ post_row.id }}
+                        </td>
+                        <td class="text-center ">
+                            {{ post_row.name }}
+                        </td>
+                        <td class="text-center w-25 ">
+
+                            <a href="/post_view?post_id={{ post_row.id }}&current_page={{ current_page }}&searchStr=None"
+                               title="{{ post_row.title }}"> {{ post_row.title }}
+                                </p>
+                        </td>
+                        <td class="text-center w-25">
+                            {{ post_row.created_date }}
+                        </td>
+                        <td class="text-center ">
+                            {{ post_row.view_count }}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No Data.</p>
+        {% endif %}
+    </table>
+
+
+    <div class="d-flex justify-content-between row mb-4">
+        <div>
+            {% for page in total_page_list %}
+                <a class="text-bold" href="/posts?current_page={{ page }}">
+                    [
+                    {% ifequal page current_page %}
+                        <b>
+                    {% endifequal %}
+                    {{ page }}
+                    {% ifequal page current_page %}
+                        </b>
+                    {% endifequal %}
+                    ]
+                </a>
+            {% endfor %}
+        </div>
+        {% if user.is_active %}
+            <div>
+                <input type="button" style="font-size: small;" class="btn border border-1" value="글쓰기"
+                       OnClick="window.location='/post_write'">
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% include 'footer.html' %}
 </body>
 </html>
