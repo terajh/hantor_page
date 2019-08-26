@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class SignUpViewSet(viewsets.ModelViewSet):
@@ -65,3 +66,27 @@ def userDetail(request, name):
 def signOut(request):
     auth.logout(request)
     return redirect('list')
+
+
+@login_required
+def myPage(request):
+    user_detail = HantorismUser.objects.get(user_id=request.user.id)
+    context = {'user_detail': user_detail,
+               'change':2}
+    return render(request, 'my_page.html', context)
+
+@login_required
+def changePW(request):
+    user=request.user
+    password_form=PasswordChangeForm(user,request.POST)
+    user_detail = HantorismUser.objects.get(user_id=request.user.id)
+    context = {'user_detail': user_detail,
+               'change':2}
+    if password_form.is_valid():
+        password_form.save()
+        update_session_auth_hash(request,password_form.user)
+        context['change']=1
+        return render(request,'my_page.html',context)
+    else:
+        context['change']=0
+        return render(request,'my_page.html',context)
