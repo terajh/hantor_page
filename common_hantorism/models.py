@@ -8,7 +8,7 @@ STATE_CHOICE = (('Able', 'able'), ('Wait', 'wait'), ('Unable', 'unable'))
 
 class HantorismUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+    is_admin = models.BooleanField(default=False)
     name = models.CharField(max_length=20)
     student_number = models.CharField(max_length=10)
     major = models.CharField(max_length=20)
@@ -48,7 +48,6 @@ class HantorismBook(models.Model):
     owner = models.CharField(max_length=20)
 
     def book_return(self):
-        self.state = False
         self.state = 'Wait'
         self.save()
 
@@ -60,10 +59,15 @@ class HantorismRentBook(models.Model):
     date = models.DateTimeField(default=timezone.now)
     user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     book = models.ForeignKey(HantorismBook, on_delete=models.CASCADE)
+    return_request = models.BooleanField(default=False)
 
     def rent(self):
         self.book.state = 'Wait'
-        self.user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+        self.book.save()
+
+    def rent_admin(self):
+        self.book.state = 'Unable'
+        self.book.save()
 
     def __str__(self):
         return self.book.title
