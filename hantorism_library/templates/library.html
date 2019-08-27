@@ -29,7 +29,15 @@
                     {% elif book.state == 'Able' %}
                         <td>대여가능</td>
                     {% else %}
-                        <td>관리자 확인중</td>
+                        {% for return_book in return_books %}
+                            {% if book.id == return_book.book.id %}
+                                {% if return_book.return_request == True %}
+                                    <td>반납요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
+                                {% else %}
+                                    <td>대여요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </tr>
                 <tr id="d{{book.id}}" class="collapse">
