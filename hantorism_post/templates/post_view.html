@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>PostView</title>
-</head>
-<script language="javascript">
-  function boardlist() {
-    var s = "{{searchStr}}";
 
-    if (s == "None")
-      location.href = '/posts?current_page={{current_page}}';
-    else
-      location.href = '/post_search?page_for_view={{current_page}}&searchStr={{searchStr}}';
-  }
+    <head>
+        {% include 'common_link.html' %}
+    </head>
+    <script language="javascript">
+        function boardlist() {
+            var s = "{{searchStr}}";
 
-  function boardmodify() {
-    location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&searchStr={{searchStr}}';
-  }
+            if (s == "None")
+                location.href = '/posts?current_page={{current_page}}';
+            else
+                location.href = '/post_search?page_for_view={{current_page}}&searchStr={{searchStr}}';
+        }
 
-  function boarddelete() {
-    location.href = '/post_delete?post_id={{post_id}}&current_page={{current_page}}';
-  }
-</script>
-<body class="pt-5">
-{% include 'header.html' %}
-<div class="container">
-    <table cellspacing=0 cellpadding=5 border=1 width=500>
-        <tr>
-            <td><b>조회수</b></td>
-            <td> {{ post_data.view_count }} </td>
-        </tr>
-        <tr>
-            <td><b>이름 </b></td>
-            <td> {{ post_data.name }} </td>
-        </tr>
-        <tr>
-            <td><b>제목 </b></td>
-            <td> {{ post_data.title }} </td>
-        </tr>
-        <tr>
-            <td><b>내용 </b></td>
-            <td width=350> {{ post_data.body }} </td>
-        </tr>
-    </table>
+        function boardmodify() {
+            location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&searchStr={{searchStr}}';
+        }
 
-    <table cellspacing=0 cellpadding=0 border=0 width=500>
-        <tr>
-            <td>
-                {% if user.is_active %}
-                    {% if user.username == post_data.name %}
-                        <input type="button" value="수정" OnClick="javascript:boardmodify()">
-                    {% endif %}
-                {% endif %}
+        function boarddelete() {
+            location.href = '/post_delete?post_id={{post_id}}&current_page={{current_page}}';
+        }
+    </script>
 
-                <input type="button" value="목록" OnClick="javascript:boardlist()">
-
-                {% if user.is_active %}
-                    {% if user.username == post_data.name %}
-                        <input type="button" value="삭제" OnClick="javascript:boarddelete()">
-                    {% endif %}
-                {% endif %}
-            </td>
-        </tr>
-    </table>
-    <div>
-        <form method="post" action="/create_comment/">{% csrf_token %}
-            <input type="hidden" name="post_id" value="{{ post_id }}">
-            <input type="text" name="context">
-            <input type="submit" value="댓글 작성" class="btn">
-        </form>
-        <table>
-            {% for comment in post_comment %}
+    <body class="pt-5 mt-3">
+        {% include 'header.html' %}
+        <div class="container">
+                <input class="btn border" type="button" value="목록으로 되돌아가기" OnClick="javascript:boardlist()">
+            <table class="table ">
+                <tbody>
                 <tr>
-                    <td>{{ comment.user_info.user.username }}</td>
-                    <td>{{ comment.context }}</td>
+                    <th> {{ post_data.title }} </td>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
-</div>
+                <tr class="text-right" style="font-size: small;">
+                    <td>조회수
+                        {{ post_data.view_count }}
+                        작성자
+                        {{ post_data.name }} </td>
+                </tr>
+                <tr>
+                    <td> {{ post_data.body }} </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                {% if user.is_active %}
+                    {% if user.username == post_data.name %}
+                        <input class="btn border" type="button" value="수정" OnClick="javascript:boardmodify()">
+                    {% endif %}
+                {% endif %}
 
-</body>
-{% include 'footer.html' %}
+                {% if user.is_active %}
+                    {% if user.username == post_data.name %}
+                        <input class="btn border" type="button" value="삭제" OnClick="javascript:boarddelete()">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div>
+                <table class="table mt-5">
+                    <form method="post" action="/create_comment/">{% csrf_token %}
+                        <tr>
+                            <th>User</th>
+                            <th>댓글</th>
+                        </tr>
+                        {% for comment in post_comment %}
+                            <tr>
+                                <td>{{ comment.user_info.user.username }}</td>
+                                <td>{{ comment.context }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="post_id" value="{{ post_id }}">
+                                <input class="form-control" type="text" name="context">
+                            </td>
+                            <td>
+                                <input type="submit" value="댓글 작성" class="btn">
+                            </td>
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
+
+    </body>
+    {% include 'footer.html' %}
+
 </html>
