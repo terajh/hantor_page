@@ -19,9 +19,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>PostWrite</title>
-  
+    {% include 'common_link.html' %}
+    <style>
+        b{
+            font-size:small;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body class="pt-5 mt-3">
@@ -30,7 +37,7 @@
         <form name="writeform" method="post" action="{% url 'do_post' %}"> {% csrf_token %}
             <table class="table">
                 <tr>
-                    <td><b>카테고리</b></td>
+                    <td class="px-0"><b>카테고리</b></td>
                     <td>
                         <select class="form-control" name="category">
                             <option value="notice">공지사항</option>
@@ -60,11 +67,8 @@
                                 OnClick="javascript:writeCheck();">
                         </div>
                     </td>
-
                 </tr>
             </table>
-
-
         </form>
     </div>
 </body>

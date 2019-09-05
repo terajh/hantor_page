@@ -1,8 +1,9 @@
 venv/
 .idea/
 db.sqlite3
-__pycache__
+*/__pycache__/
 *.pyc
 *_initial.py
 .vscode
 */migrations/*
+hantorism_home/migrations/__pycache__/__init__.cpython-37.pycgi
