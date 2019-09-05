@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form id="frm" action="action.jsp">
+    <div>이름 : <input type="text" id="name" ></div>
+    <div>학번 : <input type="text" id="student_number" ></div>
+    <div>생년월일 : <input type="text" id="birthday" ></div>
+    <script type="text/javascript">
+        function phonenumber_input(value) {
+            if(!passRule.test($(value).val())){
+            document.getElementById("phone_number").value = '형식이 잘못됨'
+            }
+        }
+    </script>
+    <div>전화번호 : <input type="text" id="phone_number" ></div>
+    <script>
+        var value = document.getElementById('phone_number');
+        var passRule = /^\d{3}-\d{3,4}-\d{4}$/;
+        phonenumber_input(value)
+    </script>
+    <div>학과 : <input type="text" id="major" ></div>
+    <div><input type="submit" value="등록"></div>
+</form>
+</body>
+</html>
