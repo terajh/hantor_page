@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
+<head>
+    {% load staticfiles %}
+    {% include 'common_link.html' %}
+</head>
+
 {% if permission %}
-{% load staticfiles %}
 <body class="pt-5 mt-3">
     <!-- Navbar -->
     {% include 'header.html' %}

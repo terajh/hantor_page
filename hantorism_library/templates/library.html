@@ -1,61 +1,95 @@
 <!doctype html>
 <html>
-{% load staticfiles %}
+
+<head>
+    {% load staticfiles %}
+    {% include 'common_link.html' %}
+    <style>
+        html {
+            position: relative;
+            min-height: 100%;
+            margin: 0;
+        }
+
+        body {
+            min-height: 100%;
+        }
+
+        .wrap {
+            min-height: 100%;
+            position: relative;
+            padding-bottom: 19px;
+            /* footer height */
+        }
+
+        footer {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
 <body class="pt-5 mt-3">
-    <!-- Navbar -->
-    {% include 'header.html' %}
-    <div class="container">
-        <table class="table table-striped table-condensed" id="myTable">
-            <thead>
-                <tr>
-                    <td><B>이름</B></td>
-                    <td><B>책주인</B></td>
-                    <td><B>대여상태</B></td>
-                </tr>
-            </thead>
-            <tbody class="panel">
-                {% for book in books %}
-                <tr data-toggle="collapse" data-target="#d{{book.id}}" data-parent="#myTable">
-                    <td>
-                        {{book.title}}
-                    </td>
-                    <td> {{book.owner}} </td>
-                    {% if book.state == 'Unable'%}
-                        {% for return_book in return_books %}
-                            {% if book.id == return_book.book.id %}
-                                <td>대여자 : {{return_book.user_info.name}}</td>
-                            {% endif %}
-                        {% endfor %}
-                    {% elif book.state == 'Able' %}
-                        <td>대여가능</td>
-                    {% else %}
-                        {% for return_book in return_books %}
-                            {% if book.id == return_book.book.id %}
-                                {% if return_book.return_request == True %}
-                                    <td>반납요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
-                                {% else %}
-                                    <td>대여요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </tr>
-                <tr id="d{{book.id}}" class="collapse">
-                    <td colspan="3" class="hiddenRow text-center">
+    <div class="wrap">
+        <!-- Navbar -->
+        {% include 'header.html' %}
+        <div class="container">
+            <table class="table table-striped table-condensed" id="myTable" style="font-size: small !important;">
+                <thead>
+                    <tr>
+                        <td><B>이름</B></td>
+                        <td><B>책주인</B></td>
+                        <td><B>대여상태</B></td>
+                    </tr>
+                </thead>
+                <tbody class="panel">
+                    {% for book in books %}
+                    <tr data-toggle="collapse" data-target="#d{{book.id}}" data-parent="#myTable">
+                        <td>
+                            {{book.title}}
+                        </td>
+                        <td> {{book.owner}} </td>
                         {% if book.state == 'Unable'%}
-                            <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
-                                <button class="btn btn-warning" >반납요청</button>
-                            </form>
-                        {% elif book.state == 'Able' %}
-                            <form action="/book_rent/{{book.id}}/" method="POST">{% csrf_token %}
-                                <button name="rent" class="btn btn-warning" >대여요청</button>
-                            </form>
+                        {% for return_book in return_books %}
+                        {% if book.id == return_book.book.id %}
+                        <td>대여자 : {{return_book.user_info.name}}</td>
                         {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        {% endfor %}
+                        {% elif book.state == 'Able' %}
+                        <td>대여가능</td>
+                        {% else %}
+                        {% for return_book in return_books %}
+                        {% if book.id == return_book.book.id %}
+                        {% if return_book.return_request == True %}
+                        <td>반납요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
+                        {% else %}
+                        <td>대여요청 : {{ return_book.user_info.name }} - 관리자 확인중</td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </tr>
+                    <tr id="d{{book.id}}" class="collapse">
+                        <td colspan="3" class="hiddenRow text-center">
+                            {% if book.state == 'Unable'%}
+                            <form action="/book_return/{{book.id}}/" method="POST">{% csrf_token %}
+                                <button class="btn btn-warning">반납요청</button>
+                            </form>
+                            {% elif book.state == 'Able' %}
+                            <form action="/book_rent/{{book.id}}/" method="POST">{% csrf_token %}
+                                <button name="rent" class="btn btn-warning">대여요청</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     {% include 'footer.html' %}
