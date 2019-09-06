@@ -65,8 +65,8 @@
                         </tr>
                         {% for comment in post_comment %}
                             <tr>
-                                <td>{{ comment.user_info.user.username }}</td>
                                 <td>{{ comment.context }}</td>
+                                <td>{{ comment.user_info.user.username }}</td>
                             </tr>
                         {% endfor %}
                         <tr>

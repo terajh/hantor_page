@@ -8,7 +8,7 @@
         {% include 'header.html' %}
        
         <!-- carousel -->
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
             <ul class="carousel-indicators">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
                 <li data-target="#demo" data-slide-to="1"></li>
@@ -18,27 +18,29 @@
             </ul>
             <div class="carousel-inner">
                 <div class="carousel-item active" id="k1">
-                    <img src="{% static "images/kakao1.jpg" %}" alt="kakao1" class="w-100">
+                    <img src="{% static "images/carousel1.jpg" %}" alt="kakao1" class="w-100"
+                   
+                    display: none;">
                 </div>
                 <div class="carousel-item " id="k2">
-                    <img src="{% static "images/kakao2.jpg" %}" class="w-100">
+                    <img src="{% static "images/carousel2.jpg" %}" class="w-100">
 
                 </div>
                 <div class="carousel-item " id="k3">
-                    <img src="{% static "images/kakao6.jpg" %}" alt="kakao3" class="w-100">
+                    <img src="{% static "images/carousel3.jpg" %}" alt="kakao3" class="w-100">
 
                 </div>
                 <div class="carousel-item" id="k4">
-                    <img src="{% static "images/kakao7.jpg" %}" alt="kakao4" class="w-100">
+                    <img src="{% static "images/carousel4.jpg" %}" alt="kakao4" class="w-100">
 
                 </div>
                 <div class="carousel-item" id="k5">
                     <img src="{% static "images/kakao8.jpg" %}" alt="kakao5" class="w-100">
 
                 </div>
-                <div class="carousel-caption ">
-                    <div style="font-size: 6vw">
-                        KAKAO Frineds fan page
+                <div class="carousel-caption mb-4 ">
+                    <div style="font-size: 3vw">
+                        Dream Passion Challenge
                     </div>
                 </div>
             </div>

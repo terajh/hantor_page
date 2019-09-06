@@ -1,3 +1,4 @@
+{% load staticfiles %}
 
 <form method="POST" action="{%url 'sign_in'%}">{% csrf_token %}
     <div class="modal fade" id="login" tabindex="-1" role="dialog">
@@ -31,7 +32,9 @@
 <nav class="navbar navbar-expand navbar-dark bg-custom fixed-top justify-content-between">
     <div class="row">
         <ul class="navbar-nav ">
-            <a class="navbar-brand text" href="/">Logo</a>
+            <a class="navbar-brand text" href="/">
+            <img src="{% static "images/logo.png" %}" alt="logo" width="100px">
+            </a>
 
             <li class="nav-item">
                 <a class="nav-link text-body" href="/posts">Posts</a>
