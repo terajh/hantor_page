@@ -12,6 +12,7 @@ class HantorismUser(models.Model):
     name = models.CharField(max_length=20)
     student_number = models.CharField(max_length=10)
     major = models.CharField(max_length=20)
+    score = models.IntegerField(default=0)
 
     gender = models.CharField(
         max_length=8,

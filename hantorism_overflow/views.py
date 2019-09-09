@@ -60,6 +60,10 @@ def doOverflow(request):
                     title=request.POST['title'],
                     body=request.POST['body'])
     p.save()
+    user_score=HantorismUser.objects.get(id=request.user.id).score
+    HantorismUser.objects.filter(id=request.user.id).update(
+        score=user_score+1
+    )
     url='/overflows?current_page=1'
     return redirect(url)
 
@@ -165,15 +169,20 @@ def create_answer(request):
 
 @login_required
 def overflowSelect(request):
-    answer_id=request.GET['answer_id']
-    overflow_id=request.GET['overflow_id']
-    current_page = request.GET['current_page']
-    searchStr=request.GET['search']
+    answer_user_id=request.POST['answer_user_id']
+    answer_id=request.POST['answer_id']
+    overflow_id=request.POST['overflow_id']
+    current_page = request.POST['current_page']
+    searchStr=request.POST['search']
     HantorismOverflowAnswer.objects.filter(id=answer_id).update(
         state=True
     )
     HantorismOverflow.objects.filter(id=overflow_id).update(
         state=True
+    )
+    user_score=HantorismUser.objects.get(id=answer_user_id).score
+    HantorismUser.objects.filter(id=answer_user_id).update(
+        score=user_score+10
     )
     url='/overflow_view/?overflow_id='+str(overflow_id)+'&current_page='+current_page+'&search='+searchStr
     return redirect(url)

@@ -16,5 +16,5 @@ urlpatterns = [
     path('update_overflow/',views.updateOverflow,name='update_overflow'),
     path('overflow_delete/',views.overflowDelete,name='overflow_delete'),
     path('create_answer/', views.create_answer, name='create_answer'),
-    path('overflow_select',views.overflowSelect,name='overflow_select')
+    path('overflow_select/',views.overflowSelect,name='overflow_select')
 ]

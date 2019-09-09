@@ -56,30 +56,40 @@
             </div>
             <div>
                 <table class="table mt-5">
-                    <form method="post" action="/create_answer/">{% csrf_token %}
-                        <tr>
-                            <th>답변</th>
-                            <th>User</th>
-                        </tr>
-                        {% for answer in overflow_answer %}
-                            <tr>
-                                <td><pre>{{ answer.body }}</pre></td>
-                                <td>{{ answer.user_info.user.username }}</td>
-                                {% if not overflow_data.state %}
-                                    {% if user.is_active %}
-                                        {% if user.username == overflow_data.name %}
-                                        <td><input class="btn border" type="button" value="채택"
-                                                   OnClick="window.location='/overflow_select?overflow_id={{overflow_data.id}}&answer_id={{answer.id}}&current_page={{current_page}}&search={{search}}'"></td>
-                                        {% endif %}
+                    <tr>
+                        <th>답변</th>
+                        <th>User</th>
+                    </tr>
+                    {% for answer in overflow_answer %}
+                    <tr>
+                        <form method="post" action="/overflow_select/">{% csrf_token %}
+                            <td><pre>{{ answer.body }}</pre></td>
+                            <td> <a href="/user_page?userID={{answer.user_info.user.username}}">{{ answer.user_info.user.username }}</td>
+                            {% if not overflow_data.state %}
+                                {% if user.is_active %}
+                                    {% if user.username == overflow_data.name %}
+                                    {% if user.username != answer.user_info.user.username %}
+
+                            <input type="hidden" name="answer_id" value="{{answer.id}}">
+                            <input type="hidden" name="overflow_id" value="{{ overflow_data.id }}">
+                            <input type="hidden" name="current_page" value="{{ current_page }}">
+                            <input type="hidden" name="search" value="{{search}}">
+                            <input type="hidden" name="answer_user_id" value="{{answer.user_info.user.id}}">
+                            <td><input class="btn border" type="submit" value="채택"></td>
                                     {% endif %}
-                                {% else %}
-                                    {% if answer.state %}
-                                        <th>채택된 답변</th>
                                     {% endif %}
                                 {% endif %}
-                            </tr>
-                        {% endfor %}
+                            {% else %}
+                                {% if answer.state %}
+                                <th>채택된 답변</th>
+                                {% endif %}
+                            {% endif %}
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    <form method="post" action="/create_answer/">{% csrf_token %}
                         <tr>
+                            {% if user.is_active %}
                             <td>
                                 <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
                                 <input type="hidden" name="current_page" value="{{ current_page }}">
@@ -89,6 +99,7 @@
                             <td>
                                 <input type="submit" value="답변 작성" class="btn">
                             </td>
+                            {% endif %}
                         </tr>
                     </form>
                 </table>
