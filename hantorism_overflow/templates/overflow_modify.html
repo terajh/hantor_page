@@ -22,34 +22,32 @@
     }
     form.submit();
   }
-
-  function postlist() {
-    var s = "{{searchStr}}";
-
-    if (s == "None")
-      location.href = '/posts?current_page={{current_page}}';
+  function overflowlist() {
+    if('{{search}}')
+      location.href='/overflows/?search='+'{{search}}';
     else
-      location.href = '/posts?current_page={{current_page}}&search={{search}}';
+      location.href='/overflows';
   }
 </script>
 
 <body class="pt-5 mt-3">
   {% include 'header.html' %}
   <div class="container">
-      <input type="button" class="btn border" value="목록으로 되돌아가기" OnClick="javascript:postlist()">
-    <form name="modifyform" method="post" action="{% url 'update_post' %}">{% csrf_token %}
+      <input type="button" class="btn border" value="목록으로 되돌아가기"
+             OnClick="javascript:overflowlist()">
+    <form name="modifyform" method="post" action="{% url 'update_overflow' %}">{% csrf_token %}
       <table>
-        <input type="hidden" name="post_id" value="{{ post_id }}">
+        <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
         <input type="hidden" name="current_page" value="{{ current_page }} ">
         <input type="hidden" name="search" value="{{ search }} ">
 
         <tr>
           <td class="btn"><b>제목</b></td>
-          <td><input class="form-control" type="text" name="title" value="{{ post_data.title }}"></td>
+          <td><input class="form-control" type="text" name="title" value="{{ overflow_data.title }}"></td>
         </tr>
         <tr>
           <td class="btn"><b>내용</b></td>
-          <td><textarea class="form-control" name="body" cols=50 rows=10>{{ post_data.body }}</textarea></td>
+          <td><textarea class="form-control" name="body" cols=50 rows=10>{{ overflow_data.body }}</textarea></td>
         </tr>
       </table>
       <div class="w-100 row justify-content-center">
