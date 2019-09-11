@@ -44,23 +44,14 @@ class SignInViewSet(viewsets.ModelViewSet):
             user = auth.authenticate(request, username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                return render(request, 'WelcomLogin.html', {})
+                return redirect('list')
             return render(request, 'FailLogin.html', {})
 
-
-@login_required
-def userList(request):
-    user_list = HantorismUser.objects.order_by()
-    context = {'user_list': user_list}
-    return render(request, 'user_list.html', context)
-
-
-@login_required
-def userDetail(request, name):
-    user_detail = HantorismUser.objects.get(name=name)
-    context = {'user_detail': user_detail}
-    return render(request, 'user_detail.html', context)
-
+def userPage(request):
+    user=HantorismUser.objects.get(user__username=request.GET['userID'])
+    user_info=HantorismUser.objects.get(user_id=user.id)
+    return render(request,"user_page.html",{'user_info':user_info,
+                                            'userID':request.GET['userID']})
 
 @login_required
 def signOut(request):
