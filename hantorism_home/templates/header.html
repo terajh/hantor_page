@@ -1,4 +1,9 @@
 {% load staticfiles %}
+<style>
+    #navbarm{
+        transition-duration: 0.4s;
+    }
+</style>
 
 <form method="POST" action="{%url 'sign_in'%}">{% csrf_token %}
     <div class="modal fade" id="login" tabindex="-1" role="dialog">
@@ -49,10 +54,10 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-body" href="/contact">Contact</a>
-                <hr class="d-block d-md-none" style="border:0; height: 2px; background: rgba(0, 208, 255, 0.912);">
             </li>
             <li class="nav-item">
                 <a class="nav-link text-body" href="/overflows">Overflow</a>
+                <hr class="d-block d-md-none" style="border:0; height: 2px; background: rgba(0, 208, 255, 0.912);">
             </li>
         </ul>
         {% if user.is_active %}
