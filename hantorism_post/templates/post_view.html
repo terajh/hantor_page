@@ -6,16 +6,17 @@
     </head>
     <script language="javascript">
         function boardlist() {
-            var s = "{{searchStr}}";
+            var url='/posts?current_page={{current_page}}';
+            if("{{category}}")
+                url+='&category={{category}}';
+            if("{{search}}")
+                url+='&search={{search}}';
 
-            if (s == "None")
-                location.href = '/posts?current_page={{current_page}}';
-            else
-                location.href = '/post_search?page_for_view={{current_page}}&searchStr={{searchStr}}';
+            location.href=url;
         }
 
         function boardmodify() {
-            location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&searchStr={{searchStr}}';
+            location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&search={{search}}';
         }
 
         function boarddelete() {
@@ -60,8 +61,8 @@
                 <table class="table mt-5">
                     <form method="post" action="/create_comment/">{% csrf_token %}
                         <tr>
-                            <th>User</th>
                             <th>댓글</th>
+                            <th>User</th>
                         </tr>
                         {% for comment in post_comment %}
                             <tr>
@@ -72,6 +73,9 @@
                         <tr>
                             <td>
                                 <input type="hidden" name="post_id" value="{{ post_id }}">
+                                <input type="hidden" name="category" value="{{ category }}">
+                                <input type="hidden" name="current_page" value="{{ current_page }}">
+                                <input type="hidden" name="search" value="{{search}}">
                                 <input class="form-control" type="text" name="context">
                             </td>
                             <td>

@@ -14,7 +14,7 @@ class ViewSet(viewsets.ModelViewSet):
         cur=int(current_page)
         posts = HantorismPost.objects
 
-        filter_params = dict()
+        filter_params=dict()
         if request.GET.get('category'):
             category = request.GET.get('category')
             posts = posts.filter(category=category)
@@ -31,7 +31,8 @@ class ViewSet(viewsets.ModelViewSet):
         pagingHelperIns = pagingHelper();
         total_page_list = pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
         return render(request, 'post_list.html', {'post_list': posts,
-                                                  'filter_params': filter_params})
+                                                  'filter_params': filter_params,
+                                                  'current_page':cur})
 
     def create(self, request):
        redirect('/posts')
@@ -70,11 +71,19 @@ def doPost(request):
 
 def postView(request):
     pk=request.GET['post_id']
+    current_page = request.GET.get('current_page','1')
+    cur=int(current_page)
+    category=request.GET.get('category','')
+    searchStr=request.GET.get('search','')
+
     post_data=HantorismPost.objects.get(id=pk)
     HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count+1)
     post_data=HantorismPost.objects.get(id=pk)
     post_comment = HantorismPostComment.objects.filter(post_id=pk)
     return render(request,'post_view.html', {'post_id': request.GET['post_id'],
+                                             'current_page':cur,
+                                             'category':category,
+                                             'search':searchStr,
                                              'post_data':post_data,
                                              'post_comment':post_comment})
 
@@ -97,11 +106,11 @@ def postSearch(request):
 def postModify(request):
     post_id=request.GET['post_id']
     current_page = request.GET['current_page']
-    searchStr=request.GET['searchStr']
+    searchStr=request.GET['search']
     post_data=HantorismPost.objects.get(id=post_id)
     return render(request,'post_modify.html',{'post_id':post_id,
-                                              'current_page':request.GET['current_page'],
-                                              'searchStr':request.GET['searchStr'],
+                                              'current_page':current_page,
+                                              'search':searchStr,
                                               'post_data':post_data})
 
 @csrf_exempt
@@ -109,13 +118,13 @@ def postModify(request):
 def updatePost(request):
     post_id=request.POST['post_id']
     current_page=request.POST['current_page']
-    searchStr=request.POST['searchStr']
+    searchStr=request.POST['search']
 
     HantorismPost.objects.filter(id=post_id).update(
         title=request.POST['title'],
         body=request.POST['body']
     )
-    url='/post_view/?post_id='+str(post_id)
+    url='/post_view/?post_id='+str(post_id)+'&search='+searchStr
     return redirect(url)
 
 def postDelete(request):
@@ -149,11 +158,14 @@ def titleSearch(request):
 def create_comment(request):
     comment_context = request.POST['context']
     post_id = request.POST['post_id']
+    category = request.POST['category']
+    current_page = request.POST['current_page']
+    searchStr=request.POST['search']
     user_id = request.user.id
     user = HantorismUser.objects.filter(user_id=user_id).first()
     HantorismPostComment.objects.create(user_info_id=user.id,
                                         post_id=post_id,
                                         context=comment_context)
 
-    url = '/post_view/?post_id=' + str(post_id)
+    url = '/post_view/?post_id='+ str(post_id) +'&category='+category+'&current_page='+current_page+'&search='+searchStr
     return redirect(url)
