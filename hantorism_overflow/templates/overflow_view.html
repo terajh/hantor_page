@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% include 'common_link.html' %}
+    </head>
+    <script language="javascript">
+
+        function overflowmodify() {
+            location.href = '/overflow_modify?overflow_id={{overflow_id}}&current_page={{current_page}}&search={{search}}';
+        }
+
+        function overflowdelete() {
+            location.href = '/overflow_delete?overflow_id={{overflow_id}}&current_page={{current_page}}';
+        }
+        function overflowlist() {
+            if('{{search}}')
+                location.href='/overflows/?search='+'{{search}}';
+            else
+                location.href='/overflows/?current_page={{current_page}}';
+        }
+    </script>
+
+    <body class="pt-5 mt-3">
+        {% include 'header.html' %}
+        <div class="container">
+                <input class="btn border" type="button" value="목록으로 되돌아가기" OnClick="javascript:overflowlist()">
+            <table class="table ">
+                <tbody>
+                <tr>
+                    <th> {{ overflow_data.title }} </td>
+                </tr>
+                <tr class="text-right" style="font-size: small;">
+                    <td>조회수
+                        {{ overflow_data.view_count }}
+                        작성자
+                        {{ overflow_data.name }} </td>
+                </tr>
+                <tr>
+                    <td> <pre>{{ overflow_data.body }}</pre> </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                {% if user.is_active %}
+                    {% if user.username == overflow_data.name %}
+                        <input class="btn border" type="button" value="수정" OnClick="javascript:overflowmodify()">
+                    {% endif %}
+                {% endif %}
+
+                {% if user.is_active %}
+                    {% if user.username == overflow_data.name %}
+                        <input class="btn border" type="button" value="삭제" OnClick="javascript:overflowdelete()">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div>
+                <table class="table mt-5">
+                    <tr>
+                        <th>답변</th>
+                        <th>User</th>
+                    </tr>
+                    {% for answer in overflow_answer %}
+                    <tr>
+                        <form method="post" action="/overflow_select/">{% csrf_token %}
+                            <td><pre>{{ answer.body }}</pre></td>
+                            <td> <a href="/user_page?userID={{answer.user_info.user.username}}">{{ answer.user_info.user.username }}</td>
+                            {% if not overflow_data.state %}
+                                {% if user.is_active %}
+                                    {% if user.username == overflow_data.name %}
+                                    {% if user.username != answer.user_info.user.username %}
+
+                            <input type="hidden" name="answer_id" value="{{answer.id}}">
+                            <input type="hidden" name="overflow_id" value="{{ overflow_data.id }}">
+                            <input type="hidden" name="current_page" value="{{ current_page }}">
+                            <input type="hidden" name="search" value="{{search}}">
+                            <input type="hidden" name="answer_user_id" value="{{answer.user_info.user.id}}">
+                            <td><input class="btn border" type="submit" value="채택"></td>
+                                    {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if answer.state %}
+                                <th>채택된 답변</th>
+                                {% endif %}
+                            {% endif %}
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    <form method="post" action="/create_answer/">{% csrf_token %}
+                        <tr>
+                            {% if user.is_active %}
+                            <td>
+                                <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
+                                <input type="hidden" name="current_page" value="{{ current_page }}">
+                                <input type="hidden" name="search" value="{{search}}">
+                                <textarea class="form-control" cols=50 rows=5 name="body"></textarea>
+                            </td>
+                            <td>
+                                <input type="submit" value="답변 작성" class="btn">
+                            </td>
+                            {% endif %}
+                        </tr>
+                    </form>
+                </table>
+            </div>
+        </div>
+
+    </body>
+    {% include 'footer.html' %}
+
+</html>

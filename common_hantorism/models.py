@@ -17,6 +17,7 @@ class HantorismUser(models.Model):
     name = models.CharField(max_length=20)
     student_number = models.CharField(max_length=10)
     major = models.CharField(max_length=20)
+    score = models.IntegerField(default=0)
 
     gender = models.CharField(
         max_length=8,
@@ -39,11 +40,33 @@ class HantorismPost(models.Model):
 
     def __str__(self):
         return self.title
-
-
 class HantorismPostComment(models.Model):
     user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     post = models.ForeignKey(HantorismPost, on_delete=models.CASCADE)
+    context = models.CharField(max_length=200)
+
+
+class HantorismOverflow(models.Model):
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=10)
+    title = models.CharField(max_length=200)
+    body = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    view_count = models.IntegerField(null=True, default=0)
+    state = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+class HantorismOverflowAnswer(models.Model):
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    overflow = models.ForeignKey(HantorismOverflow, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_date=models.DateTimeField(default=timezone.now)
+    state=models.BooleanField(default=False)
+class HantorismOverflowAnswerComment(models.Model):
+    user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
+    overflow_answer = models.ForeignKey(HantorismOverflowAnswer, on_delete=models.CASCADE)
     context = models.CharField(max_length=200)
 
 
