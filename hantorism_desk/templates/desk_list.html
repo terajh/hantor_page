@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
+    <script src="../dist/jquery.table2excel.js"></script>
+</head>
+<body>
+<table id="desk_member">
+    <thead>
+    <tr>
+        <B><td>이름</td></B>
+        <B><td>학번</td></B>
+        <B><td>생년월일</td></B>
+        <B><td>전화번호</td></B>
+        <B><td>학과</td></B>
+    </tr>
+    </thead>
+    <tbody>
+    {% for desk_member in desk_members %}
+        <tr>
+            <td>{{ desk_member.name }}</td>
+            <td>{{ desk_member.student_number }}</td>
+            <td>{{ desk_member.birthday }}</td>
+            <td>{{ desk_member.phone_number }}</td>
+            <td>{{ desk_member.major }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+            $(function() {
+                $("#table1").table2excel({
+                    name: "Excel table",
+                    filename: "excel table",
+                    fileext: ".xls",
+                    exclude_img: true,
+                    exclude_links: true,
+                    exclude_inputs: true
+                });
+            });
+        </script>
+</body>
+</html>

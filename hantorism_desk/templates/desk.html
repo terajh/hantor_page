@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html>
 <body>
-<form id="frm" action="action.jsp">
-    <div>이름 : <input type="text" id="name" ></div>
-    <div>학번 : <input type="text" id="student_number" ></div>
-    <div>생년월일 : <input type="text" id="birthday" ></div>
+<form id="desk" onsubmit="return passRule()" action="/desk/" method="post">{% csrf_token %}
+    <div>이름 : <input type="text" id="name" name="name"></div>
+    <div>학번 : <input type="text" id="student_number" name="student_number"></div>
+    <div>생년월일 : <input type="text" id="birthday" name="birthday"></div>
 
     <div>
-        전화번호 : <input type="text" id="phone_number" >
+        전화번호 : <input type="text" id="phone_number" name="phone_number">
 
     </div>
-    <div>학과 : <input type="text" id="major" ></div>
+    <div>학과 : <select name="major" id="major">
+        <option value="소프트웨어학과">소프트웨어학과</option>
+        <option value="사이버보안학과">사이버보안학과</option>
+        <option value="미디어학과">미디어학과</option>
+        <option value="국방디지털융합학과">국방디지털융합학과</option>
+        <option value="산업공학과">산업공학과</option>
+    </select>
+    </div>
     <div><input type="submit" value="등록"></div>
 </form>
 </body>
 <script type="text/javascript">
+    function passRule(){
 
-    let value = document.getElementById('phone_number');
-    let passRule = /^\d{3}-\d{3,4}-\d{4}$/;
-    function phonenumber_input(value) {
-        if (!passRule.test($(value).val())) {
-            document.getElementById("phone_number").value = '형식이 잘못됨'
+        let phone_number = document.getElementById('phone_number');
+        let phone_numberExp = /^\d{3}-\d{3,4}-\d{4}$/;
+
+        let birthday = document.getElementById('birthday');
+        //let birthdayExp = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
+        let birthdayExp = /^\d{8}$/
+
+        let student_number = document.getElementById('student_number');
+        let student_numberExp = /^\d{9}$/;
+
+        if(desk.name.value==""){
+            alert("이름을 입력해 주세요");
+            desk.name.focus();
+            return false;
+        }
+
+        if(!check(birthdayExp,birthday,"생년월일 형식이 잘못되었습니다 19XXXXXX")){
+            return false;
+        }
+
+        if(!check(phone_numberExp,phone_number,"전화번호 형식이 잘못되었습니다 010-XXXX-XXXX")){
+            return false;
+        }
+
+        if(!check(student_numberExp,student_number,"학번 형식이 잘못되었습니다 20XXXXXXX")){
+            return false;
         }
     }
-    alert("Asdasd");
+     function check(Exp, data, message) {
+       if(Exp.test(data.value)) {
+           return true;
+       }
+       alert(message);
+       data.value = "";
+       data.focus();
+       //return false;
+   }
 
 </script>
 </html>
