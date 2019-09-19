@@ -131,10 +131,7 @@
                                     {{ post_row.name }}
                                 </td>
                                 <td class="text-center w-25 ">
-
-                                    <a href="/post_view?post_id={{ post_row.id }}&category={{filter_params.category}}&current_page={{ current_page }}&search={{filter_params.search}}"
-                                        title="{{ post_row.title }}"> {{ post_row.title }}
-                                        </p>
+                                    <a href="/post_view?post_id={{ post_row.id }}&{{ request.GET.urlencode }}"> {{ post_row.title }}</a>
                                 </td>
                                 <td class="text-center w-25">
                                     {{ post_row.created_date }}
@@ -155,19 +152,16 @@
 
             <div class="d-flex justify-content-between row mb-4">
                 <div>
-                    {% for page in total_page_list %}
-                    <a class="text-bold" href="/posts?current_page={{ page }}">
-                        [
-                        {% ifequal page current_page %}
-                        <b>
-                            {% endifequal %}
-                            {{ page }}
-                            {% ifequal page current_page %}
-                        </b>
-                        {% endifequal %}
-                        ]
-                    </a>
+                    {% if post_list.has_previous %}
+                    <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>
+                    {% endif %}
+
+                    {% for i in p_range %}
+                        <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ i }}" {%if post_list.number == i %} class="active" {% endif %}>{{ i }}</a>
                     {% endfor %}
+                    {% if post_list.has_next %}
+                    <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.next_page_number }}">다음으로</a>
+                    {% endif %}
                 </div>
                 {% if user.is_active %}
                 <div>

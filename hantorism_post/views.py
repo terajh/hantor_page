@@ -4,6 +4,8 @@ from django.shortcuts import render, render_to_response,redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+import math
 
 rowsPerPage = 10
 
@@ -26,47 +28,43 @@ class ViewSet(viewsets.ModelViewSet):
             filter_params['search'] = search
 
         posts = posts.order_by('-created_date')[(cur-1)*10:cur*10]
-        totalCnt=HantorismPost.objects.all().count()
+        paginator = Paginator(posts, 2);
+        page = 1
+        if request.GET.get('page'):
+            page = request.GET.get('page')
+        posts = paginator.get_page(page)
 
-        pagingHelperIns = pagingHelper();
-        total_page_list = pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
+        page_range = 5
+        current_block = math.ceil(int(page)/page_range)
+        start_block = (current_block-1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+        print(p_range)
+
         return render(request, 'post_list.html', {'post_list': posts,
                                                   'filter_params': filter_params,
-                                                  'current_page':cur})
+                                                  'p_range': p_range,
+                                                  })
 
     def create(self, request):
        redirect('/posts')
 
-class pagingHelper:
-    def getTotalPageList(self, total_cnt,rowsPerPage):
-        if total_cnt % rowsPerPage == 0:
-            self.total_page = total_cnt/rowsPerPage
-        else:
-            self.total_page = total_cnt//rowsPerPage +1
-
-        self.total_page_list=[]
-        for i in range(int(self.total_page)):
-            self.total_page_list.append(i+1)
-
-        return self.total_page_list
-
-    def __init__(self):
-        self.total_page=0
-        self.total_page_list=0
 
 def postWrite(request):
     return render(request, 'post_write.html')
 
+
 @csrf_exempt
 @login_required
 def doPost(request):
-    p=HantorismPost(user_info_id=request.user.id,
+    p = HantorismPost(user_info_id=request.user.id,
                     name=request.user.username,
                     title=request.POST['title'],
                     body=request.POST['body'],
                     category=request.POST['category'])
     p.save()
-    url='/posts?current_page=1'
+
+    url = '/post_view?post_id=' + str(p.id)
     return redirect(url)
 
 def postView(request):
@@ -87,71 +85,34 @@ def postView(request):
                                              'post_data':post_data,
                                              'post_comment':post_comment})
 
-def postSearch(request):
-    searchStr=request.GET['searchStr']
-    page_for_view=request.GET['page_for_view']
-
-    totalCnt=HantorismPost.objects.filter(title__contains=searchStr).count()
-    pagingHelperIns=pagingHelper()
-    total_page_list=pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-    post_list=HantorismPost.objects.filter(title__contains=searchStr).order_by('-created_date')
-
-    return render(request,'post_search.html',{'post_list':post_list,
-                                              'totalCnt':totalCnt,
-                                              'page_for_view':page_for_view,
-                                              'searchStr':searchStr,
-                                              'total_page_list':total_page_list})
-
 
 def postModify(request):
-    post_id=request.GET['post_id']
-    current_page = request.GET['current_page']
-    searchStr=request.GET['search']
-    post_data=HantorismPost.objects.get(id=post_id)
+    post_id = request.GET['post_id']
+    post_data = HantorismPost.objects.get(id=post_id)
     return render(request,'post_modify.html',{'post_id':post_id,
-                                              'current_page':current_page,
-                                              'search':searchStr,
                                               'post_data':post_data})
 
 @csrf_exempt
 @login_required
 def updatePost(request):
     post_id=request.POST['post_id']
-    current_page=request.POST['current_page']
-    searchStr=request.POST['search']
 
     HantorismPost.objects.filter(id=post_id).update(
         title=request.POST['title'],
         body=request.POST['body']
     )
-    url='/post_view/?post_id='+str(post_id)+'&search='+searchStr
+    url='/post_view/?post_id='+str(post_id)
     return redirect(url)
 
 def postDelete(request):
     post_id=request.GET['post_id']
-    current_page=request.GET['current_page']
 
     d=HantorismPost.objects.get(id=post_id)
     d.delete()
 
-    totalCnt=HantorismPost.objects.all().count()
-    pagingHelperIns=pagingHelper()
-
-    total_page_list=pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-    if int(current_page) in total_page_list:
-        pass
-    else:
-        current_page=int(current_page)-1
-
-    url='/posts?current_page='+str(current_page)
+    url='/posts/'
     return redirect(url)
 
-@csrf_exempt
-def titleSearch(request):
-    searchStr=request.POST['searchStr']
-
-    url='/post_search?page_for_view=1&searchStr='+searchStr
-    return redirect(url)
 
 @csrf_exempt
 @login_required
