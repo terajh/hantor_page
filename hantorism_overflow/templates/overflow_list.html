@@ -38,110 +38,112 @@
 
 <body class="pt-5 mt-3">
     {% include 'header.html' %}
+    <div class="container-fluid">
+        <div class="col-12 col-md-10 mx-auto">
+            <div class="wrap">
+                <div id="fon" class="m-0">
+                    <form class="form-row justify-content-between">
+                        <p>
+                            <div class="col-3">총 게시물수: {{ totalCnt }}</div>
 
-    <div class="container">
-        <div class="wrap">
-            <div id="fon" class="m-0">
-                <form class="form-row justify-content-between">
-                    <p>
-                        <div class="col-3">총 게시물수: {{ totalCnt }}</div>
-
-                        {% if filter_params %}
-                        {% if filter_params.status %}
-                        {% endif %}
-                        {% for kk, vv in filter_params.items %}
-                        {% if kk == 'search' %}
-                        {% else %}
-                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-                        <div class="col-8 row justify-content-end">
-                            <input type="text" style="font-size: small;" class="form-control col-8 h-100" name="search">
-                            <input type="submit" class="btn border border-1" value="글 찾기">
-                        </div>
-                    </p>
-                </form>
-            </div>
-
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="qwe">
-                    <table class="table " cellspacing=1>
-                        <thead>
-                            <tr>
-                                <td class=" text-center" scope="col">
-                                    번호
-                                </td>
-                                <td class="text-center" scope="col">
-                                    이름
-                                </td>
-                                <td class=" text-center" scope="col">
-                                    제목
-                                </td>
-                                <td class="text-center" scope="col">
-                                    등록일
-                                </td>
-                                <td class="text-center" scope="col">
-                                    조회수
-                                </td>
-                            </tr>
-                        </thead>
-
-                        {% if overflow_list %}
-                        <ul>
-                            {% for overflow_row in overflow_list %}
-                            <tr>
-                                <td class="text-center">
-                                    {{ overflow_row.id }}
-                                </td>
-                                <td class="text-center ">
-                                    {{ overflow_row.name }}
-                                </td>
-                                <td class="text-center w-25 ">
-
-                                    <a href="/overflow_view?overflow_id={{ overflow_row.id }}&current_page={{ current_page }}&search={{filter_params.search}}"
-                                        title="{{ overflow_row.title }}"> {{ overflow_row.title }}
-                                        </p>
-                                </td>
-                                <td class="text-center w-25">
-                                    {{ overflow_row.created_date }}
-                                </td>
-                                <td class="text-center ">
-                                    {{ overflow_row.view_count }}
-                                </td>
-                            </tr>
+                            {% if filter_params %}
+                            {% if filter_params.status %}
+                            {% endif %}
+                            {% for kk, vv in filter_params.items %}
+                            {% if kk == 'search' %}
+                            {% else %}
+                            <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                            {% endif %}
                             {% endfor %}
-                        </ul>
-                        {% else %}
+                            {% endif %}
+                            <div class="col-8 row justify-content-end">
+                                <input type="text" style="font-size: small;" class="form-control col-8 h-100"
+                                    name="search">
+                                <input type="submit" class="btn border border-1" value="글 찾기">
+                            </div>
+                        </p>
+                    </form>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="qwe">
+                        <table class="table " cellspacing=1>
+                            <thead>
+                                <tr>
+                                    <td class=" text-center" scope="col">
+                                        번호
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        이름
+                                    </td>
+                                    <td class=" text-center" scope="col">
+                                        제목
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        등록일
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        조회수
+                                    </td>
+                                </tr>
+                            </thead>
+
+                            {% if overflow_list %}
+                            <ul>
+                                {% for overflow_row in overflow_list %}
+                                <tr>
+                                    <td class="text-center">
+                                        {{ overflow_row.id }}
+                                    </td>
+                                    <td class="text-center ">
+                                        {{ overflow_row.name }}
+                                    </td>
+                                    <td class="text-center w-25 ">
+
+                                        <a href="/overflow_view?overflow_id={{ overflow_row.id }}&current_page={{ current_page }}&search={{filter_params.search}}"
+                                            title="{{ overflow_row.title }}"> {{ overflow_row.title }}
+                                            </p>
+                                    </td>
+                                    <td class="text-center w-25">
+                                        {{ overflow_row.created_date }}
+                                    </td>
+                                    <td class="text-center ">
+                                        {{ overflow_row.view_count }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
                             <p>No Data.</p>
-                        {% endif %}
-                    </table>
+                            {% endif %}
+                        </table>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="d-flex justify-content-between row mb-4">
-                <div>
-                    {% for page in total_page_list %}
-                    <a class="text-bold" href="/overflows?current_page={{ page }}">
-                        [
-                        {% ifequal page current_page %}
-                        <b>
-                            {% endifequal %}
-                            {{ page }}
+                <div class="d-flex justify-content-between row mb-4">
+                    <div>
+                        {% for page in total_page_list %}
+                        <a class="text-bold" href="/overflows?current_page={{ page }}">
+                            [
                             {% ifequal page current_page %}
-                        </b>
-                        {% endifequal %}
-                        ]
-                    </a>
-                    {% endfor %}
+                            <b>
+                                {% endifequal %}
+                                {{ page }}
+                                {% ifequal page current_page %}
+                            </b>
+                            {% endifequal %}
+                            ]
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% if user.is_active %}
+                    <div>
+                        <input type="button" class="btn border border-1" value="글쓰기"
+                            OnClick="window.location='/overflow_write'">
+                    </div>
+                    {% endif %}
                 </div>
-                {% if user.is_active %}
-                <div>
-                    <input type="button" class="btn border border-1" value="글쓰기"
-                        OnClick="window.location='/overflow_write'">
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>
