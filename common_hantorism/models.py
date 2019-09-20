@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 
 STATE_CHOICE = (('Able', 'able'), ('Wait', 'wait'), ('Unable', 'unable'))
+MAJOR_CHOICE = (('소프트웨어학과', '소웨'),
+                ('사이버보안학과', '사보'),
+                ('미디어학과', '미디어'),
+                ('국방디지털융합학과', '국디'),
+                ('산업공학과', '산업'))
 
 
 class HantorismUser(models.Model):
@@ -94,5 +99,16 @@ class HantorismRentBook(models.Model):
 
     def __str__(self):
         return self.book.title
+
+
+class HantorismDesk(models.Model):
+    name = models.CharField(max_length=20)
+    student_number = models.CharField(max_length=9)
+    birthday = models.CharField(max_length=6)
+    phone_number = models.CharField(max_length=13)
+    major = models.CharField(max_length=40, choices=MAJOR_CHOICE)
+
+    def __str__(self):
+        return self.student_number
 
 

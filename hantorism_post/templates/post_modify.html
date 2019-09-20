@@ -24,12 +24,12 @@
   }
 
   function postlist() {
-    var s = "{{searchStr}}";
-
-    if (s == "None")
-      location.href = '/posts?current_page={{current_page}}';
-    else
-      location.href = '/posts?current_page={{current_page}}&search={{search}}';
+    {#var s = "{{searchStr}}";#}
+    {##}
+    {#if (s == "None")#}
+    {#  location.href = '/posts?current_page={{current_page}}';#}
+    {#else#}
+    {#  location.href = '/posts?current_page={{current_page}}&search={{search}}';#}
   }
 </script>
 
@@ -40,8 +40,6 @@
     <form name="modifyform" method="post" action="{% url 'update_post' %}">{% csrf_token %}
       <table>
         <input type="hidden" name="post_id" value="{{ post_id }}">
-        <input type="hidden" name="current_page" value="{{ current_page }} ">
-        <input type="hidden" name="search" value="{{ search }} ">
 
         <tr>
           <td class="btn"><b>제목</b></td>
