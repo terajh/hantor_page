@@ -3,3 +3,5 @@ pytz==2019.1
 setuptools==40.8.0
 sqlparse==0.3.0
 djangorestframework==3.10.1
+openpyxl==2.6.3
+xlsxwriter==1.2.1

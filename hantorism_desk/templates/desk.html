@@ -2,12 +2,12 @@
 <html>
 <body>
 <form id="desk" onsubmit="return passRule()" action="/desk/" method="post">{% csrf_token %}
-    <div>이름 : <input type="text" id="name" name="name"></div>
-    <div>학번 : <input type="text" id="student_number" name="student_number"></div>
-    <div>생년월일 : <input type="text" id="birthday" name="birthday"></div>
+    <div>이름 : <input type="text" id="name" name="name" placeholder="이름"></div>
+    <div>학번 : <input type="text" id="student_number" name="student_number" placeholder="학번"></div>
+    <div>생년월일 : <input type="text" id="birthday" name="birthday" placeholder="YYMMDD"></div>
 
     <div>
-        전화번호 : <input type="text" id="phone_number" name="phone_number">
+        전화번호 : <input type="text" id="phone_number" name="phone_number" placeholder="010-XXXX-XXXX">
 
     </div>
     <div>학과 : <select name="major" id="major">
@@ -29,7 +29,7 @@
 
         let birthday = document.getElementById('birthday');
         //let birthdayExp = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
-        let birthdayExp = /^\d{8}$/
+        let birthdayExp = /^\d{6}$/
 
         let student_number = document.getElementById('student_number');
         let student_numberExp = /^\d{9}$/;

@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from common_hantorism.models import HantorismDesk
-
+import io
+import xlsxwriter
+from common_hantorism.models import HantorismUser
+from django.contrib.auth.decorators import login_required
 
 def dodesk(request):
     hantorism_desk = HantorismDesk.objects.all()
@@ -24,9 +28,32 @@ def dodesk(request):
         new_hantorism_desk.save()
     return render(request, 'desk.html')
 
-
+@login_required()
 def desk_list(request):
+    current_user = HantorismUser.objects.get(user=request.user)
+    permission = current_user.is_admin
     if(request.method=='GET'):
         desk_members = HantorismDesk.objects.all()
-        context = {'desk_members':desk_members}
+        context = {'desk_members':desk_members,'permission': permission}
         return render(request,'desk_list.html',context)
+
+
+def excel_export(request):
+    output = io.BytesIO()
+    desk_members = HantorismDesk.objects.all()
+    desk_excel = xlsxwriter.Workbook(output)
+    excel = desk_excel.add_worksheet()
+    if (request.method == 'GET'):
+        for member in desk_members:
+            excel.write(member.id-1, 0, member.name)
+            excel.write(member.id-1, 1, member.student_number)
+            excel.write(member.id-1, 2, member.birthday)
+            excel.write(member.id-1, 3, member.phone_number)
+            excel.write(member.id-1, 4, member.major)
+
+    desk_excel.close()
+    output.seek(0)
+    filename = 'desk_list.xlsx'
+    response = HttpResponse(output.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response

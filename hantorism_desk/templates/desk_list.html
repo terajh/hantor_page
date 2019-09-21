@@ -4,6 +4,7 @@
     <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
     <script src="../dist/jquery.table2excel.js"></script>
 </head>
+{% if permission %}
 <body>
 <table id="desk_member">
     <thead>
@@ -27,6 +28,9 @@
     {% endfor %}
     </tbody>
 </table>
+<form id="desk_list" action="/excel_list/" method="get">
+    <input type="submit" value="excel파일로 출력하기"></form>
+</form>
 <script>
             $(function() {
                 $("#table1").table2excel({
@@ -40,4 +44,8 @@
             });
         </script>
 </body>
+{% else %}
+    <body><B>관리자가 아닙니다<br></B></body>
+    <body><a href = '/'>홈으로</a></body>
+{% endif %}
 </html>
