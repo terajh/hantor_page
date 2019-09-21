@@ -27,6 +27,9 @@
     {% endfor %}
     </tbody>
 </table>
+<form id="desk_list" action="/excel_list/" method="get">
+    <input type="submit" value="excel파일로 출력하기"></form>
+</form>
 <script>
             $(function() {
                 $("#table1").table2excel({
