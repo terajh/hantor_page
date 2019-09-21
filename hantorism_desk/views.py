@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from common_hantorism.models import HantorismDesk
-from openpyxl import Workbook,load_workbook
 import io
 import xlsxwriter
+from common_hantorism.models import HantorismUser
+from django.contrib.auth.decorators import login_required
 
 def dodesk(request):
     hantorism_desk = HantorismDesk.objects.all()
@@ -27,11 +28,13 @@ def dodesk(request):
         new_hantorism_desk.save()
     return render(request, 'desk.html')
 
-
+@login_required()
 def desk_list(request):
+    current_user = HantorismUser.objects.get(user=request.user)
+    permission = current_user.is_admin
     if(request.method=='GET'):
         desk_members = HantorismDesk.objects.all()
-        context = {'desk_members':desk_members}
+        context = {'desk_members':desk_members,'permission': permission}
         return render(request,'desk_list.html',context)
 
 

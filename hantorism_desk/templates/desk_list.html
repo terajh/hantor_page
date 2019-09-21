@@ -4,6 +4,7 @@
     <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
     <script src="../dist/jquery.table2excel.js"></script>
 </head>
+{% if permission %}
 <body>
 <table id="desk_member">
     <thead>
@@ -43,4 +44,8 @@
             });
         </script>
 </body>
+{% else %}
+    <body><B>관리자가 아닙니다<br></B></body>
+    <body><a href = '/'>홈으로</a></body>
+{% endif %}
 </html>
