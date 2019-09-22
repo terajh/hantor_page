@@ -11,8 +11,6 @@ rowsPerPage = 10
 
 class ViewSet(viewsets.ModelViewSet):
     def post_list(self, request):
-        current_page = request.GET.get('current_page', '1')
-        cur = int(current_page)
         posts = HantorismPost.objects
 
         filter_params = dict()
@@ -26,7 +24,8 @@ class ViewSet(viewsets.ModelViewSet):
             posts = posts.filter(title__contains=search).order_by('-created_date')
             filter_params['search'] = search
 
-        posts = posts.order_by('-created_date')[(cur - 1) * 10:cur * 10]
+        posts = HantorismPost.objects.all()
+        posts = posts.order_by('-created_date')
         paginator = Paginator(posts, 2);
         page = 1
         if request.GET.get('page'):
