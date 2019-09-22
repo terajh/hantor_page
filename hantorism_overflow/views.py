@@ -1,188 +1,159 @@
-from common_hantorism.models import HantorismOverflow, HantorismOverflowAnswer,HantorismOverflowAnswerComment, HantorismUser
-from rest_framework import viewsets
-from django.shortcuts import render, render_to_response,redirect
-from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
+import math
+
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+
+from common_hantorism.models import HantorismOverflow, HantorismOverflowAnswer, HantorismUser
 
 rowsPerPage = 10
 
 
 class ViewSet(viewsets.ModelViewSet):
     def overflow_list(self, request):
-        current_page = request.GET.get('current_page','1')
-        cur=int(current_page)
-        overflows = HantorismOverflow.objects
+        overflows = HantorismOverflow.objects.all()
 
-        filter_params=dict()
+        filter_params = dict()
+        filter_params['search'] = ''
         if request.GET.get('search'):
             search = request.GET.get('search')
             overflows = overflows.filter(title__contains=search).order_by('-created_date')
             filter_params['search'] = search
 
-        overflows = overflows.order_by('-created_date')[(cur-1)*10:cur*10]
-        totalCnt=HantorismOverflow.objects.all().count()
+        overflows = overflows.order_by('-created_date')
+        paginator = Paginator(overflows, 2)
+        page = 1
+        if request.GET.get('page'):
+            page = request.GET.get('page')
+        posts = paginator.get_page(page)
 
-        pagingHelperIns = pagingHelper();
-        total_page_list = pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-        return render(request, 'overflow_list.html', {'overflow_list': overflows,
+        page_range = 5
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
+        end_block = start_block + page_range
+        p_range = paginator.page_range[start_block:end_block]
+
+        return render(request, 'overflow_list.html', {'overflow_list': posts,
                                                   'filter_params': filter_params,
-                                                      'current_page':cur})
+                                                  'p_range': p_range,
+                                                  })
 
     def create(self, request):
-       redirect('/overflows')
+        return redirect('/overflows')
 
-class pagingHelper:
-    def getTotalPageList(self, total_cnt,rowsPerPage):
-        if total_cnt % rowsPerPage == 0:
-            self.total_page = total_cnt/rowsPerPage
-        else:
-            self.total_page = total_cnt//rowsPerPage +1
 
-        self.total_page_list=[]
-        for i in range(int(self.total_page)):
-            self.total_page_list.append(i+1)
-
-        return self.total_page_list
-
-    def __init__(self):
-        self.total_page=0
-        self.total_page_list=0
-
+@login_required
 def overflowWrite(request):
     return render(request, 'overflow_write.html')
+
 
 @csrf_exempt
 @login_required
 def doOverflow(request):
-    p=HantorismOverflow(user_info_id=request.user.id,
-                    name=request.user.username,
-                    title=request.POST['title'],
-                    body=request.POST['body'])
+    p = HantorismOverflow(user_info_id=request.user.id,
+                          name=request.user.username,
+                          title=request.POST['title'],
+                          body=request.POST['body'])
     p.save()
-    user_score=HantorismUser.objects.get(id=request.user.id).score
+    user_score = HantorismUser.objects.get(id=request.user.id).score
     HantorismUser.objects.filter(id=request.user.id).update(
-        score=user_score+1
+        score=user_score + 1
     )
-    url='/overflows?current_page=1'
+    url = '/overflow_view/?overflow_id=' + str(p.id)
     return redirect(url)
 
+
 def overflowView(request):
-    pk=request.GET['overflow_id']
-    current_page = request.GET.get('current_page','1')
-    cur=int(current_page)
-    searchStr=request.GET.get('search','')
+    pk = request.GET['overflow_id']
+    filter_params = dict()
+    filter_params['search'] = request.GET.get('search')
+    filter_params['page'] = request.GET.get('page')
 
-    overflow_data=HantorismOverflow.objects.get(id=pk)
-    HantorismOverflow.objects.filter(id=pk).update(view_count=overflow_data.view_count+1)
-    overflow_data=HantorismOverflow.objects.get(id=pk)
+    overflow_data = HantorismOverflow.objects.get(id=pk)
+    HantorismOverflow.objects.filter(id=pk).update(view_count=overflow_data.view_count + 1)
+    overflow_data = HantorismOverflow.objects.get(id=pk)
     overflow_answer = HantorismOverflowAnswer.objects.filter(overflow_id=pk).order_by('-state')
-    return render(request,'overflow_view.html', {'overflow_id': request.GET['overflow_id'],
-                                             'overflow_data':overflow_data,
-                                             'overflow_answer':overflow_answer,
-                                                'current_page':cur,
-                                                 'search':searchStr})
-
-def overflowSearch(request):
-    searchStr=request.GET['searchStr']
-    page_for_view=request.GET['page_for_view']
-
-    totalCnt=HantorismOverflow.objects.filter(title__contains=searchStr).count()
-    pagingHelperIns=pagingHelper()
-    total_page_list=pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-    overflow_list=HantorismOverflow.objects.filter(title__contains=searchStr).order_by('-created_date')
-
-    return render(request,'overflow_search.html',{'overflow_list':overflow_list,
-                                              'totalCnt':totalCnt,
-                                              'page_for_view':page_for_view,
-                                              'searchStr':searchStr,
-                                              'total_page_list':total_page_list})
-
+    return render(request, 'overflow_view.html', {'overflow_id': request.GET['overflow_id'],
+                                                  'overflow_data': overflow_data,
+                                                  'overflow_answer': overflow_answer,
+                                                  'filter_params': filter_params})
 
 def overflowModify(request):
-    overflow_id=request.GET['overflow_id']
-    current_page = request.GET['current_page']
-    searchStr=''
-    if request.GET['search']:
-        searchStr=request.GET['search']
-    overflow_data=HantorismOverflow.objects.get(id=overflow_id)
-    return render(request,'overflow_modify.html',{'overflow_id':overflow_id,
-                                              'current_page':current_page,
-                                              'search':searchStr,
-                                              'overflow_data':overflow_data})
+    overflow_id = request.GET['overflow_id']
+    overflow_data = HantorismOverflow.objects.get(id=overflow_id)
+    if request.user != overflow_data.user_info.user:
+        return redirect('/posts')
+    return render(request, 'overflow_modify.html', {'overflow_id': overflow_id,
+                                                    'overflow_data': overflow_data})
+
 
 @csrf_exempt
 @login_required
 def updateOverflow(request):
-    overflow_id=request.POST['overflow_id']
-    current_page=request.POST['current_page']
-    searchStr=request.POST['search']
+    overflow_id = request.POST['overflow_id']
+    overflow_data = HantorismOverflow.objects.get(id=overflow_id)
 
-    HantorismOverflow.objects.filter(id=overflow_id).update(
+    if request.user != overflow_data.user_info.user:
+        return redirect('/overflows')
+
+    overflow_data = HantorismOverflow.objects.filter(id=overflow_id)
+    overflow_data.update(
         title=request.POST['title'],
         body=request.POST['body']
     )
-    url='/overflow_view/?overflow_id='+str(overflow_id)+'&search='+searchStr
+    url = '/overflow_view/?overflow_id=' + str(overflow_id)
     return redirect(url)
+
 
 def overflowDelete(request):
-    overflow_id=request.GET['overflow_id']
-    current_page=request.GET['current_page']
+    overflow_id = request.GET['overflow_id']
 
-    d=HantorismOverflow.objects.get(id=overflow_id)
-    d.delete()
+    overflow_data = HantorismOverflow.objects.get(id=overflow_id)
+    if request.user != overflow_data.user_info.user:
+        return redirect('/overflows')
 
-    totalCnt=HantorismOverflow.objects.all().count()
-    pagingHelperIns=pagingHelper()
+    overflow_data.delete()
 
-    total_page_list=pagingHelperIns.getTotalPageList(totalCnt,rowsPerPage)
-    if int(current_page) in total_page_list:
-        pass
-    else:
-        current_page=int(current_page)-1
-
-    url='/overflows?current_page='+str(current_page)
+    url = '/overflows/'
     return redirect(url)
 
-@csrf_exempt
-def titleSearch(request):
-    searchStr=request.POST['searchStr']
-
-    url='/overflow_search?page_for_view=1&searchStr='+searchStr
-    return redirect(url)
 
 @csrf_exempt
 @login_required
 def create_answer(request):
     answer_body = request.POST['body']
     overflow_id = request.POST['overflow_id']
-    current_page = request.POST['current_page']
-    searchStr=request.POST['search']
+    page = request.POST['page']
+    print(page)
+    search = request.POST['search']
     user_id = request.user.id
     user = HantorismUser.objects.filter(user_id=user_id).first()
     HantorismOverflowAnswer.objects.create(user_info_id=user.id,
-                                        overflow_id=overflow_id,
-                                        body=answer_body)
+                                           overflow_id=overflow_id,
+                                           body=answer_body)
 
-    url = '/overflow_view/?overflow_id=' + str(overflow_id)+'&current_page='+current_page+'&search='+searchStr
+    url = '/overflow_view/?overflow_id=' + str(overflow_id) + '&search=' + search + '&page=' + page
     return redirect(url)
+
 
 @login_required
 def overflowSelect(request):
-    answer_user_id=request.POST['answer_user_id']
-    answer_id=request.POST['answer_id']
-    overflow_id=request.POST['overflow_id']
-    current_page = request.POST['current_page']
-    searchStr=request.POST['search']
+    answer_user_id = request.POST['answer_user_id']
+    answer_id = request.POST['answer_id']
+    overflow_id = request.POST['overflow_id']
+    page = request.POST['page']
+    search = request.POST['search']
     HantorismOverflowAnswer.objects.filter(id=answer_id).update(
         state=True
     )
     HantorismOverflow.objects.filter(id=overflow_id).update(
         state=True
     )
-    user_score=HantorismUser.objects.get(id=answer_user_id).score
+    user_score = HantorismUser.objects.get(id=answer_user_id).score
     HantorismUser.objects.filter(id=answer_user_id).update(
-        score=user_score+10
+        score=user_score + 10
     )
-    url='/overflow_view/?overflow_id='+str(overflow_id)+'&current_page='+current_page+'&search='+searchStr
+    url = '/overflow_view/?overflow_id=' + str(overflow_id) + '&search=' + search + '&current_page=' + page
     return redirect(url)

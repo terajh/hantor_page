@@ -1,10 +1,12 @@
-from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
-from rest_framework import viewsets
-from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
+import math
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-import math
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+
+from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
 
 rowsPerPage = 10
 
@@ -25,7 +27,7 @@ class ViewSet(viewsets.ModelViewSet):
             filter_params['search'] = search
 
         posts = posts.order_by('-created_date')
-        paginator = Paginator(posts, 2);
+        paginator = Paginator(posts, 2)
         page = 1
         if request.GET.get('page'):
             page = request.GET.get('page')
@@ -36,7 +38,6 @@ class ViewSet(viewsets.ModelViewSet):
         start_block = (current_block - 1) * page_range
         end_block = start_block + page_range
         p_range = paginator.page_range[start_block:end_block]
-        print(p_range)
 
         return render(request, 'post_list.html', {'post_list': posts,
                                                   'filter_params': filter_params,
@@ -102,6 +103,7 @@ def updatePost(request):
     if request.user != post_data.user_info.user:
         return redirect('/posts')
 
+    post_data = HantorismPost.objects.filter(id=post_id)
     post_data.update(
         title=request.POST['title'],
         body=request.POST['body']

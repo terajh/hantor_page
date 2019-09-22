@@ -89,7 +89,6 @@
                     {% if overflow_list %}
                     <ul>
                         {% for overflow_row in overflow_list %}
-                        <tr onClick="location.href='/overflow_view?overflow_id={{ overflow_row.id }}&current_page={{ current_page }}&search={{filter_params.search}}'">
                             <td class="text-center">
                                 {{ overflow_row.id }}
                             </td>
@@ -97,7 +96,7 @@
                                 {{ overflow_row.name }}
                             </td>
                             <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-                                {{ overflow_row.title }}                                 
+                                <a href="/overflow_view?overflow_id={{ overflow_row.id }}&{{ request.GET.urlencode }}"> {{ overflow_row.title }}</a>
                             </td>
                             <td style="overflow:hidden; white-space:nowrap;">
                                 {{ overflow_row.created_date }}
@@ -116,20 +115,17 @@
 
                 <div class="d-flex justify-content-between row mb-4">
                     <div>
-                        {% for page in total_page_list %}
-                        <a class="text-bold" href="/overflows?current_page={{ page }}">
-                            [
-                            {% ifequal page current_page %}
-                            <b>
-                                {% endifequal %}
-                                {{ page }}
-                                {% ifequal page current_page %}
-                            </b>
-                            {% endifequal %}
-                            ]
-                        </a>
-                        {% endfor %}
-                    </div>
+                    {% if post_list.has_previous %}
+                    <a href="?&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>
+                    {% endif %}
+
+                    {% for i in p_range %}
+                        <a href="?&search={{ filter_params.search }}&page={{ i }}" {%if post_list.number == i %} class="active" {% endif %}>{{ i }}</a>
+                    {% endfor %}
+                    {% if post_list.has_next %}
+                    <a href="?&search={{ filter_params.search }}&page={{ post_list.next_page_number }}">다음으로</a>
+                    {% endif %}
+                </div>
                     {% if user.is_active %}
                     <div>
                         <input type="button" class="btn border border-1" value="글쓰기"

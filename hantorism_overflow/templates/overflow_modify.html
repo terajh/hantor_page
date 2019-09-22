@@ -38,7 +38,7 @@
     <form name="modifyform" method="post" action="{% url 'update_overflow' %}">{% csrf_token %}
       <table>
         <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
-        <input type="hidden" name="current_page" value="{{ current_page }} ">
+        <input type="hidden" name="page" value="{{ page }} ">
         <input type="hidden" name="search" value="{{ search }} ">
 
         <tr>

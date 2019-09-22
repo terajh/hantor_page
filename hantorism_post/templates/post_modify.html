@@ -22,15 +22,6 @@
     }
     form.submit();
   }
-
-  function postlist() {
-    {#var s = "{{searchStr}}";#}
-    {##}
-    {#if (s == "None")#}
-    {#  location.href = '/posts?current_page={{current_page}}';#}
-    {#else#}
-    {#  location.href = '/posts?current_page={{current_page}}&search={{search}}';#}
-  }
 </script>
 
 <body class="pt-5 mt-3">
