@@ -36,19 +36,30 @@
         outline-style: none;
         /* prevents scroll bar flash */
     }
+
+    .bg-custom2{
+        background-color: rgb(230, 230, 230);
+    }
 </style>
 
 <body class="pt-5 mt-3">
     {% include 'header.html' %}
+    <div class="text-center h2 py-3 mt-4" OnClick="javascript:overflowlist()">
+        OVERFLOW
+        <!-- {{overflow_data.category}} -->
+    </div>
+    <div class=" text-center py-4 bg-custom2 rounded">
+        OVERFLOW 게시판은 Hantor 회원분들이 자유롭게 <br>질문 & 답변을 나누는 곳입니다.
+    </div>
+    <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
     <div class="container-fluid">
         <div class="col-12 col-md-10 mx-auto">
-            <input class="btn border" type="button" value="목록으로 되돌아가기" OnClick="javascript:overflowlist()">
-            <table class="table ">
+            <table class="table">
                 <tbody>
                     <tr>
-                        <th> {{ overflow_data.title }} </td>
+                        <th class="border-0 pt-0"> {{ overflow_data.title }} </td>
                     </tr>
-                    <tr class="text-right" style="font-size: small;">
+                    <tr class="text-right">
                         <td>조회수
                             {{ overflow_data.view_count }}
                             작성자
@@ -56,23 +67,28 @@
                     </tr>
                     <tr>
                         <td>
-                            <pre>{{ overflow_data.body }}</pre>
+                            <div class="wrap">
+                                <textarea class="w-100 border-0" readonly>{{ overflow_data.body }}</textarea>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div class="d-flex justify-content-end">
-                {% if user.is_active %}
-                {% if user.username == overflow_data.name %}
-                <input class="btn border" type="button" value="수정" OnClick="javascript:overflowmodify()">
-                {% endif %}
-                {% endif %}
+            <div class="d-flex justify-content-between pt-3 border-top">
+                <input class="btn border" type="button" value="목록" OnClick="javascript:overflowlist()">
+                <div>
+                    {% if user.is_active %}
+                    {% if user.username == overflow_data.name %}
+                    <input class="btn border" type="button" value="수정" OnClick="javascript:overflowmodify()">
+                    {% endif %}
+                    {% endif %}
 
-                {% if user.is_active %}
-                {% if user.username == overflow_data.name %}
-                <input class="btn border" type="button" value="삭제" OnClick="javascript:overflowdelete()">
-                {% endif %}
-                {% endif %}
+                    {% if user.is_active %}
+                    {% if user.username == overflow_data.name %}
+                    <input class="btn border" type="button" value="삭제" OnClick="javascript:overflowdelete()">
+                    {% endif %}
+                    {% endif %}
+                </div>
             </div>
             <table class="table mt-5">
                 <thead>
@@ -113,9 +129,12 @@
                             {% endif %}
                             {% endif %}
                             {% endif %}
+                            <td></td>
                             {% else %}
                             {% if answer.state %}
-                            <td>&#10026;</td>
+                            <td style="text-align: center">&#10026;</td>
+                            {% else %}
+                            <td></td>
                             {% endif %}
                             {% endif %}
                         </form>
