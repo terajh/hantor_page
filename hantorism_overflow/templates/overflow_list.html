@@ -9,34 +9,21 @@
         .btn {
             font-size: small !important;
         }
-
-        html {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-            min-height: 80%;
-        }
-
-        .wrap {
-            min-height: 100%;
-            position: relative;
-            padding-bottom: 19px;
-            /* footer height */
-        }
-
-        footer {
-            bottom: 0;
-            left: 0;
-            right: 0;
-            color: white;
-            background-color: #333333;
-        }
+        .bg-custom2{
+        background-color: rgb(230, 230, 230);
+    }
     </style>
 </head>
 
 <body class="pt-5 mt-3">
+        <div class="text-center h2 py-3 mt-4" OnClick="javascript:overflowlist()">
+                OVERFLOW
+                <!-- {{overflow_data.category}} -->
+            </div>
+            <div class=" text-center py-4 bg-custom2 rounded">
+                OVERFLOW 게시판은 Hantor 회원분들이 자유롭게 <br>질문 & 답변을 나누는 곳입니다.
+            </div>
+            <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
     {% include 'header.html' %}
     <div class="container-fluid">
         <div class="col-12 col-md-10 mx-auto">
