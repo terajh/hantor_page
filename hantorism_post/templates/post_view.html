@@ -88,9 +88,9 @@
                             <tr>
                                 <td>
                                     <input type="hidden" name="post_id" value="{{ post_id }}">
-                                    <input type="hidden" name="category" value="{{ category }}">
-                                    <input type="hidden" name="current_page" value="{{ current_page }}">
-                                    <input type="hidden" name="search" value="{{search}}">
+                                    <input type="hidden" name="category" value="{{ filter_params.category }}">
+                                    <input type="hidden" name="page" value="{{ filter_params.page }}">
+                                    <input type="hidden" name="search" value="{{filter_params.search}}">
                                     <input class="form-control" type="text" name="context">
                                 </td>
                                 <td>

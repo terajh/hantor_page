@@ -69,21 +69,19 @@ def doPost(request):
 
 def postView(request):
     pk=request.GET['post_id']
-    current_page = request.GET.get('current_page','1')
-    cur=int(current_page)
-    category=request.GET.get('category','')
-    searchStr=request.GET.get('search','')
+    filter_params = dict()
+    filter_params['category'] = request.GET.get('category')
+    filter_params['search'] = request.GET.get('search')
+    filter_params['page'] = request.GET.get('page')
 
     post_data=HantorismPost.objects.get(id=pk)
     HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count+1)
     post_data=HantorismPost.objects.get(id=pk)
     post_comment = HantorismPostComment.objects.filter(post_id=pk)
     return render(request,'post_view.html', {'post_id': request.GET['post_id'],
-                                             'current_page':cur,
-                                             'category':category,
-                                             'search':searchStr,
-                                             'post_data':post_data,
-                                             'post_comment':post_comment})
+                                             'filter_params': filter_params,
+                                             'post_data': post_data,
+                                             'post_comment': post_comment})
 
 
 def postModify(request):
@@ -120,13 +118,13 @@ def create_comment(request):
     comment_context = request.POST['context']
     post_id = request.POST['post_id']
     category = request.POST['category']
-    current_page = request.POST['current_page']
-    searchStr=request.POST['search']
+    page = request.POST['page']
+    search=request.POST['search']
     user_id = request.user.id
     user = HantorismUser.objects.filter(user_id=user_id).first()
     HantorismPostComment.objects.create(user_info_id=user.id,
                                         post_id=post_id,
                                         context=comment_context)
 
-    url = '/post_view/?post_id='+ str(post_id) +'&category='+category+'&current_page='+current_page+'&search='+searchStr
+    url = '/post_view/?post_id='+ str(post_id) +'&category=' + category + '&search=' + search + '&page=' + page
     return redirect(url)
