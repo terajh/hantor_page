@@ -8,12 +8,12 @@ as_view = views.ViewSet.as_view({
 
 urlpatterns = [
     path('overflows/', as_view, name='overflow_list'),
-    path('overflow_write/', views.overflowWrite,name='overflow_wrte'),
-    path('do_overflow/',views.doOverflow,name='do_overflow'),
-    path('overflow_view/',views.overflowView,name='overflow_view'),
-    path('overflow_modify/',views.overflowModify,name='overflow_modify'),
-    path('update_overflow/',views.updateOverflow,name='update_overflow'),
-    path('overflow_delete/',views.overflowDelete,name='overflow_delete'),
+    path('overflow_write/', views.overflow_write,name='overflow_wrte'),
+    path('do_overflow/',views.do_overflow,name='do_overflow'),
+    path('overflow_view/',views.overflow_view,name='overflow_view'),
+    path('overflow_modify/',views.overflow_modify,name='overflow_modify'),
+    path('update_overflow/',views.update_overflow,name='update_overflow'),
+    path('overflow_delete/',views.overflow_delete,name='overflow_delete'),
     path('create_answer/', views.create_answer, name='create_answer'),
-    path('overflow_select/',views.overflowSelect,name='overflow_select')
+    path('overflow_select/',views.overflow_select,name='overflow_select')
 ]

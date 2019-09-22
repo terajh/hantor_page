@@ -48,13 +48,13 @@ class ViewSet(viewsets.ModelViewSet):
         return redirect('/posts')
 
 
-def postWrite(request):
+def post_write(request):
     return render(request, 'post_write.html')
 
 
 @csrf_exempt
 @login_required
-def doPost(request):
+def do_post(request):
     p = HantorismPost(user_info_id=request.user.id,
                       name=request.user.username,
                       title=request.POST['title'],
@@ -66,7 +66,7 @@ def doPost(request):
     return redirect(url)
 
 
-def postView(request):
+def post_view(request):
     pk = request.GET['post_id']
     filter_params = dict()
     filter_params['category'] = request.GET.get('category')
@@ -85,7 +85,7 @@ def postView(request):
 
 
 @login_required()
-def postModify(request):
+def post_modify(request):
     post_id = request.GET['post_id']
     post_data = HantorismPost.objects.get(id=post_id)
     if request.user != post_data.user_info.user:
@@ -96,7 +96,7 @@ def postModify(request):
 
 @csrf_exempt
 @login_required
-def updatePost(request):
+def update_post(request):
     post_id = request.POST['post_id']
     post_data = HantorismPost.objects.get(id=post_id)
 
@@ -114,7 +114,7 @@ def updatePost(request):
 
 @csrf_exempt
 @login_required
-def postDelete(request):
+def post_delete(request):
     post_id = request.GET['post_id']
 
     post_data = HantorismPost.objects.get(id=post_id)

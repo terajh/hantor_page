@@ -45,13 +45,13 @@ class ViewSet(viewsets.ModelViewSet):
 
 
 @login_required
-def overflowWrite(request):
+def overflow_write(request):
     return render(request, 'overflow_write.html')
 
 
 @csrf_exempt
 @login_required
-def doOverflow(request):
+def do_overflow(request):
     p = HantorismOverflow(user_info_id=request.user.id,
                           name=request.user.username,
                           title=request.POST['title'],
@@ -65,7 +65,7 @@ def doOverflow(request):
     return redirect(url)
 
 
-def overflowView(request):
+def overflow_view(request):
     pk = request.GET['overflow_id']
     filter_params = dict()
     filter_params['search'] = request.GET.get('search')
@@ -80,7 +80,7 @@ def overflowView(request):
                                                   'overflow_answer': overflow_answer,
                                                   'filter_params': filter_params})
 
-def overflowModify(request):
+def overflow_modify(request):
     overflow_id = request.GET['overflow_id']
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
     if request.user != overflow_data.user_info.user:
@@ -91,7 +91,7 @@ def overflowModify(request):
 
 @csrf_exempt
 @login_required
-def updateOverflow(request):
+def update_overflow(request):
     overflow_id = request.POST['overflow_id']
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
 
@@ -107,7 +107,7 @@ def updateOverflow(request):
     return redirect(url)
 
 
-def overflowDelete(request):
+def overflow_delete(request):
     overflow_id = request.GET['overflow_id']
 
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
@@ -139,7 +139,7 @@ def create_answer(request):
 
 
 @login_required
-def overflowSelect(request):
+def overflow_select(request):
     answer_user_id = request.POST['answer_user_id']
     answer_id = request.POST['answer_id']
     overflow_id = request.POST['overflow_id']
