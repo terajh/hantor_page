@@ -1,11 +1,11 @@
 {% load staticfiles %}
 <style>
-    #navbarm{
+    #navbarm {
         transition-duration: 0.4s;
     }
 </style>
 
-<form method="POST" action="{%url 'sign_in'%}">{% csrf_token %}
+<form method="POST" action="{% url 'sign_in' %}">{% csrf_token %}
     <div class="modal fade" id="login" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -16,12 +16,12 @@
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <label data-error="wrong" data-success="right"
-                            for="defaultForm-email"><strong>ID</strong></label>
+                               for="defaultForm-email"><strong>ID</strong></label>
                         <input type="text" id="defaultForm-email" class="form-control validate" name="username">
                     </div>
                     <div class="md-form mb-4">
                         <label data-error="wrong" data-success="right"
-                            for="defaultForm-pass"><strong>PW</strong></label>
+                               for="defaultForm-pass"><strong>PW</strong></label>
                         <input type="password" id="defaultForm-pass" class="form-control validate " name="password">
                     </div>
                 </div>
@@ -35,12 +35,12 @@
 </form>
 
 <nav class="navbar navbar-light navbar-expand-md fixed-top border py-0"
-    style="background-color: rgba(255, 255, 255, 0.85)" id="navbarm">
+     style="background-color: rgba(255, 255, 255, 0.85)" id="navbarm">
     <a class="navbar-brand" href="/">
         <img src="{% static "images/logo2.png" %}" alt="logo" width="130px">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -61,24 +61,24 @@
             </li>
         </ul>
         {% if user.is_active %}
-        <a class="nav-link text-body pl-0" href="/my_page/">{{user.username}}</a>
-        <a class="nav-link text-body pl-0" href="/sign_out/">로그아웃</a>
+            <a class="nav-link text-body pl-0" href="/my_page/">{{ user.username }}</a>
+            <a class="nav-link text-body pl-0" href="/sign_out/">로그아웃</a>
         {% else %}
-        <a class="nav-link text-body pl-0" data-toggle="modal" data-target="#login">Sign In </a>
+            <a class="nav-link text-body pl-0" data-toggle="modal" data-target="#login">Sign In </a>
         {% endif %}
         </ul>
     </div>
 </nav>
 
 <script>
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
-        var currentScrollPos = window.pageYOffset;
-        if (prevScrollpos > currentScrollPos) {
-            document.getElementById("navbarm").style.top = "0";
-        } else {
-            document.getElementById("navbarm").style.top = "-63px";
-        }
-        prevScrollpos = currentScrollPos;
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("navbarm").style.top = "0";
+    } else {
+      document.getElementById("navbarm").style.top = "-63px";
     }
+    prevScrollpos = currentScrollPos;
+  }
 </script>

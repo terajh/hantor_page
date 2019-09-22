@@ -1,51 +1,61 @@
 <!doctype html>
 <html>
-<head>
-    <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
-    <script src="../dist/jquery.table2excel.js"></script>
-</head>
-{% if permission %}
-<body>
-<table id="desk_member">
-    <thead>
-    <tr>
-        <B><td>이름</td></B>
-        <B><td>학번</td></B>
-        <B><td>생년월일</td></B>
-        <B><td>전화번호</td></B>
-        <B><td>학과</td></B>
-    </tr>
-    </thead>
-    <tbody>
-    {% for desk_member in desk_members %}
-        <tr>
-            <td>{{ desk_member.name }}</td>
-            <td>{{ desk_member.student_number }}</td>
-            <td>{{ desk_member.birthday }}</td>
-            <td>{{ desk_member.phone_number }}</td>
-            <td>{{ desk_member.major }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-<form id="desk_list" action="/excel_list/" method="get">
-    <input type="submit" value="excel파일로 출력하기"></form>
-</form>
-<script>
-            $(function() {
+    <head>
+        <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
+        <script src="../dist/jquery.table2excel.js"></script>
+    </head>
+    {% if permission %}
+        <body>
+            <table id="desk_member">
+                <thead>
+                    <tr>
+                        <B>
+                            <td>이름</td>
+                        </B>
+                        <B>
+                            <td>학번</td>
+                        </B>
+                        <B>
+                            <td>생년월일</td>
+                        </B>
+                        <B>
+                            <td>전화번호</td>
+                        </B>
+                        <B>
+                            <td>학과</td>
+                        </B>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for desk_member in desk_members %}
+                        <tr>
+                            <td>{{ desk_member.name }}</td>
+                            <td>{{ desk_member.student_number }}</td>
+                            <td>{{ desk_member.birthday }}</td>
+                            <td>{{ desk_member.phone_number }}</td>
+                            <td>{{ desk_member.major }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <form id="desk_list" action="/excel_list/" method="get">
+                <input type="submit" value="excel파일로 출력하기"></form>
+            </form>
+            <script>
+              $(function () {
                 $("#table1").table2excel({
-                    name: "Excel table",
-                    filename: "excel table",
-                    fileext: ".xls",
-                    exclude_img: true,
-                    exclude_links: true,
-                    exclude_inputs: true
+                  name: "Excel table",
+                  filename: "excel table",
+                  fileext: ".xls",
+                  exclude_img: true,
+                  exclude_links: true,
+                  exclude_inputs: true
                 });
-            });
-        </script>
-</body>
-{% else %}
-    <body><B>관리자가 아닙니다<br></B></body>
-    <body><a href = '/'>홈으로</a></body>
-{% endif %}
+              });
+            </script>
+        </body>
+    {% else %}
+        <body><B>관리자가 아닙니다<br></B></body>
+        <body><a href='/'>홈으로</a></body>
+    {% endif %}
 </html>

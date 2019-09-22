@@ -1,155 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load staticfiles %}
+    {% load staticfiles %}
 
-<head>
-    {% include 'common_link.html' %}
-    <style>
-        td,
-        .btn {
-            font-size: small !important;
-        }
+    <head>
+        {% include 'common_link.html' %}
+        <style>
+            td,
+            .btn {
+                font-size: small !important;
+            }
 
-    </style>
-</head>
+        </style>
+    </head>
 
-<body class="pt-5 mt-3">
-    {% include 'header.html' %}
+    <body class="pt-5 mt-3">
+        {% include 'header.html' %}
 
-    <div class="container-fluid">
-        <div class="wrap col-12 col-md-10 mx-auto">
-            <div id="fon" class="m-0">
-                <form class="form-row justify-content-between">
-                    <p>
+        <div class="container-fluid">
+            <div class="wrap col-12 col-md-10 mx-auto">
+                <div id="fon" class="m-0">
+                    <form class="form-row justify-content-between">
+                        <p>
                         <div class="col-3">총 게시물수: {{ totalCnt }}</div>
 
                         {% if filter_params %}
-                        {% if filter_params.status %}
-                        {% endif %}
-                        {% for kk, vv in filter_params.items %}
-                        {% if kk == 'search' %}
-                        {% else %}
-                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
-                        {% endif %}
-                        {% endfor %}
+                            {% if filter_params.status %}
+                            {% endif %}
+                            {% for kk, vv in filter_params.items %}
+                                {% if kk == 'search' %}
+                                {% else %}
+                                    <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <div class="col-8 row justify-content-end">
-                            <input type="text" style="font-size: small;" class="form-control col-8 h-100" name="search" value="{{search}}">
+                            <input type="text" style="font-size: small;" class="form-control col-8 h-100" name="search"
+                                   value="{{ search }}">
                             <input type="submit" class="btn border border-1" value="글 찾기">
                         </div>
-                    </p>
-                </form>
-            </div>
-
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <!-- <a   href="#qwe">QWE</a> -->
-                    <form class="nav-link" data-toggle="tab">
-                        {% if filter_params %}
-                        {% for kk, vv in filter_params.items %}
-                        {% if kk == 'category' %}
-                        {% else %}
-                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-                        <input type="hidden" name="category" value="notice">
-                        <input class="nohover btn" type="submit" onclick="this.blur(); submit();" value="공지사항">
+                        </p>
                     </form>
-                </li>
-                <li class="nav-item">
-                    <!-- <a  data-toggle="tab" >ASD</a> -->
-                    <form class="nav-link" data-toggle="tab">
-                        {% if filter_params %}
-                        {% for kk, vv in filter_params.items %}
-                        {% if kk == 'category' %}
-                        {% else %}
-                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                </div>
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <!-- <a   href="#qwe">QWE</a> -->
+                        <form class="nav-link" data-toggle="tab">
+                            {% if filter_params %}
+                                {% for kk, vv in filter_params.items %}
+                                    {% if kk == 'category' %}
+                                    {% else %}
+                                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <input type="hidden" name="category" value="notice">
+                            <input class="nohover btn" type="submit" onclick="this.blur(); submit();" value="공지사항">
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <!-- <a  data-toggle="tab" >ASD</a> -->
+                        <form class="nav-link" data-toggle="tab">
+                            {% if filter_params %}
+                                {% for kk, vv in filter_params.items %}
+                                    {% if kk == 'category' %}
+                                    {% else %}
+                                        <input type="hidden" name="{{ kk }}" value="{{ vv }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <input type="hidden" name="category" value="free">
+                            <input class="nohover btn" type="submit" onclick="this.blur(); submit();" value="자유게시판">
+                        </form>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="qwe">
+                        <table class="table " cellspacing=1>
+                            <thead>
+                                <tr>
+                                    <td class=" text-center" scope="col">
+                                        번호
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        이름
+                                    </td>
+                                    <td class=" text-center" scope="col">
+                                        제목
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        등록일
+                                    </td>
+                                    <td class="text-center" scope="col">
+                                        조회수
+                                    </td>
+                                </tr>
+                            </thead>
+
+                            {% if post_list %}
+                                <ul>
+                                    {% for post_row in post_list %}
+                                        <tr>
+                                            <td class="text-center">
+                                                {{ post_row.id }}
+                                            </td>
+                                            <td class="text-center ">
+                                                {{ post_row.name }}
+                                            </td>
+                                            <td class="text-center w-25 ">
+                                                <a href="/post_view?post_id={{ post_row.id }}&{{ request.GET.urlencode }}"> {{ post_row.title }}</a>
+                                            </td>
+                                            <td class="text-center w-25">
+                                                {{ post_row.created_date }}
+                                            </td>
+                                            <td class="text-center ">
+                                                {{ post_row.view_count }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No Data.</p>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-between row mb-4">
+                    <div>
+                        {% if post_list.has_previous %}
+                            <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>
                         {% endif %}
+
+                        {% for i in p_range %}
+                            <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ i }}"
+                                    {% if post_list.number == i %} class="active" {% endif %}>{{ i }}</a>
                         {% endfor %}
+                        {% if post_list.has_next %}
+                            <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.next_page_number }}">다음으로</a>
                         {% endif %}
-                        <input type="hidden" name="category" value="free">
-                        <input class="nohover btn" type="submit" onclick="this.blur(); submit();" value="자유게시판">
-                    </form>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="qwe">
-                    <table class="table " cellspacing=1>
-                        <thead>
-                            <tr>
-                                <td class=" text-center" scope="col">
-                                    번호
-                                </td>
-                                <td class="text-center" scope="col">
-                                    이름
-                                </td>
-                                <td class=" text-center" scope="col">
-                                    제목
-                                </td>
-                                <td class="text-center" scope="col">
-                                    등록일
-                                </td>
-                                <td class="text-center" scope="col">
-                                    조회수
-                                </td>
-                            </tr>
-                        </thead>
-
-                        {% if post_list %}
-                        <ul>
-                            {% for post_row in post_list %}
-                            <tr>
-                                <td class="text-center">
-                                    {{ post_row.id }}
-                                </td>
-                                <td class="text-center ">
-                                    {{ post_row.name }}
-                                </td>
-                                <td class="text-center w-25 ">
-                                    <a href="/post_view?post_id={{ post_row.id }}&{{ request.GET.urlencode }}"> {{ post_row.title }}</a>
-                                </td>
-                                <td class="text-center w-25">
-                                    {{ post_row.created_date }}
-                                </td>
-                                <td class="text-center ">
-                                    {{ post_row.view_count }}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                        <p>No Data.</p>
-                        {% endif %}
-                    </table>
-                </div>
-            </div>
-
-
-            <div class="d-flex justify-content-between row mb-4">
-                <div>
-                    {% if post_list.has_previous %}
-                    <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>
-                    {% endif %}
-
-                    {% for i in p_range %}
-                        <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ i }}" {%if post_list.number == i %} class="active" {% endif %}>{{ i }}</a>
-                    {% endfor %}
-                    {% if post_list.has_next %}
-                    <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.next_page_number }}">다음으로</a>
+                    </div>
+                    {% if user.is_active %}
+                        <div>
+                            <input type="button" class="btn border border-1" value="글쓰기"
+                                   OnClick="window.location='/post_write'">
+                        </div>
                     {% endif %}
                 </div>
-                {% if user.is_active %}
-                <div>
-                    <input type="button" class="btn border border-1" value="글쓰기"
-                        OnClick="window.location='/post_write'">
-                </div>
-                {% endif %}
             </div>
         </div>
-    </div>
-    {% include 'footer.html' %}
-</body>
+        {% include 'footer.html' %}
+    </body>
 
 </html>

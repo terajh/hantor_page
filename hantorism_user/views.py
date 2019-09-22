@@ -1,11 +1,12 @@
-from common_hantorism.models import HantorismUser
-from rest_framework import viewsets
-from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from rest_framework import viewsets
+
+from common_hantorism.models import HantorismUser
 
 
 class SignUpViewSet(viewsets.ModelViewSet):
@@ -47,11 +48,13 @@ class SignInViewSet(viewsets.ModelViewSet):
                 return redirect('list')
             return render(request, 'FailLogin.html', {})
 
+
 def userPage(request):
-    user=HantorismUser.objects.get(user__username=request.GET['userID'])
-    user_info=HantorismUser.objects.get(user_id=user.id)
-    return render(request,"user_page.html",{'user_info':user_info,
-                                            'userID':request.GET['userID']})
+    user = HantorismUser.objects.get(user__username=request.GET['userID'])
+    user_info = HantorismUser.objects.get(user_id=user.id)
+    return render(request, "user_page.html", {'user_info': user_info,
+                                              'userID': request.GET['userID']})
+
 
 @login_required
 def signOut(request):
@@ -63,21 +66,22 @@ def signOut(request):
 def myPage(request):
     user_detail = HantorismUser.objects.get(user_id=request.user.id)
     context = {'user_detail': user_detail,
-               'change':2}
+               'change': 2}
     return render(request, 'my_page.html', context)
+
 
 @login_required
 def changePW(request):
-    user=request.user
-    password_form=PasswordChangeForm(user,request.POST)
+    user = request.user
+    password_form = PasswordChangeForm(user, request.POST)
     user_detail = HantorismUser.objects.get(user_id=request.user.id)
     context = {'user_detail': user_detail,
-               'change':2}
+               'change': 2}
     if password_form.is_valid():
         password_form.save()
-        update_session_auth_hash(request,password_form.user)
-        context['change']=1
-        return render(request,'my_page.html',context)
+        update_session_auth_hash(request, password_form.user)
+        context['change'] = 1
+        return render(request, 'my_page.html', context)
     else:
-        context['change']=0
-        return render(request,'my_page.html',context)
+        context['change'] = 0
+        return render(request, 'my_page.html', context)

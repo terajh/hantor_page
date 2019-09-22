@@ -1,56 +1,59 @@
 <!doctype html>
 <html>
-{% load staticfiles %}
+    {% load staticfiles %}
 
-<head>
-    {% include 'common_link.html' %}
-    <style>
-        .bg-image-full {
-            background: no-repeat center center scroll;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            -o-background-size: cover;
-        }
-    </style>
-</head>
+    <head>
+        {% include 'common_link.html' %}
+        <style>
+            .bg-image-full {
+                background: no-repeat center center scroll;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;
+            }
+        </style>
+    </head>
 
-<body>
-    <!-- Navbar -->
-    {% include 'header.html' %}
+    <body>
+        <!-- Navbar -->
+        {% include 'header.html' %}
 
-    <!-- carousel -->
-    <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
-        <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-            <li data-target="#demo" data-slide-to="3"></li>
-        </ul>
-        <div class="carousel-inner">
-            <div class="carousel-item py-5 bg-image-full active "
-                style="background-image: url(/static/images/carousel1.jpg);">
-                <div style="height: 470px;"></div>
-            </div>
-            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel2.jpg);">
-                <div style="height: 470px;"></div>
-            </div>
-            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel3.jpg);">
-                <div style="height: 470px;"></div>
-            </div>
-            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel4.jpg);">
-                <div style="height: 470px;"></div>
-            </div>
-            <div class="carousel-caption mb-4 ">
-                <div style="font-size: 3vw">
-                    Dream Passion Challenge
+        <!-- carousel -->
+        <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+            </ul>
+            <div class="carousel-inner">
+                <div class="carousel-item py-5 bg-image-full active "
+                     style="background-image: url(/static/images/carousel1.jpg);">
+                    <div style="height: 470px;"></div>
+                </div>
+                <div class="carousel-item py-5 bg-image-full "
+                     style="background-image: url(/static/images/carousel2.jpg);">
+                    <div style="height: 470px;"></div>
+                </div>
+                <div class="carousel-item py-5 bg-image-full "
+                     style="background-image: url(/static/images/carousel3.jpg);">
+                    <div style="height: 470px;"></div>
+                </div>
+                <div class="carousel-item py-5 bg-image-full "
+                     style="background-image: url(/static/images/carousel4.jpg);">
+                    <div style="height: 470px;"></div>
+                </div>
+                <div class="carousel-caption mb-4 ">
+                    <div style="font-size: 3vw">
+                        Dream Passion Challenge
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- main content -->
-    <div class="container-fluid">
-        <p class="col-12 col-md-10 mx-auto">
+        <!-- main content -->
+        <div class="container-fluid">
+            <p class="col-12 col-md-10 mx-auto">
             <div class="h1 text-custom2"></div>
             <div class="h4">
             </div>
@@ -64,11 +67,11 @@
             <p> 스터디-공모전 및 해커톤-IoT를 묶어 1학년부터 4학년까지 모두 참여하는 학술 소학회입니다.
                 코딩 지식이 전무하거나 부족한 학우들을 대상으로 스터디를 진행하고, 실력을 향상해
                 각종 교내 외 공모전과 해커톤에 참가합니다.</p>
-        </p>
+            </p>
 
-    </div>
-    <!-- footer -->
-    {% include 'footer.html' %}
-</body>
+        </div>
+        <!-- footer -->
+        {% include 'footer.html' %}
+    </body>
 
 </html>
