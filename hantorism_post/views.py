@@ -11,7 +11,6 @@ rowsPerPage = 10
 
 class ViewSet(viewsets.ModelViewSet):
     def post_list(self, request):
-        posts = HantorismPost.objects
         posts = HantorismPost.objects.all()
 
         filter_params = dict()
