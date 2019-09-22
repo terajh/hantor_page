@@ -1,7 +1,6 @@
 from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
 from rest_framework import viewsets
-from django.shortcuts import render, render_to_response,redirect
-from django.utils import timezone
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -12,11 +11,11 @@ rowsPerPage = 10
 
 class ViewSet(viewsets.ModelViewSet):
     def post_list(self, request):
-        current_page = request.GET.get('current_page','1')
-        cur=int(current_page)
+        current_page = request.GET.get('current_page', '1')
+        cur = int(current_page)
         posts = HantorismPost.objects
 
-        filter_params=dict()
+        filter_params = dict()
         if request.GET.get('category'):
             category = request.GET.get('category')
             posts = posts.filter(category=category)
@@ -27,7 +26,7 @@ class ViewSet(viewsets.ModelViewSet):
             posts = posts.filter(title__contains=search).order_by('-created_date')
             filter_params['search'] = search
 
-        posts = posts.order_by('-created_date')[(cur-1)*10:cur*10]
+        posts = posts.order_by('-created_date')[(cur - 1) * 10:cur * 10]
         paginator = Paginator(posts, 2);
         page = 1
         if request.GET.get('page'):
@@ -35,8 +34,8 @@ class ViewSet(viewsets.ModelViewSet):
         posts = paginator.get_page(page)
 
         page_range = 5
-        current_block = math.ceil(int(page)/page_range)
-        start_block = (current_block-1) * page_range
+        current_block = math.ceil(int(page) / page_range)
+        start_block = (current_block - 1) * page_range
         end_block = start_block + page_range
         p_range = paginator.page_range[start_block:end_block]
         print(p_range)
@@ -47,7 +46,7 @@ class ViewSet(viewsets.ModelViewSet):
                                                   })
 
     def create(self, request):
-       redirect('/posts')
+        return redirect('/posts')
 
 
 def postWrite(request):
@@ -58,57 +57,73 @@ def postWrite(request):
 @login_required
 def doPost(request):
     p = HantorismPost(user_info_id=request.user.id,
-                    name=request.user.username,
-                    title=request.POST['title'],
-                    body=request.POST['body'],
-                    category=request.POST['category'])
+                      name=request.user.username,
+                      title=request.POST['title'],
+                      body=request.POST['body'],
+                      category=request.POST['category'])
     p.save()
 
     url = '/post_view?post_id=' + str(p.id)
     return redirect(url)
 
+
 def postView(request):
-    pk=request.GET['post_id']
+    pk = request.GET['post_id']
     filter_params = dict()
     filter_params['category'] = request.GET.get('category')
     filter_params['search'] = request.GET.get('search')
     filter_params['page'] = request.GET.get('page')
 
-    post_data=HantorismPost.objects.get(id=pk)
-    HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count+1)
-    post_data=HantorismPost.objects.get(id=pk)
+    post_data = HantorismPost.objects.get(id=pk)
+    HantorismPost.objects.filter(id=pk).update(view_count=post_data.view_count + 1)
+    post_data = HantorismPost.objects.get(id=pk)
     post_comment = HantorismPostComment.objects.filter(post_id=pk)
-    return render(request,'post_view.html', {'post_id': request.GET['post_id'],
-                                             'filter_params': filter_params,
-                                             'post_data': post_data,
-                                             'post_comment': post_comment})
+    return render(request, 'post_view.html', {'post_id': request.GET['post_id'],
+                                              'filter_params': filter_params,
+                                              'post_data': post_data,
+
+                                              'post_comment': post_comment})
 
 
+@login_required()
 def postModify(request):
     post_id = request.GET['post_id']
     post_data = HantorismPost.objects.get(id=post_id)
-    return render(request,'post_modify.html',{'post_id':post_id,
-                                              'post_data':post_data})
+    if request.user != post_data.user_info.user:
+        return redirect('/posts')
+    return render(request, 'post_modify.html', {'post_id': post_id,
+                                                'post_data': post_data})
+
 
 @csrf_exempt
 @login_required
 def updatePost(request):
-    post_id=request.POST['post_id']
+    post_id = request.POST['post_id']
+    post_data = HantorismPost.objects.get(id=post_id)
 
-    HantorismPost.objects.filter(id=post_id).update(
+    if request.user != post_data.user_info.user:
+        return redirect('/posts')
+
+    post_data.update(
         title=request.POST['title'],
         body=request.POST['body']
     )
-    url='/post_view/?post_id='+str(post_id)
+    url = '/post_view/?post_id=' + str(post_id)
     return redirect(url)
 
+
+@csrf_exempt
+@login_required
 def postDelete(request):
-    post_id=request.GET['post_id']
+    post_id = request.GET['post_id']
 
-    d=HantorismPost.objects.get(id=post_id)
-    d.delete()
+    post_data = HantorismPost.objects.get(id=post_id)
+    if request.user != post_data.user_info.user:
+        return redirect('/posts')
 
-    url='/posts/'
+    post_data.delete()
+
+    url = '/posts/'
     return redirect(url)
 
 
@@ -119,12 +134,12 @@ def create_comment(request):
     post_id = request.POST['post_id']
     category = request.POST['category']
     page = request.POST['page']
-    search=request.POST['search']
+    search = request.POST['search']
     user_id = request.user.id
     user = HantorismUser.objects.filter(user_id=user_id).first()
     HantorismPostComment.objects.create(user_info_id=user.id,
                                         post_id=post_id,
                                         context=comment_context)
 
-    url = '/post_view/?post_id='+ str(post_id) +'&category=' + category + '&search=' + search + '&page=' + page
+    url = '/post_view/?post_id=' + str(post_id) + '&category=' + category + '&search=' + search + '&page=' + page
     return redirect(url)
