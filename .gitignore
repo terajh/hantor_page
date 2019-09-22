@@ -6,4 +6,4 @@ db.sqlite3
 *_initial.py
 .vscode
 */migrations/*
-hantorism_home/migrations/__pycache__/__init__.cpython-37.pyc
+./hantorism_home/migrations/__pycache__/__init__.cpython-37.pyc

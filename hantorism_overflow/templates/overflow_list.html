@@ -65,60 +65,53 @@
                     </form>
                 </div>
 
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="qwe">
-                        <table class="table " cellspacing=1>
-                            <thead>
-                                <tr>
-                                    <td class=" text-center" scope="col">
-                                        번호
-                                    </td>
-                                    <td class="text-center" scope="col">
-                                        이름
-                                    </td>
-                                    <td class=" text-center" scope="col">
-                                        제목
-                                    </td>
-                                    <td class="text-center" scope="col">
-                                        등록일
-                                    </td>
-                                    <td class="text-center" scope="col">
-                                        조회수
-                                    </td>
-                                </tr>
-                            </thead>
+                <table class="table table-sm table-hover" style="table-layout: fixed;" cellspacing=1>
+                    <thead>
+                        <tr>
+                            <td class=" text-center" scope="col" style="width:7%;">
+                                번호
+                            </td>
+                            <td class="text-center" scope="col" style="width: 10%;">
+                                이름
+                            </td>
+                            <td class=" text-center" scope="col"style="width: 40%;">
+                                제목
+                            </td>
+                            <td class="text-center" scope="col"style="width: 11%;">
+                                등록일
+                            </td>
+                            <td class="text-center" scope="col"style="width: 10%;">
+                                조회수
+                            </td>
+                        </tr>
+                    </thead>
 
-                            {% if overflow_list %}
-                            <ul>
-                                {% for overflow_row in overflow_list %}
-                                <tr>
-                                    <td class="text-center">
-                                        {{ overflow_row.id }}
-                                    </td>
-                                    <td class="text-center ">
-                                        {{ overflow_row.name }}
-                                    </td>
-                                    <td class="text-center w-25 ">
-
-                                        <a href="/overflow_view?overflow_id={{ overflow_row.id }}&current_page={{ current_page }}&search={{filter_params.search}}"
-                                            title="{{ overflow_row.title }}"> {{ overflow_row.title }}
-                                            </p>
-                                    </td>
-                                    <td class="text-center w-25">
-                                        {{ overflow_row.created_date }}
-                                    </td>
-                                    <td class="text-center ">
-                                        {{ overflow_row.view_count }}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <p>No Data.</p>
-                            {% endif %}
-                        </table>
-                    </div>
-                </div>
+                    {% if overflow_list %}
+                    <ul>
+                        {% for overflow_row in overflow_list %}
+                        <tr onClick="location.href='/overflow_view?overflow_id={{ overflow_row.id }}&current_page={{ current_page }}&search={{filter_params.search}}'">
+                            <td class="text-center">
+                                {{ overflow_row.id }}
+                            </td>
+                            <td class="text-center ">
+                                {{ overflow_row.name }}
+                            </td>
+                            <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                                {{ overflow_row.title }}                                 
+                            </td>
+                            <td style="overflow:hidden; white-space:nowrap;">
+                                {{ overflow_row.created_date }}
+                            </td>
+                            <td class="text-center ">
+                                {{ overflow_row.view_count }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>No Data.</p>
+                    {% endif %}
+                </table>
 
 
                 <div class="d-flex justify-content-between row mb-4">
