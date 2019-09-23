@@ -1,75 +1,251 @@
 <!doctype html>
 <html>
-    {% load staticfiles %}
+{% load staticfiles %}
 
-    <head>
-        {% include 'common_link.html' %}
-        <style>
-            .bg-image-full {
-                background: no-repeat center center scroll;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                background-size: cover;
-                -o-background-size: cover;
+<head>
+    {% include 'common_link.html' %}
+    <style>
+        .bg-image-full {
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+        .main-title {
+            color: #2d2d2d;
+            text-align: center;
+            text-transform: capitalize;
+            padding: 0.7em 0;
+        }
+
+        .contai {
+            padding: 1em 0;
+            width: 50%;
+        }
+
+        @media screen and (max-width: 640px) {
+            .contai {
+                display: block;
+                width: 100%;
             }
-        </style>
-    </head>
+        }
 
-    <body>
-        <!-- Navbar -->
-        {% include 'header.html' %}
+        @media screen and (min-width: 900px) {
+            .contai {
+                width: 33.33333%;
+            }
+        }
 
-        <!-- carousel -->
-        <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
-            <ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-                <li data-target="#demo" data-slide-to="3"></li>
-            </ul>
-            <div class="carousel-inner">
-                <div class="carousel-item py-5 bg-image-full active "
-                     style="background-image: url(/static/images/carousel1.jpg);">
-                    <div style="height: 470px;"></div>
-                </div>
-                <div class="carousel-item py-5 bg-image-full "
-                     style="background-image: url(/static/images/carousel2.jpg);">
-                    <div style="height: 470px;"></div>
-                </div>
-                <div class="carousel-item py-5 bg-image-full "
-                     style="background-image: url(/static/images/carousel3.jpg);">
-                    <div style="height: 470px;"></div>
-                </div>
-                <div class="carousel-item py-5 bg-image-full "
-                     style="background-image: url(/static/images/carousel4.jpg);">
-                    <div style="height: 470px;"></div>
-                </div>
-                <div class="carousel-caption mb-4 ">
-                    <div style="font-size: 3vw">
-                        Dream Passion Challenge
-                    </div>
+        .contai .title {
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .content .content-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            height: 99%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            -webkit-transition: all 0.4s ease-in-out 0s;
+            -moz-transition: all 0.4s ease-in-out 0s;
+            transition: all 0.4s ease-in-out 0s;
+        }
+
+        .content:hover .content-overlay {
+            opacity: 1;
+        }
+
+        .content-image {
+            width: 100%;
+        }
+
+        .content-details {
+            position: absolute;
+            text-align: center;
+            padding-left: 1em;
+            padding-right: 1em;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-transition: all 0.3s ease-in-out 0s;
+            -moz-transition: all 0.3s ease-in-out 0s;
+            transition: all 0.3s ease-in-out 0s;
+        }
+
+        .content:hover .content-details {
+            top: 50%;
+            left: 50%;
+            opacity: 1;
+        }
+
+        .content-details h2 {
+            color: #fff;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5em;
+            text-transform: uppercase;
+        }
+
+        .content-details p {
+            color: #fff;
+        }
+
+        .fadeIn-bottom {
+            top: 80%;
+        }
+
+        .fadeIn-top {
+            top: 20%;
+        }
+
+        .fadeIn-left {
+            left: 20%;
+        }
+
+        .fadeIn-right {
+            left: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    {% include 'header.html' %}
+
+    <!-- carousel -->
+    <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+            <li data-target="#demo" data-slide-to="3"></li>
+        </ul>
+        <div class="carousel-inner">
+            <div class="carousel-item py-5 bg-image-full active "
+                style="background-image: url(/static/images/carousel1.jpg);">
+                <div style="height: 470px;"></div>
+            </div>
+            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel2.jpg);">
+                <div style="height: 470px;"></div>
+            </div>
+            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel3.jpg);">
+                <div style="height: 470px;"></div>
+            </div>
+            <div class="carousel-item py-5 bg-image-full " style="background-image: url(/static/images/carousel4.jpg);">
+                <div style="height: 470px;"></div>
+            </div>
+            <div class="carousel-caption mb-4 ">
+                <div style="font-size: 4vw;" class="fon text-custom2">
+                    Dream Passion Challenge
                 </div>
             </div>
         </div>
-        <!-- main content -->
-        <div class="container-fluid">
-            <p class="col-12 col-md-10 mx-auto">
-                <h1 class="text-custom2 fon text-center">한터 [한-터:] </h1>
-                <h2 class="fon text-center"> '누구나 쓸 수 있도록 열려 있는 넓은 터'</h2>
-                <p class="py-2"></p>
-                <p class="lead fon">학교를 다니는 4년동안, 처음 심은 씨앗이 열매를 맺을 수 있도록 위에서 끌고 아래서 쫓아가는
-                    소프트웨어학과의 <span class="fon text-custom2" style="text-decoration: underline;">대표적인 학술 소학회</span>로 자리매김하였습니다.
-                </p>
-                <p> 스터디-공모전 및 해커톤-IoT를 묶어 1학년부터 4학년까지 모두 참여하는 학술 소학회입니다.
-                    코딩 지식이 전무하거나 부족한 학우들을 대상으로 스터디를 진행하고, 실력을 향상해
-                    각종 교내 외 공모전과 해커톤에 참가합니다.
-                </p>
-               
+    </div>
+    <!-- main content -->
+    <div class="container-fluid">
+        <p class="col-12 col-md-10 mx-auto">
+            <h1 class="text-custom2 fon text-center">한터 [한-터:] </h1>
+            <h2 class="fon text-center"> '누구나 쓸 수 있도록 열려 있는 넓은 터'</h2>
+            <p class="py-2"></p>
+            <p class="lead fon text-center">학교를 다니는 4년동안, 처음 심은 씨앗이 열매를 맺을 수 있도록 <br> 위에서 끌고 아래서 쫓아가는
+                소프트웨어학과의 <br> <span class="fon text-custom2" style="text-decoration: underline;">대표적인 학술 소학회</span>로
+                자리매김하였습니다.
             </p>
-        
+
+        </p>
+    </div>
+    <hr class="mt-5" style="border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
+    <h1 class="text-custom2 fon text-center mt-5">한터 주요행사 </h1>
+    <h2 class="fon text-center"> '너랑 나, 우리 같이, 모두 함께,'</h2>
+    <p class="lead fon text-center">본 학과 <span class="fon text-custom2" style="text-decoration: underline;">최대 규모</span>이자, 2019년 기준 31년의 최고 역사를 자랑하는 <br> 학술 소학회 HANTOR는 매년 활동 재학생
+         학우 수 약 150명을 자랑하는 <br> 명실상부한 소프트웨어학과의 <span class="fon text-custom2" style="text-decoration: underline;">가장 큰 소학회</span>입니다.
+    </p>
+    <div class="row fon mt-5 border bg-image-full" style="background-image: url(/static/images/background.jpg); ">
+        <div class="contai ">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel4.jpg" %}">
+                <div class="content-details fadeIn-right">
+                    <h2>한터 가입신청</h2>
+                    <p class="h3">- 너와, 만남</p>
+                </div>
+            </div>
         </div>
-        <!-- footer -->
-        {% include 'footer.html' %}
-    </body>
+        <div class="contai">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel2.jpg" %}">
+                <div class="content-details fadeIn-top">
+                    <h2>벚꽃 사진전</h2>
+                    <p class="h3">- 너와, 기억</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="contai">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel3.jpg" %}">
+                <div class="content-details fadeIn-left">
+                    <h2>아주인의 날</h2>
+                    <p class="h3">- 너와, 행사</p>
+                </div>
+            </div>
+        </div>
+        <div class="contai">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel1.jpg" %}">
+                <div class="content-details fadeIn-bottom">
+                    <h2 class="content-title">스터디</h2>
+                    <p class="h3">- 너와, 발전</p>
+                </div>
+            </div>
+        </div>
+        <div class="contai">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel6.jpg" %}">
+                <div class="content-details fadeIn-right">
+                    <h2>봄 MT</h2>
+                    <p class="h3">- 너와, 추억</p>
+                </div>
+            </div>
+        </div>
+        <div class="contai">
+            <div class="content">
+                <div class="content-overlay"></div>
+                <img class="content-image rounded" src="{% static "images/carousel5.jpg" %}">
+                <div class="content-details fadeIn-left">
+                    <h2>OB & YB</h2>
+                    <p class="h3">- 너와, 경험</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- footer -->
+    {% include 'footer.html' %}
+</body>
 
 </html>
