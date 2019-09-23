@@ -1,180 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>SIGN-UP</title>
-        {% load staticfiles %}
-        {% include 'common_link.html' %}
-            <script
-  src="http://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-        <script>
+<head>
+    <meta charset="UTF-8">
+    <title>SIGN-UP</title>
+    {% load staticfiles %}
+    {% include 'common_link.html' %}
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script>
         function chk_value(form) {
-    var txt = "";
-    for (var i = 1; i <= 7; i++) {
-        if(form[i].name == 'overlapbtn') // 중복확인버튼
-            continue;
-        if (form[i].value == "") {
-            if(form[i].name == 'username') {
-                alert("ID칸이 비었습니다.");
+            var txt = "";
+            for (var i = 1; i <= 7; i++) {
+                if (form[i].name == 'overlapbtn') // 중복확인버튼
+                    continue;
+                if (form[i].value == "") {
+                    if (form[i].name == 'username') {
+                        alert("ID칸이 비었습니다.");
+                    }
+                    else {
+                        alert(form[i].name + "칸이 비었습니다.");
+                    }
+                    return false;
+                }
+                txt += form[i].name + " : " + form[i].value + "\n";
             }
-            else {
-                alert(form[i].name + "칸이 비었습니다.");
+
+            let reg_alpa_Exp = /[A-Za-z]/;
+            let reg_num_Exp = /[0-9]/;
+            let pw1 = form.password.value;
+            let pw2 = form.password.value;
+            if (pw1.length < 8 || !reg_alpa_Exp.test(pw1) || !reg_num_Exp.test(pw1)) {
+                alert("비밀번호는 8자리 이상, 영문자, 숫자를 섞어 주세요.");
+                return false;
             }
-            return false;
+            if (pw1 != pw2) {
+                alert("비밀번호를 확인하세요");
+                return false;
+            }
+            if (form.chkOk.checked == false) {
+                alert("개인정보 취급동의");
+                return false;
+            }
+            if ($('#username_input').attr("check_result") == "fail") {
+                alert("아이디 중복체크를 해주시기 바랍니다.");
+                $('#username_input').focus();
+                return false;
+            }
         }
-        txt += form[i].name + " : " + form[i].value + "\n";
-    }
 
-    let reg_alpa_Exp=/[A-Za-z]/;
-    let reg_num_Exp=/[0-9]/;
-    let pw1=form.password.value;
-    let pw2=form.password.value;
-    if(pw1.length < 8 || !reg_alpa_Exp.test(pw1) || !reg_num_Exp.test(pw1)){
-        alert("비밀번호는 8자리 이상, 영문자, 숫자를 섞어 주세요.");
-        return false;
-    }
-    if (pw1 != pw2) {
-        alert("비밀번호를 확인하세요");
-        return false;
-    }
-    if(form.chkOk.checked==false)
-    {
-        alert("개인정보 취급동의");
-        return false;
-    }
-    if ($('#username_input').attr("check_result") == "fail"){
-    alert("아이디 중복체크를 해주시기 바랍니다.");
-    $('#username_input').focus();
-    return false;
-  }
-}
+        function id_overlap_check() {
 
-function id_overlap_check() {
+            $('#username_input').change(function () {
+                $('#id_overlap_button').show();
+                $('#username_input').attr("check_result", "fail");
+            })
 
-    $('#username_input').change(function () {
-      $('#id_overlap_button').show();
-      $('#username_input').attr("check_result", "fail");
-    })
+            let id_overlap_input = $('#username_input').val();
+            if (id_overlap_input == '') {
+                alert('이메일을 입력해주세요.');
+                return;
+            }
 
-    let id_overlap_input = $('#username_input').val();
-    if (id_overlap_input == '') {
-        alert('이메일을 입력해주세요.');
-        return;
-    }
-
-    $.ajax({
-      url: "{% url 'id_overlap_check' %}",
-      data: {
-        'username': id_overlap_input
-      },
-      datatype: 'json',
-      success: function (data) {
-        console.log(data['overlap']);
-        if (data['overlap'] == "fail") {
-          alert("이미 존재하는 아이디 입니다.");
-          $('#username_input').focus();
-          return;
-        } else {
-          alert("사용가능한 아이디 입니다.");
-          $('#username_input').attr("check_result", "success");
-          $('#id_overlap_button').hide();
-          return;
+            $.ajax({
+                url: "{% url 'id_overlap_check' %}",
+                data: {
+                    'username': id_overlap_input
+                },
+                datatype: 'json',
+                success: function (data) {
+                    console.log(data['overlap']);
+                    if (data['overlap'] == "fail") {
+                        alert("이미 존재하는 아이디 입니다.");
+                        $('#username_input').focus();
+                        return;
+                    } else {
+                        alert("사용가능한 아이디 입니다.");
+                        $('#username_input').attr("check_result", "success");
+                        $('#id_overlap_button').hide();
+                        return;
+                    }
+                }
+            });
         }
-      }
-    });
-  }
-        </script>
-    </head>
+    </script>
+</head>
 
-    <body class="pt-5 m-3">
+<body class="pt-5 m-3">
 
-        {% include 'header.html' %}
+    {% include 'header.html' %}
 
-        <form name="signUpForm" action="{% url 'sign_up' %}" method="post"
-              onsubmit="return chk_value(this)">{% csrf_token %}
-            <div class="section">
-                <div class="container p-5 border border-light">
-                    <div class="row p-5">
-                        <div class="col-12 text-center">
-                            <h2 class="font-weight-bold">회원가입</h2>
-                        </div>
+    <form name="signUpForm" action="{% url 'sign_up' %}" method="post" onsubmit="return chk_value(this)">
+        {% csrf_token %}
+        <div class="section">
+            <div class="container p-5 border border-light">
+                <div class="row p-5">
+                    <div class="col-12 text-center">
+                        <h2 class="font-weight-bold">회원가입</h2>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <input type="text" class="form-control" id="username_input" placeholder="ID" name="username" check_result="fail" required/>
-                            <button type="button" class="btn btn-default btn-outline-secondary" id="id_overlap_button" name="overlapbtn" onclick="id_overlap_check()">중복검사</button>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="password" class="form-control" placeholder="Password" name="password">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="password" class="form-control" placeholder="Password 확인 " name="password2">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <input type="email" class="form-control" placeholder="Email" name="email">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <input type="text" class="form-control" placeholder="학번" name="student_number">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" placeholder="이름" name="name">
-                        </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group col-md-12 mb-3">
+                        <input type="text" class="form-control" id="username_input" placeholder="ID" name="username"
+                            check_result="fail" required />
+                        <button type="button" class="btn btn-default btn-outline-secondary" id="id_overlap_button"
+                            name="overlapbtn" onclick="id_overlap_check()">중복검사</button>
                     </div>
-                    <!--div class="form-group">
+                    <div class="form-group col-md-6">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="password" class="form-control" placeholder="Password 확인 " name="password2">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="email" class="form-control" placeholder="Email" name="email">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="text" class="form-control" placeholder="학번" name="student_number">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" placeholder="이름" name="name">
+                    </div>
+                </div>
+                <!--div class="form-group">
                         <input type="text" class="form-control" placeholder="주소를 입력하세요.." name="address">
                     </div-->
-                    <div class="form-row">
-                        <!--div class="form-group col-md-6">
+                <div class="form-row">
+                    <!--div class="form-group col-md-6">
                             <input type="text" class="form-control" name="city">
                         </div-->
-                        <div class="form-group col-md-6">
-                            <label for="major">학과</label>
-                            <select id="major" class="form-control" name="major">
-                                <option value="Software" selected>Software</option>
-                                <option value="CyberSecuriy">CyberSecuriy</option>
-                                <option value="multi">복수전공</option>
-                                <option value="secondary">부전공</option>
-                                <option value="etc">기타</option>
-                            </select>
-                        </div>
+                    <div class="form-group col-md-6">
+                        <label for="major">학과</label>
+                        <select id="major" class="form-control" name="major">
+                            <option value="Software" selected>Software</option>
+                            <option value="CyberSecuriy">CyberSecuriy</option>
+                            <option value="multi">복수전공</option>
+                            <option value="secondary">부전공</option>
+                            <option value="etc">기타</option>
+                        </select>
+                    </div>
 
-                        <div class="form-row col-12">
-                            <div class="form-group col-6">
-                                <label for="gender">Gender</label>
-                                <input type="radio" name="gender" value="male" checked="checked">male
-                                <input type="radio" name="gender" value="female">female
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="isHantor">한터입니까?</label>
-                                <input type="radio" name="is_hantor" value="True" checked="checked">Yes
-                                <input type="radio" name="is_hantor" value="False">No
-                            </div>
+                    <div class="form-row col-12">
+                        <div class="form-group col-6">
+                            <label for="gender">Gender</label>
+                            <input type="radio" name="gender" value="male" checked="checked">male
+                            <input type="radio" name="gender" value="female">female
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="isHantor">한터입니까?</label>
+                            <input type="radio" name="is_hantor" value="True" checked="checked">Yes
+                            <input type="radio" name="is_hantor" value="False">No
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group mt-3">
-                    <label for="exampleFormControlTextarea1" class="h4 font-weight-bold  pb-2">개인정보수집동의</label>
-                    <textarea class="w-100 text-left" wrap="hard" style="display:block;" readonly="ed"
-                              rows="5"> There are many variations of passages of Lorem Ipsum available,but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.If you are going to use a passage of Lorem Ipsum,you need to be sure there isn't anything embarrassing hidden in the middle of text.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</textarea>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="chk" name="chkOk">
-                        <label class="form-check-label" for="chk">
-                            동의합니다.
-                        </label>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <input type="submit" value="회원가입">
+            <div class="form-group mt-3">
+                <label for="exampleFormControlTextarea1" class="h4 font-weight-bold  pb-2">개인정보수집동의</label>
+                <textarea class="w-100 text-left" wrap="hard" style="display:block;" readonly="ed"
+                    rows="5"> There are many variations of passages of Lorem Ipsum available,but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.If you are going to use a passage of Lorem Ipsum,you need to be sure there isn't anything embarrassing hidden in the middle of text.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</textarea>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="chk" name="chkOk">
+                    <label class="form-check-label" for="chk">
+                        동의합니다.
+                    </label>
                 </div>
             </div>
+            <div class="d-flex justify-content-end">
+                <input type="submit" value="회원가입">
             </div>
-        </form>
-    </body>
+        </div>
+        </div>
+    </form>
+</body>
 
 </html>
