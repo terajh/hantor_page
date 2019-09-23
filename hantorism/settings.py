@@ -74,6 +74,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'markdown_filter': 'hantorism_post.templatetags.markdown_filter',
+            }
         },
     },
 ]
