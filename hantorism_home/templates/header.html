@@ -3,6 +3,9 @@
     #navbarm {
         transition-duration: 0.4s;
     }
+    .modal-body a{
+        color: inherit
+    }
   
 </style>
 
@@ -12,7 +15,7 @@
             <div class="modal-content">
                 <div class="modal-header text-center bg-secondary text-white">
                     <h4 class="modal-title w-100 ">Sign in</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
@@ -25,10 +28,13 @@
                                for="defaultForm-pass"><strong>PW</strong></label>
                         <input type="password" id="defaultForm-pass" class="form-control validate " name="password">
                     </div>
+                    <div class="d-flex justify-content-end">
+                       <span class="fon">설마...아직도..? </span> <a href="/sign_up" class="btn border fon py-1 ml-3">회원가입</a>
+                    </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-center">
                     <button type="submit" class="btn btn-default btn-outline-secondary">Login</button>
-                    <a href="/sign_up" class="btn btn-default btn-outline-secondary">SignUp</a>
+                    
                 </div>
             </div>
         </div>
