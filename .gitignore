@@ -7,3 +7,4 @@ db.sqlite3
 .vscode
 */migrations/*
 ./hantorism_home/migrations/__pycache__/__init__.cpython-37.pyc
+settings_local.py
