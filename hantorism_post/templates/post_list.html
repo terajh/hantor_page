@@ -77,22 +77,22 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="qwe">
-                        <table class="table " cellspacing=1>
+                        <table class="table table-sm" style="table-layout: fixed;" cellspacing=1>
                             <thead>
                                 <tr>
-                                    <td class=" text-center" scope="col">
+                                    <td class=" text-center" scope="col" style="width:7%;">
                                         번호
                                     </td>
-                                    <td class="text-center" scope="col">
+                                    <td class="text-center" scope="col" style="width: 10%;">
                                         이름
                                     </td>
-                                    <td class=" text-center" scope="col">
+                                    <td class=" text-center" scope="col" style="width: 40%;">
                                         제목
                                     </td>
-                                    <td class="text-center" scope="col">
+                                    <td class="text-center" scope="col" style="width: 11%;">
                                         등록일
                                     </td>
-                                    <td class="text-center" scope="col">
+                                    <td class="text-center" scope="col" style="width: 10%;">
                                         조회수
                                     </td>
                                 </tr>
@@ -108,11 +108,11 @@
                                             <td class="text-center ">
                                                 {{ post_row.name }}
                                             </td>
-                                            <td class="text-center w-25 ">
+                                            <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
                                                 <a href="/post_view?post_id={{ post_row.id }}&{{ request.GET.urlencode }}"> {{ post_row.title }}</a>
                                             </td>
-                                            <td class="text-center w-25">
-                                                {{ post_row.created_date }}
+                                            <td style="overflow:hidden; white-space:nowrap;">
+                                                    {{ post_row.created_date }}
                                             </td>
                                             <td class="text-center ">
                                                 {{ post_row.view_count }}
@@ -129,6 +129,7 @@
 
 
                 <div class="d-flex justify-content-between row mb-4">
+                    <div></div>
                     <div>
                         {% if post_list.has_previous %}
                             <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>
