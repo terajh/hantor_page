@@ -49,7 +49,9 @@
                                 {{ post_data.name }} </td>
                         </tr>
                         <tr>
-                            <td> {{ post_data.body|markdownify|safe}} </td>
+                            <td>
+                                {{ post_data.body | markdown_filter | safe | linebreaks }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
