@@ -35,7 +35,7 @@
     </div>
 </form>
 
-<nav class="navbar navbar-light navbar-expand-md fixed-top border py-0"
+<nav class="navbar navbar-light navbar-expand-md fixed-top border py-0 fon"
      style="background-color: rgba(255, 255, 255, 0.85)" id="navbarm">
     <a class="navbar-brand" href="/">
         <img src="{% static "images/logo2.png" %}" alt="logo" width="130px">
@@ -51,7 +51,11 @@
                 <a class="nav-link text-body" href="/posts">Posts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-body" href="/library">Library</a>
+                {% if user.is_active %}
+                <a class="nav-link text-body" href="/library" >Library</a>
+                {% else %}
+                <a class="nav-link text-body" href="#"  data-toggle="modal" data-target="#login">Library</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="nav-link text-body" href="/contact">Contact</a>
@@ -65,7 +69,7 @@
             <a class="nav-link text-body pl-0" href="/my_page/">{{ user.username }}</a>
             <a class="nav-link text-body pl-0" href="/sign_out/">로그아웃</a>
         {% else %}
-            <a class="nav-link text-body pl-0" data-toggle="modal" data-target="#login">Sign In </a>
+            <a class="nav-link text-body pl-0" href="#" data-toggle="modal" data-target="#login">Sign In </a>
         {% endif %}
         </ul>
     </div>
@@ -82,4 +86,5 @@
     }
     prevScrollpos = currentScrollPos;
   }
+
 </script>
