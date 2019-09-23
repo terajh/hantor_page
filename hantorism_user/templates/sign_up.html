@@ -29,7 +29,7 @@
             let reg_alpa_Exp = /[A-Za-z]/;
             let reg_num_Exp = /[0-9]/;
             let pw1 = form.password.value;
-            let pw2 = form.password.value;
+            let pw2 = form.password2.value;
             if (pw1.length < 8 || !reg_alpa_Exp.test(pw1) || !reg_num_Exp.test(pw1)) {
                 alert("비밀번호는 8자리 이상, 영문자, 숫자를 섞어 주세요.");
                 return false;
@@ -69,7 +69,6 @@
                 },
                 datatype: 'json',
                 success: function (data) {
-                    console.log(data['overlap']);
                     if (data['overlap'] == "fail") {
                         alert("이미 존재하는 아이디 입니다.");
                         $('#username_input').focus();
