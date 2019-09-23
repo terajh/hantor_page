@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
+from django.core.exceptions import PermissionDenied
 
 from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
 
@@ -89,7 +90,7 @@ def post_modify(request):
     post_id = request.GET['post_id']
     post_data = HantorismPost.objects.get(id=post_id)
     if request.user != post_data.user_info.user:
-        return redirect('/posts')
+        raise PermissionDenied
     return render(request, 'post_modify.html', {'post_id': post_id,
                                                 'post_data': post_data})
 
