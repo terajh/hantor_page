@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpViewSet, SignInViewSet, user_page, sign_out, my_page, change_password
+from .views import SignUpViewSet, SignInViewSet, user_page, sign_out, my_page, change_password,id_overlap_check
 
 as_signupview = SignUpViewSet.as_view({
     'get': 'go_to_sign_up',
@@ -17,5 +17,6 @@ urlpatterns = [
     path('user_page/', user_page, name='user_page'),
     path('sign_out/', sign_out, name='sign_out'),
     path('my_page/', my_page, name='my_page'),
-    path('change_pw', change_password, name='change_pw')
+    path('change_pw', change_password, name='change_pw'),
+    path('id_overlap_check',id_overlap_check, name='id_overlap_check')
 ]
