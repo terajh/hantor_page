@@ -6,5 +6,5 @@ db.sqlite3
 *_initial.py
 .vscode
 */migrations/*
-./hantorism_home/migrations/__pycache__/__init__.cpython-37.pyc
-settings_local.py
+hantorism/hantorism_home/migrations/__pycache__/__init__.cpython-37.pyc
+hantorism/settings_local.py
