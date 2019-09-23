@@ -36,9 +36,9 @@ class ViewSet(viewsets.ModelViewSet):
         p_range = paginator.page_range[start_block:end_block]
 
         return render(request, 'overflow_list.html', {'overflow_list': posts,
-                                                  'filter_params': filter_params,
-                                                  'p_range': p_range,
-                                                  })
+                                                      'filter_params': filter_params,
+                                                      'p_range': p_range,
+                                                      })
 
     def create(self, request):
         return redirect('/overflows')
@@ -52,12 +52,13 @@ def overflow_write(request):
 @csrf_exempt
 @login_required
 def do_overflow(request):
-    p = HantorismOverflow(user_info_id=request.user.id,
-                          name=request.user.username,
-                          title=request.POST['title'],
-                          body=request.POST['body'])
-    p.save()
-    user_score = HantorismUser.objects.get(id=request.user.id).score
+    hantor_user = HantorismUser.objects.get(user_id=request.user.id)
+    p = HantorismOverflow.objects.create(user_info_id=hantor_user.id,
+                                         name=request.user.username,
+                                         title=request.POST['title'],
+                                         body=request.POST['body'],)
+
+    user_score = hantor_user.score
     HantorismUser.objects.filter(id=request.user.id).update(
         score=user_score + 1
     )
@@ -79,6 +80,7 @@ def overflow_view(request):
                                                   'overflow_data': overflow_data,
                                                   'overflow_answer': overflow_answer,
                                                   'filter_params': filter_params})
+
 
 def overflow_modify(request):
     overflow_id = request.GET['overflow_id']
