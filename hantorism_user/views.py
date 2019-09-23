@@ -68,6 +68,7 @@ def sign_out(request):
 
 @login_required
 def my_page(request):
+
     user_detail = HantorismUser.objects.get(user_id=request.user.id)
     context = {'user_detail': user_detail,
                'change': 2}

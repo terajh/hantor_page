@@ -56,12 +56,12 @@ def post_write(request):
 @csrf_exempt
 @login_required
 def do_post(request):
-    p = HantorismPost(user_info_id=request.user.id,
-                      name=request.user.username,
-                      title=request.POST['title'],
-                      body=request.POST['body'],
-                      category=request.POST['category'])
-    p.save()
+    hantor_user = HantorismUser.objects.get(user_id=request.user.id)
+    p = HantorismPost.objects.create(user_info_id=hantor_user.id,
+                                     name=request.user.username,
+                                     title=request.POST['title'],
+                                     body=request.POST['body'],
+                                     category=request.POST['category'])
 
     if request.POST['category'] == 'notice':
         HantorismPost.objects.filter(id=p.id).update(
