@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
+from django.http import JsonResponse
 
 from common_hantorism.models import HantorismUser
 
@@ -88,3 +89,19 @@ def change_password(request):
     else:
         context['change'] = 0
         return render(request, 'my_page.html', context)
+
+def id_overlap_check(request):
+
+    username = request.GET['username']
+    try:
+        # 중복 검사 실패
+        user = HantorismUser.objects.get(user__username=username)
+    except:
+        # 중복 검사 성공
+        user = None
+    if user is None:
+        overlap = "pass"
+    else:
+        overlap = "fail"
+    context = {'overlap': overlap}
+    return JsonResponse(context)

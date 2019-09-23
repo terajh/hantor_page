@@ -1,0 +1,1 @@
+SETTINGS_SECRET_KEY = 'um#-bz5a@220+y%m1nn+k__p$!g4^#0fogkpsil#nj81^*ankj'
