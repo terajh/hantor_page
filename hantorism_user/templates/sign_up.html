@@ -6,7 +6,43 @@
         <title>SIGN-UP</title>
         {% load staticfiles %}
         {% include 'common_link.html' %}
-        <script src="{% static "js/sign_up.js" %}"></script>
+        <script>
+function chk_value(form) {
+    var txt = "";
+    for (var i = 1; i < 7; i++) {
+        if (form[i].value == "") {
+            if(form[i].name == 'username') {
+                alert("ID칸이 비었습니다.");
+            }
+            else {
+                alert(form[i].name + "칸이 비었습니다.");
+            }
+            return false;
+        }
+        txt += form[i].name + " : " + form[i].value + "\n";
+    }
+
+    let reg_alpa_Exp=/[A-Za-z]/;
+    let reg_num_Exp=/[0-9]/;
+    let pw1=form.password.value;
+    let pw2=form.password.value;
+    if(pw1.length < 8 || !reg_alpa_Exp.test(pw1) || !reg_num_Exp.test(pw1)){
+        alert("비밀번호는 8자리 이상, 영문자, 숫자를 섞어 주세요.");
+        return false;
+    }
+    if (pw1 != pw2) {
+        alert("비밀번호를 확인하세요");
+        return false;
+    }
+    if(form.chkOk.checked==false)
+    {
+        alert("개인정보 취급동의");
+        return false;
+    }
+
+}
+
+        </script>
     </head>
 
     <body class="pt-5 m-3">
@@ -63,12 +99,12 @@
                         <div class="form-row col-12">
                             <div class="form-group col-6">
                                 <label for="gender">Gender</label>
-                                <input type="radio" name="gender" value="male">male
+                                <input type="radio" name="gender" value="male" checked="checked">male
                                 <input type="radio" name="gender" value="female">female
                             </div>
                             <div class="form-group col-6">
                                 <label for="isHantor">한터입니까?</label>
-                                <input type="radio" name="is_hantor" value="True">Yes
+                                <input type="radio" name="is_hantor" value="True" checked="checked">Yes
                                 <input type="radio" name="is_hantor" value="False">No
                             </div>
                         </div>
@@ -89,7 +125,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <input type="submit" value="회원가입" onclick="signUpCheck()">
+                    <input type="submit" value="회원가입">
                 </div>
             </div>
             </div>
