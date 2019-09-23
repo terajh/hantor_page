@@ -1,1 +1,116 @@
-로그인화면 구현해주세요
+<!doctype html>
+<html>
+{% load staticfiles %}
+
+<head>
+    {% include 'common_link.html' %}
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    {% load staticfiles %}
+    <style>
+        #navbarm {
+            transition-duration: 0.4s;
+        }
+    </style>
+
+    <form method="POST" action="{% url 'sign_in' %}">{% csrf_token %}
+        <div class="modal fade" id="login" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center bg-secondary text-white">
+                        <h4 class="modal-title w-100 ">Sign in</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right"
+                                for="defaultForm-email"><strong>ID</strong></label>
+                            <input type="text" id="defaultForm-email" class="form-control validate" name="username">
+                        </div>
+                        <div class="md-form mb-4">
+                            <label data-error="wrong" data-success="right"
+                                for="defaultForm-pass"><strong>PW</strong></label>
+                            <input type="password" id="defaultForm-pass" class="form-control validate " name="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="submit" class="btn btn-default btn-outline-secondary">Login</button>
+                        <a href="/sign_up" class="btn btn-default btn-outline-secondary">SignUp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <nav class="navbar navbar-light navbar-expand-md fixed-top border py-0 fon"
+        style="background-color: rgba(255, 255, 255, 0.85)" id="navbarm">
+        <a class="navbar-brand" href="/">
+            <img src="{% static "images/logo2.png" %}" alt="logo" width="130px">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <hr class="d-block d-md-none" style=" border:0; height: 2px; background: rgba(0, 208, 255, 0.912);">
+                    <a class="nav-link text-body" href="/posts">Posts</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_active %}
+                    <a class="nav-link text-body" href="/library">Library</a>
+                    {% else %}
+                    <a class="nav-link text-body" href="#" data-toggle="modal" data-target="#login">Library</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-body" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-body" href="/overflows">Overflow</a>
+                    <hr class="d-block d-md-none" style="border:0; height: 2px; background: rgba(0, 208, 255, 0.912);">
+                </li>
+            </ul>
+            {% if user.is_active %}
+            <a class="nav-link text-body pl-0" href="/my_page/">{{ user.username }}</a>
+            <a class="nav-link text-body pl-0" href="/sign_out/">로그아웃</a>
+            {% else %}
+            <a class="nav-link text-body pl-0" href="#" data-toggle="modal" data-target="#login">Sign In </a>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            $('#login').modal('show');
+        });
+    </script>
+
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                document.getElementById("navbarm").style.top = "0";
+            } else {
+                document.getElementById("navbarm").style.top = "-63px";
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
+
+    <div class="mt-5 pt-5">
+        <div class="h2 text-center">Hantor <p></p> 로그인이 필요한 화면입니다.</div>
+    </div>
+    <!-- footer -->
+    {% include 'footer.html' %}
+
+    
+
+</body>
+
+</html>

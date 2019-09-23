@@ -9,6 +9,19 @@
             .btn {
                 font-size: small !important;
             }
+            .btn-cust{
+                border: 1px solid #ffc6c9;
+                background-color: #ffe3e4;
+                color: #ff4e59;           
+            }
+            .btn-cust2{
+                border: 1px solid #c6c9ff;
+                background-color: #e5e3ff;
+                color: #634eff;           
+            }
+            .container-fluid table a{
+                color: inherit;
+            }
 
         </style>
     </head>
@@ -44,7 +57,6 @@
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <!-- <a   href="#qwe">QWE</a> -->
                         <form class="nav-link" data-toggle="tab">
                             {% if filter_params %}
                                 {% for kk, vv in filter_params.items %}
@@ -59,7 +71,6 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <!-- <a  data-toggle="tab" >ASD</a> -->
                         <form class="nav-link" data-toggle="tab">
                             {% if filter_params %}
                                 {% for kk, vv in filter_params.items %}
@@ -77,22 +88,22 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="qwe">
-                        <table class="table " cellspacing=1>
+                        <table class="table table-sm table-hover" style="table-layout: fixed;" cellspacing=1>
                             <thead>
                                 <tr>
-                                    <td class=" text-center" scope="col">
-                                        번호
+                                    <td class=" text-center" scope="col" style="width:7%;">
+                                        분류
                                     </td>
-                                    <td class="text-center" scope="col">
-                                        이름
-                                    </td>
-                                    <td class=" text-center" scope="col">
+                                    <td class=" text-center" scope="col" style="width: 40%;">
                                         제목
                                     </td>
-                                    <td class="text-center" scope="col">
+                                    <td class="text-center" scope="col" style="width: 10%;">
+                                        이름
+                                    </td>
+                                    <td class="text-center" scope="col" style="width: 11%;">
                                         등록일
                                     </td>
-                                    <td class="text-center" scope="col">
+                                    <td class="text-center" scope="col" style="width: 10%;">
                                         조회수
                                     </td>
                                 </tr>
@@ -101,18 +112,29 @@
                             {% if post_list %}
                                 <ul>
                                     {% for post_row in post_list %}
-                                        <tr>
-                                            <td class="text-center">
-                                                {{ post_row.id }}
-                                            </td>
-                                            <td class="text-center ">
-                                                {{ post_row.name }}
-                                            </td>
-                                            <td class="text-center w-25 ">
+                                        {% if post_row.category == 'notice' %}
+                                            <tr class="table-secondary">
+                                                <td class="text-center">
+                                                    <div class="btn btn-cust py-0">
+                                                        공지
+                                                    </div>
+                                                </td>
+                                            {% else %}
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div class="btn btn-cust2 py-0">
+                                                        자유
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                            <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
                                                 <a href="/post_view?post_id={{ post_row.id }}&{{ request.GET.urlencode }}"> {{ post_row.title }}</a>
                                             </td>
-                                            <td class="text-center w-25">
-                                                {{ post_row.created_date }}
+                                            <td class="text-center ">
+                                                    {{ post_row.name }}
+                                            </td>
+                                            <td style="overflow:hidden; white-space:nowrap;">
+                                                    {{ post_row.created_date }}
                                             </td>
                                             <td class="text-center ">
                                                 {{ post_row.view_count }}
@@ -128,7 +150,7 @@
                 </div>
 
 
-                <div class="d-flex justify-content-between row mb-4">
+                <div class="d-flex justify-content-center row mb-4">
                     <div>
                         {% if post_list.has_previous %}
                             <a href="?category={{ filter_params.category }}&search={{ filter_params.search }}&page={{ post_list.previous_page_number }}">이전으로</a>

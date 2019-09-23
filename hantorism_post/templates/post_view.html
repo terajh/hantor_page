@@ -2,11 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        {% include 'common_link.html' %}
-    </head>
-    <script language="javascript">
-      function locationURL(action) {
+<head>
+    {% include 'common_link.html' %}
+    <style>
+        a {
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<script language="javascript">
+    function locationURL(action) {
         const category = "{{ request.GET.category }}"
         const search = "{{ request.GET.search }}"
         const page = "{{ request.GET.page }}"
@@ -15,95 +24,115 @@
         let url = '/' + action + '/?'
 
         if (action === 'post_modify' || action === 'post_delete') {
-          url += 'post_id=' + {{ post_id }} +'&'
-        }
-        if (category) {
-          url += 'category=' + category + '&'
-        }
-        if (search) {
-          url += 'search=' + search + '&'
-        }
-        if (page) {
-          url += 'page=' + page + '&'
-        }
-        location.href = url
+            url += 'post_id=' + {{ post_id }} +'&'
+    }
+    if (category) {
+        url += 'category=' + category + '&'
+    }
+    if (search) {
+        url += 'search=' + search + '&'
+    }
+    if (page) {
+        url += 'page=' + page + '&'
+    }
+    location.href = url
 
-      }
-    </script>
+    }
+</script>
 
-    <body class="pt-5 mt-3">
-        {% include 'header.html' %}
-        <div class="container-fluid">
-            <div class="col-12 col-md-10 mx-auto">
-                <input class="btn border" type="button" value="목록으로 되돌아가기" OnClick="javascript:locationURL('posts')">
-                <table class="table ">
-                    <tbody>
-                        <tr>
-                            <th> {{ post_data.title }}
+<body class="pt-5 mt-3">
+    {% include 'header.html' %}
+    <div class="text-center h2 py-3 mt-4">
+        <a href="/posts/?category={{post_data.category}}">
+            {% if post_data.category == "notice" %}공지사항</a>
+    </div>
+    <div class=" text-center py-4 bg-custom2 rounded fon h4">
+        Hantor 동아리의 각종 공지사항을 전달하는 게시판입니다.
+        {% else %}자유게시판</a>
+    </div>
+    <div class=" text-center py-4 bg-custom2 rounded fon h4">
+        자유 게시판은 Hantor 회원분들이 자유롭게 공모전 및 학술제 팀원매칭,<br> 스터디모집, 각종 자유로운 질문과 답변등을 나누는 곳입니다.
+        {% endif %}
+
+    </div>
+    <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
+
+    <div class="container-fluid">
+        <div class="col-12 col-md-10 mx-auto">
+            <table class="table ">
+                <tbody>
+                    <tr>
+                        <th> {{ post_data.title }}
                             </td>
+                    </tr>
+                    <tr class="text-right" style="font-size: small;">
+                        <td>조회수
+                            {{ post_data.view_count }}
+                            작성자
+                            {{ post_data.name }} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ post_data.body | markdown_filter | safe | linebreaks }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <input class="btn border" type="button" value="목록"
+                        OnClick="javascript:locationURL('posts')">
+                </div>
+
+                <div class="row">
+                    {% if user.is_active %}
+                    {% if user.username == post_data.name %}
+                    <form action="javascript:locationURL('post_modify')" method="get">
+                        <input class="btn border" type="submit" value="수정">
+                    </form>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if user.is_active %}
+                    {% if user.username == post_data.name %}
+                    <form action="javascript:locationURL('post_delete')" method="get">{% csrf_token %}
+                        <input class="btn border" type="submit" value="삭제">
+                    </form>
+                    {% endif %}
+                    {% endif %}</div>
+            </div>
+            <div>
+                <table class="table mt-5">
+                    <form method="post" action="/create_comment/">{% csrf_token %}
+                        <tr>
+                            <th>댓글</th>
+                            <th>User</th>
                         </tr>
-                        <tr class="text-right" style="font-size: small;">
-                            <td>조회수
-                                {{ post_data.view_count }}
-                                작성자
-                                {{ post_data.name }} </td>
+                        {% for comment in post_comment %}
+                        <tr>
+                            <td>{{ comment.context }}</td>
+                            <td>{{ comment.user_info.user.username }}</td>
                         </tr>
+                        {% endfor %}
                         <tr>
                             <td>
-                                {{ post_data.body | markdown_filter | safe | linebreaks }}
+                                <input type="hidden" name="post_id" value="{{ post_id }}">
+                                <input type="hidden" name="category" value="{{ request.GET.category }}">
+                                <input type="hidden" name="page" value="{{ request.GET.page }}">
+                                <input type="hidden" name="search" value="{{ request.GET.search }}">
+                                <input class="form-control" type="text" name="context">
+                            </td>
+                            <td>
+                                <input type="submit" value="댓글 작성" class="btn">
                             </td>
                         </tr>
-                    </tbody>
+                    </form>
                 </table>
-                <div class="d-flex justify-content-end">
-                    {% if user.is_active %}
-                        {% if user.username == post_data.name %}
-                            <form action="javascript:locationURL('post_modify')" method="get">
-                                <input class="btn border" type="submit" value="수정">
-                            </form>
-                        {% endif %}
-                    {% endif %}
-
-                    {% if user.is_active %}
-                        {% if user.username == post_data.name %}
-                            <form action="javascript:locationURL('post_delete')" method="get">{% csrf_token %}
-                                <input class="btn border" type="submit" value="삭제">
-                            </form>
-                        {% endif %}
-                    {% endif %}
-                </div>
-                <div>
-                    <table class="table mt-5">
-                        <form method="post" action="/create_comment/">{% csrf_token %}
-                            <tr>
-                                <th>댓글</th>
-                                <th>User</th>
-                            </tr>
-                            {% for comment in post_comment %}
-                                <tr>
-                                    <td>{{ comment.context }}</td>
-                                    <td>{{ comment.user_info.user.username }}</td>
-                                </tr>
-                            {% endfor %}
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="post_id" value="{{ post_id }}">
-                                    <input type="hidden" name="category" value="{{ request.GET.category }}">
-                                    <input type="hidden" name="page" value="{{ request.GET.page }}">
-                                    <input type="hidden" name="search" value="{{ request.GET.search }}">
-                                    <input class="form-control" type="text" name="context">
-                                </td>
-                                <td>
-                                    <input type="submit" value="댓글 작성" class="btn">
-                                </td>
-                            </tr>
-                        </form>
-                    </table>
-                </div>
             </div>
         </div>
+    </div>
 
-    </body>
-    {% include 'footer.html' %}
+</body>
+{% include 'footer.html' %}
 
 </html>
