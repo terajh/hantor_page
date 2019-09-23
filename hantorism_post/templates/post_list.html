@@ -58,6 +58,11 @@
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <form class="nav-link" data-toggle="tab">
+                            <input class="nohover btn" type="submit" onclick="this.blur(); submit();" value="전체">
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <form class="nav-link" data-toggle="tab">
                             {% if filter_params %}
                                 {% for kk, vv in filter_params.items %}
                                     {% if kk == 'category' %}

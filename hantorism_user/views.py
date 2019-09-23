@@ -42,11 +42,14 @@ class SignInViewSet(viewsets.ModelViewSet):
         if request.method == "POST":
             username = request.POST['username']
             password = request.POST['password']
+            message = ''
             user = auth.authenticate(request, username=username, password=password)
             if user is not None:
                 auth.login(request, user)
                 return redirect('list')
-            return render(request, 'FailLogin.html', {})
+
+            message = 'fail'
+            return render(request, "list.html", {'message': message})
 
 
 def user_page(request):

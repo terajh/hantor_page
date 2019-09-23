@@ -243,9 +243,20 @@
             </div>
 
         </div>
-    </div>
-    <!-- footer -->
-    {% include 'footer.html' %}
-</body>
+        <!-- footer -->
+        {% include 'footer.html' %}
+    </body>
+    <script>
+        $(window).on('load', function () {
+          if('{{ message }}' == 'fail')
+          {
+            alert('아이디 혹은 비밀번호가 틀렸습니다.')
+            $('#login').modal('show');
+          }
+          else {
+            console.log('asdasda')
+          }
+        });
+    </script>
 
 </html>

@@ -23,7 +23,7 @@ class ViewSet(viewsets.ModelViewSet):
             filter_params['search'] = search
 
         overflows = overflows.order_by('-created_date')
-        paginator = Paginator(overflows, 2)
+        paginator = Paginator(overflows, 10)
         page = 1
         if request.GET.get('page'):
             page = request.GET.get('page')
