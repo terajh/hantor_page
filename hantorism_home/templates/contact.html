@@ -1,3 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    {% include 'common_link.html' %}
+    <style>
+        .card div{
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="pt-5 mt-3">
+    {% include 'header.html' %}
+    <div class="text-center h2 py-3 mt-4" OnClick="javascript:overflowlist()">
+            CONTACT
+            <!-- {{overflow_data.category}} -->
+        </div>
+        <div class=" text-center py-4 bg-custom2 rounded">
+            <h4 class="fon h3">임원진 소개</h4>
+        </div>
+        <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
+        
+    <div class="container-fluid">
+        <div class="col-12 col-md-10 mx-auto">
+            <div class="card-deck">
+                <div class="card border-info text-center">
+                    <div class="text-center mt-4">
+                        <img src="/static/images/bae.jpg" style="width: 150px" class="card-img-top rounded-circle px-3">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">회장 배재훈</h5>
+                        <p class="card-text">
+                            010-1234-1234
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card border-info text-center">
+                    <div class="text-center mt-4">
+                        <img src="/static/images/emp.jpg" style="width: 150px" class="card-img-top rounded-circle px-3">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">부회장 정소희</h5>
+                        <p class="card-text">
+                            010-1234-1234
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+                <div class="card border-info text-center">
+                    <div class="text-center mt-4">
+                        <img src="/static/images/emp.jpg" style="width: 150px" class="card-img-top rounded-circle px-3">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">총무 홍수민</h5>
+                        <p class="card-text">
+                            010-1234-1234
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+
+</html>
+
 배재훈
 회장
 010-1234-1234
