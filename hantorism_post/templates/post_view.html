@@ -1,3 +1,4 @@
+{% load markdown_filter %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +70,9 @@
                             {{ post_data.name }} </td>
                     </tr>
                     <tr>
-                        <td> {{ post_data.body }} </td>
+                        <td>
+                            {{ post_data.body | markdown_filter | safe | linebreaks }}
+                        </td>
                     </tr>
                 </tbody>
             </table>

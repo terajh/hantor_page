@@ -1,3 +1,4 @@
+{% load markdown_filter %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -70,7 +71,9 @@
                         <tr>
                             <td>
                                 <div class="wrap">
-                                    <textarea class="w-100 border-0" readonly>{{ overflow_data.body }}</textarea>
+                                    <span class="w-100 border-0" readonly>
+                                        {{ overflow.body | markdown_filter | safe | linebreaks }}
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -108,7 +111,8 @@
                                 <form method="post" class="" action="/overflow_select/">{% csrf_token %}
                                     <td>
                                         <div class="wrap">
-                                            <textarea class="w-100 border-0" readonly>{{ answer.body }}</textarea>
+                                            <span class="w-100 border-0" readonly>
+                                                {{ answer.body | markdown_filter | safe | linebreaks }}</span>
                                         </div>
                                     </td>
                                     <td>
