@@ -27,8 +27,8 @@ class ViewSet(viewsets.ModelViewSet):
             posts = posts.filter(title__contains=search).order_by('-created_date')
             filter_params['search'] = search
 
-        posts = posts.order_by('-created_date')
-        paginator = Paginator(posts, 2)
+        posts = posts.order_by('-up_post', '-created_date')
+        paginator = Paginator(posts, 10)
         page = 1
         if request.GET.get('page'):
             page = request.GET.get('page')
@@ -62,6 +62,11 @@ def do_post(request):
                       body=request.POST['body'],
                       category=request.POST['category'])
     p.save()
+
+    if request.POST['category'] == 'notice':
+        HantorismPost.objects.filter(id=p.id).update(
+            up_post=True
+        )
 
     url = '/post_view?post_id=' + str(p.id)
     return redirect(url)
