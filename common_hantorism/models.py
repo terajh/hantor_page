@@ -1,7 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
-
 
 STATE_CHOICE = (('Able', 'able'), ('Wait', 'wait'), ('Unable', 'unable'))
 MAJOR_CHOICE = (('소프트웨어학과', '소웨'),
@@ -40,6 +39,8 @@ class HantorismPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
 class HantorismPostComment(models.Model):
     user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     post = models.ForeignKey(HantorismPost, on_delete=models.CASCADE)
@@ -58,12 +59,16 @@ class HantorismOverflow(models.Model):
 
     def __str__(self):
         return self.title
+
+
 class HantorismOverflowAnswer(models.Model):
     user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     overflow = models.ForeignKey(HantorismOverflow, on_delete=models.CASCADE)
     body = models.TextField()
-    created_date=models.DateTimeField(default=timezone.now)
-    state=models.BooleanField(default=False)
+    created_date = models.DateTimeField(default=timezone.now)
+    state = models.BooleanField(default=False)
+
+
 class HantorismOverflowAnswerComment(models.Model):
     user_info = models.ForeignKey(HantorismUser, on_delete=models.CASCADE)
     overflow_answer = models.ForeignKey(HantorismOverflowAnswer, on_delete=models.CASCADE)
@@ -110,5 +115,3 @@ class HantorismDesk(models.Model):
 
     def __str__(self):
         return self.student_number
-
-

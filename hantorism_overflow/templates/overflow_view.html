@@ -1,183 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        {% include 'common_link.html' %}
+    </head>
+    <script language="javascript">
 
-<head>
-    {% include 'common_link.html' %}
-</head>
-<script language="javascript">
+      function locationURL(action) {
+        const search = "{{ request.GET.search }}"
+        const page = "{{ request.GET.page }}"
 
-    function overflowmodify() {
-        location.href = '/overflow_modify?overflow_id={{overflow_id}}&current_page={{current_page}}&search={{search}}';
-    }
+        let url = '/' + action + '/?'
 
-    function overflowdelete() {
-        location.href = '/overflow_delete?overflow_id={{overflow_id}}&current_page={{current_page}}';
-    }
-    function overflowlist() {
-        if ('{{search}}')
-            location.href = '/overflows/?search=' + '{{search}}';
-        else
-            location.href = '/overflows/?current_page={{current_page}}';
-    }
+        if (action === 'overflow_modify' || action === 'overflow_delete') {
+          url += 'overflow_id=' + {{ overflow_id }} +'&'
+        }
+        if (search) {
+          url += 'search=' + search + '&'
+        }
+        if (page) {
+          url += 'page=' + page + '&'
+        }
+        location.href = url
+      }
 
-</script>
-<style>
-    th {
-        word-break: keep-all;
-    }
+    </script>
+    <style>
+        th {
+            word-break: keep-all;
+        }
 
-    .table-body {
-        word-break: break-all;
-    }
+        .table-body {
+            word-break: break-all;
+        }
 
-    .wrap textarea{
-        resize: none;
-        overflow-y: hidden;
-        outline-style: none;
-        /* prevents scroll bar flash */
-    }
+        .wrap textarea {
+            resize: none;
+            overflow-y: hidden;
+            outline-style: none;
+            /* prevents scroll bar flash */
+        }
 
-    .bg-custom2{
-        background-color: rgb(230, 230, 230);
-    }
-</style>
+        .bg-custom2 {
+            background-color: rgb(230, 230, 230);
+        }
+    </style>
 
-<body class="pt-5 mt-3">
-    {% include 'header.html' %}
-    <div class="text-center h2 py-3 mt-4" OnClick="javascript:overflowlist()">
-        OVERFLOW
-        <!-- {{overflow_data.category}} -->
-    </div>
-    <div class=" text-center py-4 bg-custom2 rounded">
-        OVERFLOW 게시판은 Hantor 회원분들이 자유롭게 <br>질문 & 답변을 나누는 곳입니다.
-    </div>
-    <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
-    <div class="container-fluid">
-        <div class="col-12 col-md-10 mx-auto">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th class="border-0 pt-0"> {{ overflow_data.title }} </td>
-                    </tr>
-                    <tr class="text-right">
-                        <td>조회수
-                            {{ overflow_data.view_count }}
-                            작성자
-                            {{ overflow_data.name }} </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="wrap">
-                                <textarea class="w-100 border-0" readonly>{{ overflow_data.body }}</textarea>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="d-flex justify-content-between pt-3 border-top">
-                <input class="btn border" type="button" value="목록" OnClick="javascript:overflowlist()">
-                <div>
-                    {% if user.is_active %}
-                    {% if user.username == overflow_data.name %}
-                    <input class="btn border" type="button" value="수정" OnClick="javascript:overflowmodify()">
-                    {% endif %}
-                    {% endif %}
-
-                    {% if user.is_active %}
-                    {% if user.username == overflow_data.name %}
-                    <input class="btn border" type="button" value="삭제" OnClick="javascript:overflowdelete()">
-                    {% endif %}
-                    {% endif %}
-                </div>
-            </div>
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th>답변</th>
-                        <th>User</th>
-                        <th>채택</th>
-                    </tr>
-                </thead>
-                {% for answer in overflow_answer %}
-                <tbody>
-                    <tr>
-                        <form method="post" class="" action="/overflow_select/">{% csrf_token %}
+    <body class="pt-5 mt-3">
+        {% include 'header.html' %}
+        <div class="text-center h2 py-3 mt-4" OnClick="javascript:overflowlist()">
+            OVERFLOW
+            <!-- {{overflow_data.category}} -->
+        </div>
+        <div class=" text-center py-4 bg-custom2 rounded">
+            OVERFLOW 게시판은 Hantor 회원분들이 자유롭게 <br>질문 & 답변을 나누는 곳입니다.
+        </div>
+        <hr style=" margin-top: 0; border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
+        <div class="container-fluid">
+            <div class="col-12 col-md-10 mx-auto">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th class="border-0 pt-0"> {{ overflow_data.title }}
+                            </td>
+                        </tr>
+                        <tr class="text-right">
+                            <td>조회수
+                                {{ overflow_data.view_count }}
+                                작성자
+                                {{ overflow_data.name }} </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <div class="wrap">
-                                    <textarea class="w-100 border-0" readonly>{{ answer.body }}</textarea>
+                                    <textarea class="w-100 border-0" readonly>{{ overflow_data.body }}</textarea>
                                 </div>
                             </td>
-                            <td>
-                                <div class="bs-example">
-                                    <div data-toggle="popover" title="점수"
-                                        data-content=" {{answer.user_info.major}} Score: {{answer.user_info.score}}">
-                                        {{ answer.user_info.user.username }}
-                                    </div>
-                                </div>
-                            </td>
-                            {% if not overflow_data.state %}
-                            {% if user.is_active %}
-                            {% if user.username == overflow_data.name %}
-                            {% if user.username != answer.user_info.user.username %}
-
-                            <input type="hidden" name="answer_id" value="{{answer.id}}">
-                            <input type="hidden" name="overflow_id" value="{{ overflow_data.id }}">
-                            <input type="hidden" name="current_page" value="{{ current_page }}">
-                            <input type="hidden" name="search" value="{{search}}">
-                            <input type="hidden" name="answer_user_id" value="{{answer.user_info.user.id}}">
-                            <td><input class="btn border" type="submit" value="채택"></td>
-                            {% endif %}
-                            {% endif %}
-                            {% endif %}
-                            <td></td>
-                            {% else %}
-                            {% if answer.state %}
-                            <td style="text-align: center">&#10026;</td>
-                            {% else %}
-                            <td></td>
-                            {% endif %}
-                            {% endif %}
-                        </form>
-                    </tr>
-                </tbody>
-                {% endfor %}
-                <form method="post" action="/create_answer/">{% csrf_token %}
-                    <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between pt-3 border-top">
+                    <input class="btn border" type="button" value="목록" OnClick="javascript:locationURL('overflows')">
+                    <div>
                         {% if user.is_active %}
-                        <td>
-                            <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
-                            <input type="hidden" name="current_page" value="{{ current_page }}">
-                            <input type="hidden" name="search" value="{{search}}">
-                            <textarea class="form-control" cols=50 rows=5 name="body"></textarea>
-                        </td>
-                        <td>
-                            <input type="submit" value="답변 작성" class="btn">
-                        </td>
+                            {% if user.username == overflow_data.name %}
+                                <input class="btn border" type="button" value="수정"
+                                       OnClick="javascript:locationURL('overflow_modify')">
+                            {% endif %}
                         {% endif %}
-                    </tr>
-                </form>
-            </table>
+
+                        {% if user.is_active %}
+                            {% if user.username == overflow_data.name %}
+                                <input class="btn border" type="button" value="삭제"
+                                       OnClick="javascript:locationURL('overflow_delete')">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <table class="table mt-5">
+                    <thead>
+                        <tr>
+                            <th>답변</th>
+                            <th>User</th>
+                            <th>채택</th>
+                        </tr>
+                    </thead>
+                    {% for answer in overflow_answer %}
+                        <tbody>
+                            <tr>
+                                <form method="post" class="" action="/overflow_select/">{% csrf_token %}
+                                    <td>
+                                        <div class="wrap">
+                                            <textarea class="w-100 border-0" readonly>{{ answer.body }}</textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="bs-example">
+                                            <div data-toggle="popover" title="점수"
+                                                 data-content=" {{ answer.user_info.major }} Score: {{ answer.user_info.score }}">
+                                                {{ answer.user_info.user.username }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {% if not overflow_data.state %}
+                                        {% if user.is_active %}
+                                            {% if user.username == overflow_data.name %}
+                                                {% if user.username != answer.user_info.user.username %}
+
+                                                    <input type="hidden" name="answer_id" value="{{ answer.id }}">
+                                                    <input type="hidden" name="overflow_id"
+                                                           value="{{ overflow_data.id }}">
+                                                    <input type="hidden" name="page" value="{{ request.GET.page }}">
+                                                    <input type="hidden" name="search" value="{{ request.GET.search }}">
+                                                    <input type="hidden" name="answer_user_id"
+                                                           value="{{ answer.user_info.user.id }}">
+                                                    <td><input class="btn border" type="submit" value="채택"></td>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        <td></td>
+                                    {% else %}
+                                        {% if answer.state %}
+                                            <td style="text-align: center">&#10026;</td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
+                                    {% endif %}
+                                </form>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                    <form method="post" action="/create_answer/">{% csrf_token %}
+                        <tr>
+                            {% if user.is_active %}
+                                <td>
+                                    <input type="hidden" name="overflow_id" value="{{ overflow_id }}">
+                                    <input type="hidden" name="page" value="{{ request.GET.page }}">
+                                    <input type="hidden" name="search" value="{{ request.GET.search }}">
+                                    <textarea class="form-control" cols=50 rows=5 name="body"></textarea>
+                                </td>
+                                <td>
+                                    <input type="submit" value="답변 작성" class="btn">
+                                </td>
+                            {% endif %}
+                        </tr>
+                    </form>
+                </table>
+            </div>
         </div>
     </div>
     {% include 'footer.html' %}
 </body>
-
-
-<script>
-    $(document).ready(function () {
+    <script>
+      $(document).ready(function () {
         $('[data-toggle="popover"]').popover({
-            placement: 'top',
-            trigger: 'hover'
+          placement: 'top',
+          trigger: 'hover'
         });
-    });
+      });
 
-    $(document).ready(function () {
+      $(document).ready(function () {
         $('.wrap').on('keyup', 'textarea', function (e) {
-            $(this).css('height', 'auto');
-            $(this).height(this.scrollHeight);
+          $(this).css('height', 'auto');
+          $(this).height(this.scrollHeight);
         });
         $('.wrap').find('textarea').keyup();
-    });
-</script>
+      });
+    </script>
 
 </html>

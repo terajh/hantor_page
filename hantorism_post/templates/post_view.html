@@ -5,37 +5,29 @@
         {% include 'common_link.html' %}
     </head>
     <script language="javascript">
-        function locationURL(action) {
-          const category = "{{ request.GET.category }}"
-          const search = "{{ request.GET.search }}"
-          const page = "{{ request.GET.page }}"
+      function locationURL(action) {
+        const category = "{{ request.GET.category }}"
+        const search = "{{ request.GET.search }}"
+        const page = "{{ request.GET.page }}"
 
 
-          let url = '/' + action + '/?'
+        let url = '/' + action + '/?'
 
-          if (action === 'post_modify' || action === 'post_delete') {
-            url += 'post_id=' + {{ post_id }} + '&'
-          }
-          if (category) {
-            url += 'category=' + category + '&'
-          }
-          if (search) {
-            url += 'search=' + search + '&'
-          }
-          if (page) {
-            url += 'page=' + page + '&'
-          }
-          location.href = url
-
+        if (action === 'post_modify' || action === 'post_delete') {
+          url += 'post_id=' + {{ post_id }} +'&'
         }
-
-        function boardmodify() {
-            location.href = '/post_modify?post_id={{post_id}}&current_page={{current_page}}&search={{search}}';
+        if (category) {
+          url += 'category=' + category + '&'
         }
-
-        function boarddelete() {
-            location.href = '/post_delete?post_id={{post_id}}&current_page={{current_page}}';
+        if (search) {
+          url += 'search=' + search + '&'
         }
+        if (page) {
+          url += 'page=' + page + '&'
+        }
+        location.href = url
+
+      }
     </script>
 
     <body class="pt-5 mt-3">
@@ -45,30 +37,35 @@
                 <input class="btn border" type="button" value="목록으로 되돌아가기" OnClick="javascript:locationURL('posts')">
                 <table class="table ">
                     <tbody>
-                    <tr>
-                        <th> {{ post_data.title }} </td>
-                    </tr>
-                    <tr class="text-right" style="font-size: small;">
-                        <td>조회수
-                            {{ post_data.view_count }}
-                            작성자
-                            {{ post_data.name }} </td>
-                    </tr>
-                    <tr>
-                        <td> {{ post_data.body }} </td>
-                    </tr>
+                        <tr>
+                            <th> {{ post_data.title }}
+                            </td>
+                        </tr>
+                        <tr class="text-right" style="font-size: small;">
+                            <td>조회수
+                                {{ post_data.view_count }}
+                                작성자
+                                {{ post_data.name }} </td>
+                        </tr>
+                        <tr>
+                            <td> {{ post_data.body }} </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end">
                     {% if user.is_active %}
                         {% if user.username == post_data.name %}
-                            <input class="btn border" type="button" value="수정" OnClick="javascript:locationURL('post_modify')">
+                            <form action="javascript:locationURL('post_modify')" method="get">
+                                <input class="btn border" type="submit" value="수정">
+                            </form>
                         {% endif %}
                     {% endif %}
 
                     {% if user.is_active %}
                         {% if user.username == post_data.name %}
-                            <input class="btn border" type="button" value="삭제" OnClick="javascript:locationURL('post_delete')">
+                            <form action="javascript:locationURL('post_delete')" method="get">{% csrf_token %}
+                                <input class="btn border" type="submit" value="삭제">
+                            </form>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -88,9 +85,9 @@
                             <tr>
                                 <td>
                                     <input type="hidden" name="post_id" value="{{ post_id }}">
-                                    <input type="hidden" name="category" value="{{ filter_params.category }}">
-                                    <input type="hidden" name="page" value="{{ filter_params.page }}">
-                                    <input type="hidden" name="search" value="{{filter_params.search}}">
+                                    <input type="hidden" name="category" value="{{ request.GET.category }}">
+                                    <input type="hidden" name="page" value="{{ request.GET.page }}">
+                                    <input type="hidden" name="search" value="{{ request.GET.search }}">
                                     <input class="form-control" type="text" name="context">
                                 </td>
                                 <td>
