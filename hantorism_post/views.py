@@ -1,11 +1,11 @@
 import math
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
-from django.core.exceptions import PermissionDenied
 
 from common_hantorism.models import HantorismPost, HantorismPostComment, HantorismUser
 
@@ -107,7 +107,7 @@ def update_post(request):
     post_data = HantorismPost.objects.get(id=post_id)
 
     if request.user != post_data.user_info.user:
-        return redirect('/posts')
+        raise PermissionDenied
 
     post_data = HantorismPost.objects.filter(id=post_id)
     post_data.update(
@@ -125,7 +125,7 @@ def post_delete(request):
 
     post_data = HantorismPost.objects.get(id=post_id)
     if request.user != post_data.user_info.user:
-        return redirect('/posts')
+        raise PermissionDenied
 
     post_data.delete()
 
