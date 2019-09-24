@@ -1,45 +1,58 @@
 <!doctype html>
 <html>
+    {% load staticfiles %}
     <head>
+        {% include 'common_link.html' %}
         <script src="../ajax/libs/jquery_2.2.4/jquery.min.js"></script>
         <script src="../dist/jquery.table2excel.js"></script>
     </head>
     {% if permission %}
-        <body>
-            <table id="desk_member">
+        <body class="pt-5 mt-3">
+            {% include 'header.html' %}
+            <table class="table table-sm table-hover" style="table-layout: fixed;" cellspacing=1 id="desk_member">
                 <thead>
                     <tr>
-                        <B>
-                            <td>이름</td>
-                        </B>
-                        <B>
-                            <td>학번</td>
-                        </B>
-                        <B>
-                            <td>생년월일</td>
-                        </B>
-                        <B>
-                            <td>전화번호</td>
-                        </B>
-                        <B>
-                            <td>학과</td>
-                        </B>
+                        <td class=" text-center" scope="col" style="width:7%;">
+                            이름
+                        </td>
+                        <td class=" text-center" scope="col" style="width:7%;">
+                            학번
+                        </td>
+                        <td class=" text-center" scope="col" style="width:7%;">
+                            생년월일
+                        </td>
+                        <td class=" text-center" scope="col" style="width:7%;">
+                            전화번호
+                        </td>
+                        <td class=" text-center" scope="col" style="width:7%;">
+                            학과
+                        </td>
                     </tr>
                 </thead>
-                <tbody>
+                <ul>
                     {% for desk_member in desk_members %}
                         <tr>
-                            <td>{{ desk_member.name }}</td>
-                            <td>{{ desk_member.student_number }}</td>
-                            <td>{{ desk_member.birthday }}</td>
-                            <td>{{ desk_member.phone_number }}</td>
-                            <td>{{ desk_member.major }}</td>
+                            <td class="text-center ">
+                                {{ desk_member.name }}
+                            </td>
+                            <td class="text-center ">
+                                {{ desk_member.student_number }}
+                            </td>
+                            <td class="text-center ">
+                                {{ desk_member.birthday }}
+                            </td>
+                            <td class="text-center ">
+                                {{ desk_member.phone_number }}
+                            </td>
+                            <td class="text-center ">
+                                {{ desk_member.major }}
+                            </td>
                         </tr>
                     {% endfor %}
-                </tbody>
+                </ul>
             </table>
             <form id="desk_list" action="/excel_list/" method="get">
-                <input type="submit" value="excel파일로 출력하기"></form>
+                <input class="btn btn-primary" type="submit" value="excel파일로 출력하기"></form>
             </form>
             <script>
               $(function () {
