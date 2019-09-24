@@ -1,6 +1,7 @@
 import math
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -86,7 +87,7 @@ def overflow_modify(request):
     overflow_id = request.GET['overflow_id']
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
     if request.user != overflow_data.user_info.user:
-        return redirect('/posts')
+        raise PermissionDenied
     return render(request, 'overflow_modify.html', {'overflow_id': overflow_id,
                                                     'overflow_data': overflow_data})
 
@@ -98,7 +99,7 @@ def update_overflow(request):
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
 
     if request.user != overflow_data.user_info.user:
-        return redirect('/overflows')
+        raise PermissionDenied
 
     overflow_data = HantorismOverflow.objects.filter(id=overflow_id)
     overflow_data.update(
@@ -114,7 +115,7 @@ def overflow_delete(request):
 
     overflow_data = HantorismOverflow.objects.get(id=overflow_id)
     if request.user != overflow_data.user_info.user:
-        return redirect('/overflows')
+        raise PermissionDenied
 
     overflow_data.delete()
 
