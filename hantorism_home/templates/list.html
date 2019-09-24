@@ -177,8 +177,10 @@
     <hr class="mt-5" style="border:0; height: 3px; background: rgba(0, 208, 255, 0.912);">
     <h1 class="text-custom2 fon text-center mt-5">한터 주요행사 </h1>
     <h2 class="fon text-center"> '너랑 나, 우리 같이, 모두 함께,'</h2>
-    <p class="lead fon text-center">본 학과 <span class="fon text-custom2" style="text-decoration: underline;">최대 규모</span>이자, 2019년 기준 31년의 최고 역사를 자랑하는 <br> 학술 소학회 HANTOR는 매년 활동 재학생
-         학우 수 약 150명을 자랑하는 <br> 명실상부한 소프트웨어학과의 <span class="fon text-custom2" style="text-decoration: underline;">가장 큰 소학회</span>입니다.
+    <p class="lead fon text-center">본 학과 <span class="fon text-custom2" style="text-decoration: underline;">최대
+            규모</span>이자, 2019년 기준 31년의 최고 역사를 자랑하는 <br> 학술 소학회 HANTOR는 매년 활동 재학생
+        학우 수 약 150명을 자랑하는 <br> 명실상부한 소프트웨어학과의 <span class="fon text-custom2" style="text-decoration: underline;">가장 큰
+            소학회</span>입니다.
     </p>
     <div class="row fon mt-5 border bg-image-full" style="background-image: url(/static/images/background.jpg); ">
         <div class="contai ">
@@ -243,19 +245,19 @@
             </div>
 
         </div>
+    </div>
         <!-- footer -->
         {% include 'footer.html' %}
-    </body>
-    <script>
-        $(window).on('load', function () {
-          if('{{ message }}' == 'fail')
-          {
+</body>
+<script>
+    $(window).on('load', function () {
+        if ('{{ message }}' == 'fail') {
             alert('아이디 혹은 비밀번호가 틀렸습니다.')
             $('#login').modal('show');
-          }
-          else {
-          }
-        });
-    </script>
+        }
+        else {
+        }
+    });
+</script>
 
 </html>
