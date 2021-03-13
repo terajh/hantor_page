@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/HANTOR_Homepage/static/css/main.000afc64.chunk.css",
+    "main.js": "/HANTOR_Homepage/static/js/main.263559f2.chunk.js",
+    "main.js.map": "/HANTOR_Homepage/static/js/main.263559f2.chunk.js.map",
+    "runtime-main.js": "/HANTOR_Homepage/static/js/runtime-main.1c56e43d.js",
+    "runtime-main.js.map": "/HANTOR_Homepage/static/js/runtime-main.1c56e43d.js.map",
+    "static/js/2.0f8c9fbd.chunk.js": "/HANTOR_Homepage/static/js/2.0f8c9fbd.chunk.js",
+    "static/js/2.0f8c9fbd.chunk.js.map": "/HANTOR_Homepage/static/js/2.0f8c9fbd.chunk.js.map",
+    "static/js/3.a808d9b8.chunk.js": "/HANTOR_Homepage/static/js/3.a808d9b8.chunk.js",
+    "static/js/3.a808d9b8.chunk.js.map": "/HANTOR_Homepage/static/js/3.a808d9b8.chunk.js.map",
+    "index.html": "/HANTOR_Homepage/index.html",
+    "static/css/main.000afc64.chunk.css.map": "/HANTOR_Homepage/static/css/main.000afc64.chunk.css.map",
+    "static/js/2.0f8c9fbd.chunk.js.LICENSE.txt": "/HANTOR_Homepage/static/js/2.0f8c9fbd.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/HANTOR_Homepage/static/media/carousel1.b4d5c941.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c56e43d.js",
+    "static/js/2.0f8c9fbd.chunk.js",
+    "static/css/main.000afc64.chunk.css",
+    "static/js/main.263559f2.chunk.js"
+  ]
+}
