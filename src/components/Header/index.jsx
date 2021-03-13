@@ -11,6 +11,16 @@ const Header = () => {
       <div className="skin_contents">
         <a href="#main_contents">본문바로가기</a>
       </div>
+      <h1 className="logo" id="rev-1">
+        <a href="/">
+          <img
+            src="/web/img/comm/logo.png"
+            className="wp100"
+            style={{ maxWidth: 200 + "px" }}
+            alt="hantor"
+          />
+        </a>
+      </h1>
       <div className="container_outer">
         <nav className="eng clearfix">
           <ul className="list-unstyled">

@@ -5,7 +5,7 @@ import {Contact, Home, News, About, Work, Organization} from '../pages';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div id="wrap" className="main_wrap">
         <Route exact path="/" component={Home}></Route>
         <Route path="/Contact" component={Contact}></Route>
         <Route path="/About" component={About}></Route>

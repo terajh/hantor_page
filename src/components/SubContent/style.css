@@ -1,0 +1,14 @@
+#rev-2 > .block-revealer__element {
+    transform: scaleX(0); 
+    transform-origin: 100% 50%; 
+    background-color: rgb(239, 80, 37); 
+    opacity: 1;
+}
+
+#rev-2 {
+    position : relative;
+}
+
+#rev-2 > .block-revealer__content {
+    opacity: 1;
+}

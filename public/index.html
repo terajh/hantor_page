@@ -36,6 +36,57 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.css'>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.0/js/swiper.min.js'></script>
+	<script src="%PUBLIC_URL%/web/js/aos/aos.js"></script>
+	<link rel="stylesheet" href="%PUBLIC_URL%/web/js/aos/aos.css" />
+	<script src="%PUBLIC_URL%/web/js/reveal/anime.min.js"></script>
+	<script src="%PUBLIC_URL%/web/js/reveal/main.js"></script>
+	<script src="%PUBLIC_URL%/web/js/reveal/scrollMonitor.js"></script>
+	<link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/web/js/reveal/revealer.css" />
+	<script src="%PUBLIC_URL%/web/js/ui.js"></script>
+
+	<script>
+		(function() {
+			// Fake loading.
+			setTimeout(init, 1000);
+
+			function init() {
+				document.body.classList.remove('loading');
+				//************************ Example 1 - reveal on load ********************************
+				var rev1 = new RevealFx(document.querySelector('#rev-1'), {
+					revealSettings : {
+						bgcolor: '#000000',
+						onCover: function(contentEl, revealerEl) {
+							contentEl.style.opacity = 1;
+						}
+					}
+				});
+				rev1.reveal();
+
+
+				
+				$('.modal_close_x').on('click',function(){
+					$("#video1").attr("src","");
+				});
+				
+				$('.modal_close_x2').on('click',function(){
+					$("#video1").attr("src","");
+				});
+				
+			}
+		})();
+		</script>
+
+
+
+
+	<script>
+		$(function(){
+			main_ui_js();
+		});
+	</script>
   </body>
 </html>
