@@ -1,5 +1,5 @@
 import React from "react";
-
+import './style.css'
 const ContainerOuter = () => {
   return (
     <div className="container_outer">
@@ -47,7 +47,7 @@ const ContainerOuter = () => {
               data-idx="183"
               data-toggle="modal"
             >
-              <a>
+              <a id="aka">
                 <div className="txt_con">
                   <div>
                     <p className="eng s_title">동아오츠카</p>

@@ -1,11 +1,12 @@
 import React from 'react';
-import {Header, Footer} from '../../components';
+import {Header, Footer, NewsContent} from '../../components';
 
 
 const News = () => {
     return (
         <>
             <Header></Header>
+            <NewsContent></NewsContent>
             <Footer></Footer>
         </>
     )

@@ -3,9 +3,6 @@
 	overflow:hidden;
 }
 
-#root {
-	height: 100%;
-}
 footer.main_footer{
 	position:fixed;
 	bottom:0;
