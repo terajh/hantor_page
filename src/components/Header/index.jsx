@@ -29,16 +29,7 @@ const Header = () => {
             </li>
             <li id="02">
               <a href="/about">ABOUT</a>
-              <div className="sub_menu">
-                <ol className="list-unstyled">
-                  <li id="portfolio">
-                    <a href="/Home">Hantor is</a>
-                  </li>
-                  <li id="organization">
-                    <a href="/Organization">ORGANIZATION</a>
-                  </li>
-                </ol>
-              </div>
+              
             </li>
             <li id="03">
               <a href="/news">NEWS</a>
@@ -52,11 +43,11 @@ const Header = () => {
         <div className="mobile_info  visible-xs mt30">
           <div className="dp-table wp100 mb10">
             <div className="dp-table-cell w60 fw600">TEL.</div>
-            <div className="dp-table-cell fw300">02.519.6900</div>
+            <div className="dp-table-cell fw300">000.0000.0000</div>
           </div>
           <div className="dp-table wp100">
             <div className="dp-table-cell w60 fw600">E-mail.</div>
-            <div className="dp-table-cell fw300">hancomm@hancomm.co.kr</div>
+            <div className="dp-table-cell fw300">hantor@hantor.co.kr</div>
           </div>
         </div>
 

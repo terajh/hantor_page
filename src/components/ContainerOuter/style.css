@@ -1,5 +1,37 @@
-#aka {
+#aka1 {
     background-image: url("../../assets/carousel1.jpg");
+    background-size: cover;
+    width:auto;
+    height:auto;
+}
+
+
+#aka2 {
+    background-image: url("../../assets/carousel2.jpg");
+    background-size: cover;
+    width:auto;
+    height:auto;
+}
+#aka3 {
+    background-image: url("../../assets/carousel3.jpg");
+    background-size: cover;
+    width:auto;
+    height:auto;
+}
+#aka4 {
+    background-image: url("../../assets/carousel4.jpg");
+    background-size: cover;
+    width:auto;
+    height:auto;
+}
+#aka5 {
+    background-image: url("../../assets/carousel5.jpg");
+    background-size: cover;
+    width:auto;
+    height:auto;
+}
+#aka6 {
+    background-image: url("../../assets/carousel6.jpg");
     background-size: cover;
     width:auto;
     height:auto;

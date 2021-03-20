@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Route} from 'react-router-dom';
 import {Contact, Home, News, About, Work, Organization} from '../pages';
-
+import '../App.css'
 class App extends Component {
   render() {
     return (

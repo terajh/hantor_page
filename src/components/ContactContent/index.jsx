@@ -14,7 +14,7 @@ const Contacts = () => {
                 id="rev-2"
                 className="dp-inblock mask_title block-revealer"
               >
-                <div className="block-revealer__content">
+                <div id="content_title2" className="block-revealer__content">
                   Office.
                 </div>
                 <div
@@ -35,8 +35,8 @@ const Contacts = () => {
                 <ul className="list-unstyled">
                   <li data-aos="fade-up" data-aos-delay="1500">
                     <i className="xi-call"></i>
-                    <span>대표전화</span>
-                    02.519.6900
+                    <span>대표 전화</span>
+                    000.0000.0000
                   </li>
                   <li data-aos="fade-up" data-aos-delay="1700">
                     <i className="xi-print"></i>
@@ -46,26 +46,29 @@ const Contacts = () => {
                   <li data-aos="fade-up" data-aos-delay="1900">
                     <i className="xi-mail"></i>
                     <span>이메일</span>
-                    hancomm@hancomm.co.kr
+                    hantor@hantor.co.kr
                   </li>
                 </ul>
               </div>
               <div className="col-md-6">
                 <ul className="list-unstyled">
                   <li data-aos="fade-up" data-aos-delay="1500">
-                    <i className="xi-library-video"></i>
-                    <span>광고대행 / 제작 문의</span>
-                    02.519.6916
+                    {/* <a href="https://www.facebook.com/AjouHantor">
+                      <img clss='icon_list' src='web/img/icon/facebook.png'></img>
+                    </a> */}
+                    <a href="https://www.facebook.com/AjouHantor" class="fa fa-facebook"></a>
+                    <span>페이스북</span>
+                    <br></br>
                   </li>
                   <li data-aos="fade-up" data-aos-delay="1700">
-                    <i className="xi-desktop"></i>
-                    <span>전시 / 이벤트 / 출판 문의</span>
-                    02.519.6946
+                    <a href="#" class="fa fa-instagram"></a>
+                    <span>인스타그램</span>
+                    <br></br>
                   </li>
                   <li data-aos="fade-up" data-aos-delay="1900">
                     <i className="xi-video-call"></i>
                     <span>미디어 문의</span>
-                    02.519.6969
+                    <br></br>
                   </li>
                 </ul>
               </div>

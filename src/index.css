@@ -1,3 +1,5 @@
 #root {
     height:100%;
+    background: url('./assets/background.jpg');
+    opacity: 0.3;
 }

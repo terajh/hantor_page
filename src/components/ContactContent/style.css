@@ -1,8 +1,11 @@
 #rev-2 > .block-revealer__element {
     transform: scaleX(0); 
     transform-origin: 100% 50%; 
-    background-color: rgb(239, 80, 37); 
+    background-color: rgb(37, 199, 239); 
     opacity: 1;
+}
+#content_title2 {
+    color:rgb(37, 199, 239); 
 }
 
 #rev-2 {
@@ -12,3 +15,37 @@
 #rev-2 > .block-revealer__content {
     opacity: 1;
 }
+
+#sub_contents {
+    height: 94%;
+    overflow-y: scroll;
+    padding-top : 150px;
+  }
+
+  .fa-facebook {
+    /* background: #3B5998;
+    color: white; */
+    position: absolute;
+    left: 0;
+    top: 3px;
+  }
+
+
+  /* .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: #ffffff;
+    text-align: center;
+  } */
+  
+  .fa-instagram {
+    /* background: #125688;
+    color: white; */
+    position: absolute;
+    left: 0;
+    top: 3px;
+  }
+  

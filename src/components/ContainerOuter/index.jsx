@@ -30,7 +30,7 @@ const ContainerOuter = () => {
         <div className="main_fp_scroll hidden-xs">
           Scroll{" "}
           <img
-            src="/web/img/icon/more_arrow_w.png"
+            src="/assets/carousel4.jpg"
             width="33px"
             alt=""
           />
@@ -42,16 +42,106 @@ const ContainerOuter = () => {
             <div
               className="swiper-slide"
               data-target="#work_detail_pop"
-              data-title="이카리아 : 죽음을 잊은 자"
-              data-clientnm="동아오츠카"
+              data-title="한터 가입신청"
+              data-clientnm="너와 나의 만남"
               data-idx="183"
               data-toggle="modal"
             >
-              <a id="aka">
+              <a id="aka4">
                 <div className="txt_con">
                   <div>
-                    <p className="eng s_title">동아오츠카</p>
-                    <p className="title">이카리아 : 죽음을 잊은 자</p>
+                    <p className="eng s_title">한터 가입신청</p>
+                    <p className="title">너와 나의 만남</p>
+                    <p className="more"></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div
+              className="swiper-slide"
+              data-target="#work_detail_pop"
+              data-title="벚꽃 사진전"
+              data-clientnm="너와, 기억"
+              data-idx="183"
+              data-toggle="modal"
+            >
+              <a id="aka2">
+                <div className="txt_con">
+                  <div>
+                    <p className="eng s_title">벚꽃 사진전</p>
+                    <p className="title">너와, 기억</p>
+                    <p className="more"></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div
+              className="swiper-slide"
+              data-target="#work_detail_pop"
+              data-title="아주인의 날"
+              data-clientnm="너와, 행사"
+              data-idx="183"
+              data-toggle="modal"
+            >
+              <a id="aka3">
+                <div className="txt_con">
+                  <div>
+                    <p className="eng s_title">아주인의 날</p>
+                    <p className="title">너와, 행사</p>
+                    <p className="more"></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div
+              className="swiper-slide"
+              data-target="#work_detail_pop"
+              data-title="스터디"
+              data-clientnm="너와, 발전"
+              data-idx="183"
+              data-toggle="modal"
+            >
+              <a id="aka1">
+                <div className="txt_con">
+                  <div>
+                    <p className="eng s_title">스터디</p>
+                    <p className="title">너와, 발전</p>
+                    <p className="more"></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div
+              className="swiper-slide"
+              data-target="#work_detail_pop"
+              data-title="봄 MT"
+              data-clientnm="너와, 추억"
+              data-idx="183"
+              data-toggle="modal"
+            >
+              <a id="aka6">
+                <div className="txt_con">
+                  <div>
+                    <p className="eng s_title">봄 MT</p>
+                    <p className="title">너와, 추억</p>
+                    <p className="more"></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div
+              className="swiper-slide"
+              data-target="#work_detail_pop"
+              data-title="OB & YB"
+              data-clientnm="너와, 경험"
+              data-idx="183"
+              data-toggle="modal"
+            >
+              <a id="aka5">
+                <div className="txt_con">
+                  <div>
+                    <p className="eng s_title">OB & YB</p>
+                    <p className="title">너와, 경험</p>
                     <p className="more"></p>
                   </div>
                 </div>

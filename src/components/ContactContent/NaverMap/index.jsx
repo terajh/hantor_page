@@ -13,7 +13,7 @@ const NaverMapAPI = (props) => {
             mapDivID={'maps-getting-started-uncontrolled'}
             style={{
                 width: '100%', // 네이버지도 가로 길이
-                height: '100%'
+                height: '500px'
             }}
             center={new navermaps.LatLng(xLoc, yLoc)}     // 지도 초기 위치
             defaultZoom={(xLoc === 37.3595704) ? 12 : 15}>   

@@ -1,8 +1,8 @@
 import React from "react";
-
+import './style.css'
 const WorkContent = () => {
   return (
-    <div id="sub_contents" style={{paddingBottom: 0+'px'}}>
+    <div id="sub_contents" style={{ paddingBottom: 0 + "px" }}>
       <div className="list_view_type  pl10 mb20 visible-xs">
         <a href="#." className="view_type1 active">
           <span></span>하나씩보기
@@ -16,34 +16,138 @@ const WorkContent = () => {
         <div className="grid clearfix">
           <div
             className="grid-item aos-init aos-animate"
-            data-aos="fade-zoom-in"
-            data-aos-delay="200"
-            data-aos-duration="500"
             data-target="#work_detail_pop"
-            data-file="ikaria_long(2).mp4"
-            data-title="이카리아 : 죽음을 잊은 자"
-            data-clientnm="동아오츠카"
+            data-title="한터 가입신청"
+            data-clientnm="너와 나의 만남"
             data-idx="183"
             data-toggle="modal"
           >
             {" "}
-            <a
-              onClick="showMovie('이카리아 : 죽음을 잊은 자','동아오츠카','ikaria_long(2).mp4')"
-            >
+            <a id="aka4" href="#">
               {" "}
               <div className="txt_con">
                 {" "}
                 <div>
                   {" "}
-                  <p className="eng s_title">동아오츠카</p>{" "}
-                  <p className="title">이카리아 : 죽음을 잊은 자</p>{" "}
+                  <p className="eng s_title">한터 가입신청</p>{" "}
+                  <p className="title">너와 나의 만남</p>{" "}
                   <p className="more"></p>{" "}
                 </div>{" "}
               </div>{" "}
             </a>{" "}
           </div>
+          <div
+            className="grid-item aos-init aos-animate"
+            data-target="#work_detail_pop"
+            data-title="벚꽃 사진전"
+            data-clientnm="너와, 기억"
+            data-idx="183"
+            data-toggle="modal"
+          >
+            {" "}
+            <a id="aka2">
+              {" "}
+              <div className="txt_con">
+                {" "}
+                <div>
+                  {" "}
+                  <p className="eng s_title">벚꽃 사진전</p>{" "}
+                  <p className="title">너와, 기억</p>{" "}
+                  <p className="more"></p>{" "}
+                </div>{" "}
+              </div>{" "}
+            </a>{" "}
           </div>
-        <div className="more more_list" >
+          <div
+            className="grid-item aos-init aos-animate"
+            data-target="#work_detail_pop"
+            data-title="아주인의 날"
+            data-clientnm="너와, 행사"
+            data-idx="183"
+            data-toggle="modal"
+          >
+            {" "}
+            <a id="aka3">
+              {" "}
+              <div className="txt_con">
+                {" "}
+                <div>
+                  {" "}
+                  <p className="eng s_title">아주인의 날</p>{" "}
+                  <p className="title">너와, 행사</p>{" "}
+                  <p className="more"></p>{" "}
+                </div>{" "}
+              </div>{" "}
+            </a>{" "}
+          </div>
+          <div
+            className="grid-item aos-init aos-animate"
+            data-target="#work_detail_pop"
+            data-title="스터디"
+            data-clientnm="너와, 발전"
+            data-idx="183"
+            data-toggle="modal"
+          >
+            {" "}
+            <a id="aka1">
+              {" "}
+              <div className="txt_con">
+                {" "}
+                <div>
+                  {" "}
+                  <p className="eng s_title">스터디</p>{" "}
+                  <p className="title">너와, 발전</p>{" "}
+                  <p className="more"></p>{" "}
+                </div>{" "}
+              </div>{" "}
+            </a>{" "}
+          </div>
+          <div
+            className="grid-item aos-init aos-animate"
+            data-target="#work_detail_pop"
+            data-title="봄 MT"
+            data-clientnm="너와, 추억"
+            data-idx="183"
+            data-toggle="modal"
+          >
+            {" "}
+            <a id="aka6">
+              {" "}
+              <div className="txt_con">
+                {" "}
+                <div>
+                  {" "}
+                  <p className="eng s_title">봄 MT</p>{" "}
+                  <p className="title">너와, 추억</p>{" "}
+                  <p className="more"></p>{" "}
+                </div>{" "}
+              </div>{" "}
+            </a>{" "}
+          </div>
+          <div
+            className="grid-item aos-init aos-animate"
+            data-target="#work_detail_pop"
+            data-title="OB & YB"
+            data-clientnm="너와, 경험"
+            data-idx="183"
+            data-toggle="modal"
+          >
+            {" "}
+            <a id="aka5">
+              {" "}
+              <div className="txt_con">
+                {" "}
+                <div>
+                  {" "}
+                  <p className="eng s_title">OB & YB</p>{" "}
+                  <p className="title">너와, 경험</p>{" "}
+                  <p className="more"></p>{" "}
+                </div>{" "}
+              </div>{" "}
+            </a>{" "}
+          </div>
+        </div>
+        <div className="more more_list">
           <a href="#.">
             <span>더보기</span>
             <i className="xi-angle-down-thin"></i>
