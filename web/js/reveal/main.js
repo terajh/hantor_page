@@ -77,7 +77,7 @@
 	 * Build the necessary structure.
 	 */
 	RevealFx.prototype._layout = function() {
-		if (typeof this.el === 'undefined') {
+		if (typeof this.el === 'undefined' | typeof this.el === 'null') {
             this.el = 'x';
         }
 		var position = getComputedStyle(this.el).position;
