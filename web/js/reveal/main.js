@@ -77,7 +77,9 @@
 	 * Build the necessary structure.
 	 */
 	RevealFx.prototype._layout = function() {
-		
+		if(!this.el) {
+			return false;
+		}
 		var position = getComputedStyle(this.el).position;
 		if( position !== 'fixed' && position !== 'absolute' && position !== 'relative' ) {
 			this.el.style.position = 'relative';
