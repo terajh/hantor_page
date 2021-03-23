@@ -1,5 +1,6 @@
 import React from "react";
 import './style.css'
+import logo from "../../img/comm/logo.png"
 const ContainerOuter = () => {
   return (
     <div className="container_outer">
@@ -13,7 +14,7 @@ const ContainerOuter = () => {
         >
           <div id="rev-1" className="content__title__inner">
             <img
-              src="/web/img/comm/logo.png"
+              src={logo}
               className="wp100"
               style={{maxWidth: 519+"px"}}
               alt="hantor"

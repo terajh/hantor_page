@@ -77,9 +77,7 @@
 	 * Build the necessary structure.
 	 */
 	RevealFx.prototype._layout = function() {
-		if(!this.el) {
-			return false;
-		}
+		
 		var position = getComputedStyle(this.el).position;
 		if( position !== 'fixed' && position !== 'absolute' && position !== 'relative' ) {
 			this.el.style.position = 'relative';
@@ -148,75 +146,70 @@
 			return false;
 		}
 		this.isAnimating = true;
-		try{
-
 		
-			// Set the revealer element´s transform and transform origin.
-			var defaults = { // In case revealSettings is incomplete, its properties deafault to:
-					duration: 500,
-					easing: 'easeInOutQuint',
-					delay: 0,
-					bgcolor: '#f0f0f0',
-					direction: 'lr',
-					coverArea: 0
-				},
-				revealSettings = revealSettings || this.options.revealSettings,
-				direction = revealSettings.direction || defaults.direction,
-				transformSettings = this._getTransformSettings(direction);
+		// Set the revealer element´s transform and transform origin.
+		var defaults = { // In case revealSettings is incomplete, its properties deafault to:
+				duration: 500,
+				easing: 'easeInOutQuint',
+				delay: 0,
+				bgcolor: '#f0f0f0',
+				direction: 'lr',
+				coverArea: 0
+			},
+			revealSettings = revealSettings || this.options.revealSettings,
+			direction = revealSettings.direction || defaults.direction,
+			transformSettings = this._getTransformSettings(direction);
 
-			this.revealer.style.WebkitTransform = this.revealer.style.transform =  transformSettings.val;
-			this.revealer.style.WebkitTransformOrigin = this.revealer.style.transformOrigin =  transformSettings.origin.initial;
-			
-			// Set the Revealer´s background color.
-			this.revealer.style.backgroundColor = revealSettings.bgcolor || defaults.bgcolor;
-			
-			// Show it. By default the revealer element has opacity = 0 (CSS).
-			this.revealer.style.opacity = 1;
+		this.revealer.style.WebkitTransform = this.revealer.style.transform =  transformSettings.val;
+		this.revealer.style.WebkitTransformOrigin = this.revealer.style.transformOrigin =  transformSettings.origin.initial;
+		
+		// Set the Revealer´s background color.
+		this.revealer.style.backgroundColor = revealSettings.bgcolor || defaults.bgcolor;
+		
+		// Show it. By default the revealer element has opacity = 0 (CSS).
+		this.revealer.style.opacity = 1;
 
-			// Animate it.
-			var self = this,
-				// Second animation step.
-				animationSettings_2 = {
-					complete: function() {
-						self.isAnimating = false;
-						if( typeof revealSettings.onComplete === 'function' ) {
-							revealSettings.onComplete(self.content, self.revealer);
-						}
+		// Animate it.
+		var self = this,
+			// Second animation step.
+			animationSettings_2 = {
+				complete: function() {
+					self.isAnimating = false;
+					if( typeof revealSettings.onComplete === 'function' ) {
+						revealSettings.onComplete(self.content, self.revealer);
 					}
-				},
-				// First animation step.
-				animationSettings = {
-					delay: revealSettings.delay || defaults.delay,
-					complete: function() {
-						self.revealer.style.WebkitTransformOrigin = self.revealer.style.transformOrigin = transformSettings.origin.halfway;		
-						if( typeof revealSettings.onCover === 'function' ) {
-							revealSettings.onCover(self.content, self.revealer);
-						}
-						anime(animationSettings_2);		
+				}
+			},
+			// First animation step.
+			animationSettings = {
+				delay: revealSettings.delay || defaults.delay,
+				complete: function() {
+					self.revealer.style.WebkitTransformOrigin = self.revealer.style.transformOrigin = transformSettings.origin.halfway;		
+					if( typeof revealSettings.onCover === 'function' ) {
+						revealSettings.onCover(self.content, self.revealer);
 					}
-				};
+					anime(animationSettings_2);		
+				}
+			};
 
-			animationSettings.targets = animationSettings_2.targets = this.revealer;
-			animationSettings.duration = animationSettings_2.duration = revealSettings.duration || defaults.duration;
-			animationSettings.easing = animationSettings_2.easing = revealSettings.easing || defaults.easing;
+		animationSettings.targets = animationSettings_2.targets = this.revealer;
+		animationSettings.duration = animationSettings_2.duration = revealSettings.duration || defaults.duration;
+		animationSettings.easing = animationSettings_2.easing = revealSettings.easing || defaults.easing;
 
-			var coverArea = revealSettings.coverArea || defaults.coverArea;
-			if( direction === 'lr' || direction === 'rl' ) {
-				animationSettings.scaleX = [0,1];
-				animationSettings_2.scaleX = [1,coverArea/100];
-			}
-			else {
-				animationSettings.scaleY = [0,1];
-				animationSettings_2.scaleY = [1,coverArea/100];
-			}
-
-			if( typeof revealSettings.onStart === 'function' ) {
-				revealSettings.onStart(self.content, self.revealer);
-			}
-			anime(animationSettings);
-		}catch(e){
-			console.log(e);
+		var coverArea = revealSettings.coverArea || defaults.coverArea;
+		if( direction === 'lr' || direction === 'rl' ) {
+			animationSettings.scaleX = [0,1];
+			animationSettings_2.scaleX = [1,coverArea/100];
 		}
+		else {
+			animationSettings.scaleY = [0,1];
+			animationSettings_2.scaleY = [1,coverArea/100];
+		}
+
+		if( typeof revealSettings.onStart === 'function' ) {
+			revealSettings.onStart(self.content, self.revealer);
+		}
+		anime(animationSettings);
 	};
 	
 	window.RevealFx = RevealFx;

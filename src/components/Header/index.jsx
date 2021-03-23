@@ -1,6 +1,46 @@
-import react from "react";
+import React, { useState, useEffect } from 'react';
+import logo from "../../img/comm/logo.png"
+
 
 const Header = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.innerHTML = `         
+    (function () {
+      // Fake loading.
+  
+      setTimeout(init, 3000);
+  
+      function init() {
+        document.body.classList.remove('loading');
+        //************************ Example 1 - reveal on load ********************************
+        var rev1 = new RevealFx(document.querySelector('#rev-1'), {
+          revealSettings: {
+            bgcolor: '#000000',
+            onCover: function (contentEl, revealerEl) {
+              contentEl.style.opacity = 1;
+            }
+          }
+        });
+        rev1.reveal();
+  
+  
+  
+        $('.modal_close_x').on('click', function () {
+          $("#video1").attr("src", "");
+        });
+  
+        $('.modal_close_x2').on('click', function () {
+          $("#video1").attr("src", "");
+        });
+  
+      }
+    })();
+   `;
+    script.type = "text/javascript";
+    script.async = "async";
+    document.getElementsByTagName('header')[0].appendChild(script);
+  }, []);
   return (
     <header
       className="header_main"
@@ -14,7 +54,7 @@ const Header = () => {
       <h1 className="logo" id="rev-1">
         <a href="/">
           <img
-            src="/web/img/comm/logo.png"
+            src={logo}
             className="wp100"
             style={{ maxWidth: 200 + "px" }}
             alt="hantor"
