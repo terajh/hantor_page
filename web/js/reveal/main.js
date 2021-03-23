@@ -148,6 +148,8 @@
 			return false;
 		}
 		this.isAnimating = true;
+		try{
+
 		
 		// Set the revealer element´s transform and transform origin.
 		var defaults = { // In case revealSettings is incomplete, its properties deafault to:
@@ -212,6 +214,9 @@
 			revealSettings.onStart(self.content, self.revealer);
 		}
 		anime(animationSettings);
+		}catch(e){
+			console.log(e);
+		}
 	};
 	
 	window.RevealFx = RevealFx;
