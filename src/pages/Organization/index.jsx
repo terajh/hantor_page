@@ -5,7 +5,6 @@ import {Header, Footer} from '../../components';
 const Organization = () => {
     return (
         <>
-            <Header></Header>
             <Footer></Footer>
         </>
     )
