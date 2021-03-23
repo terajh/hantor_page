@@ -1,25 +1,23 @@
 {
   "files": {
     "main.css": "/HANTOR_Homepage/static/css/main.a78afb1c.chunk.css",
-    "main.js": "/HANTOR_Homepage/static/js/main.6d09f878.chunk.js",
-    "main.js.map": "/HANTOR_Homepage/static/js/main.6d09f878.chunk.js.map",
-    "runtime-main.js": "/HANTOR_Homepage/static/js/runtime-main.0ac34b27.js",
-    "runtime-main.js.map": "/HANTOR_Homepage/static/js/runtime-main.0ac34b27.js.map",
-    "static/js/2.87637a65.chunk.js": "/HANTOR_Homepage/static/js/2.87637a65.chunk.js",
-    "static/js/2.87637a65.chunk.js.map": "/HANTOR_Homepage/static/js/2.87637a65.chunk.js.map",
-    "static/js/3.347306ff.chunk.js": "/HANTOR_Homepage/static/js/3.347306ff.chunk.js",
-    "static/js/3.347306ff.chunk.js.map": "/HANTOR_Homepage/static/js/3.347306ff.chunk.js.map",
+    "main.js": "/HANTOR_Homepage/static/js/main.25dbd62e.chunk.js",
+    "main.js.map": "/HANTOR_Homepage/static/js/main.25dbd62e.chunk.js.map",
+    "runtime-main.js": "/HANTOR_Homepage/static/js/runtime-main.17536dea.js",
+    "runtime-main.js.map": "/HANTOR_Homepage/static/js/runtime-main.17536dea.js.map",
+    "static/js/2.16e6fe8d.chunk.js": "/HANTOR_Homepage/static/js/2.16e6fe8d.chunk.js",
+    "static/js/2.16e6fe8d.chunk.js.map": "/HANTOR_Homepage/static/js/2.16e6fe8d.chunk.js.map",
     "index.html": "/HANTOR_Homepage/index.html",
     "static/css/main.a78afb1c.chunk.css.map": "/HANTOR_Homepage/static/css/main.a78afb1c.chunk.css.map",
-    "static/js/2.87637a65.chunk.js.LICENSE.txt": "/HANTOR_Homepage/static/js/2.87637a65.chunk.js.LICENSE.txt",
+    "static/js/2.16e6fe8d.chunk.js.LICENSE.txt": "/HANTOR_Homepage/static/js/2.16e6fe8d.chunk.js.LICENSE.txt",
     "static/media/App.css": "/HANTOR_Homepage/static/media/background.e2a2e2a3.jpg",
     "static/media/style.css": "/HANTOR_Homepage/static/media/carousel6.d7f15602.jpg",
     "static/media/logo.943c5d84.png": "/HANTOR_Homepage/static/media/logo.943c5d84.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.0ac34b27.js",
-    "static/js/2.87637a65.chunk.js",
+    "static/js/runtime-main.17536dea.js",
+    "static/js/2.16e6fe8d.chunk.js",
     "static/css/main.a78afb1c.chunk.css",
-    "static/js/main.6d09f878.chunk.js"
+    "static/js/main.25dbd62e.chunk.js"
   ]
 }
