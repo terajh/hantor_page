@@ -47,7 +47,7 @@ header > .skin_contents > a{
 	color:#000;
 	color:#fff;
 	font-size:1.4rem;
-	background:#000;
+	background:rgb(177, 138, 138);
 }
 header > .skin_contents > a:focus{
 	height:auto;

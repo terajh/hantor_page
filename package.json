@@ -2,7 +2,7 @@
   "name": "hantor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://terajh.github.io/HANTOR_Homepage/",
+  "homepage": "http://terajh.github.io/HANTOR_Homepage",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
