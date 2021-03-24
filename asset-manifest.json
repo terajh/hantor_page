@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/hantor_page/static/css/main.3c85996c.chunk.css",
-    "main.js": "/hantor_page/static/js/main.0ac2f1dd.chunk.js",
-    "main.js.map": "/hantor_page/static/js/main.0ac2f1dd.chunk.js.map",
+    "main.js": "/hantor_page/static/js/main.50f2d98e.chunk.js",
+    "main.js.map": "/hantor_page/static/js/main.50f2d98e.chunk.js.map",
     "runtime-main.js": "/hantor_page/static/js/runtime-main.86e96fba.js",
     "runtime-main.js.map": "/hantor_page/static/js/runtime-main.86e96fba.js.map",
     "static/js/2.16e6fe8d.chunk.js": "/hantor_page/static/js/2.16e6fe8d.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.86e96fba.js",
     "static/js/2.16e6fe8d.chunk.js",
     "static/css/main.3c85996c.chunk.css",
-    "static/js/main.0ac2f1dd.chunk.js"
+    "static/js/main.50f2d98e.chunk.js"
   ]
 }
