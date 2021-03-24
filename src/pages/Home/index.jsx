@@ -2,10 +2,10 @@ import React from 'react';
 import {Footer, HomeMain} from '../../components';
 
 
-const Home = () => {
+const Home = (props) => {
     return (
         <>
-            <HomeMain></HomeMain>
+            <HomeMain changeMode={props.changeMode}></HomeMain>
             <Footer></Footer>
         </>
     )

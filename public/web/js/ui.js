@@ -1,3 +1,4 @@
+
 function main_ui_js(){
 	var swiper = new Swiper('.swiper-container', {
 		direction: 'horizontal',
@@ -104,3 +105,7 @@ $(function(){
 		}
 	},100);
 })
+
+$(document).ready(function(){
+	main_ui_js();
+});

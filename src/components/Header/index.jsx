@@ -1,13 +1,11 @@
 import React, { useState, useEffect} from "react";
 import logo from "../../assets/comm/logo.png";
-import {appendScript} from "../../js/utils/appenScript"
+import Fade from 'react-reveal/Fade';
 
 const Header = (props) => {
   const [mod, setMod] = useState('main');
 
   useEffect(() => {
-    if(mod ==='main') appendScript("/start.js");
-    appendScript("/main_ui.js");
     return ()=> {
     };
   },[props.mode]);
@@ -23,6 +21,7 @@ const Header = (props) => {
       <div className="skin_contents">
         <a href="#main_contents">본문바로가기</a>
       </div>
+      <Fade left>
       <h1 className="logo" id="rev-1">
         <a href="#" onClick={()=>{
           setMod('main');
@@ -36,6 +35,7 @@ const Header = (props) => {
           />
         </a>
       </h1>
+      </Fade>
       <div className="container_outer">
         <nav className="eng clearfix">
           <ul className="list-unstyled">

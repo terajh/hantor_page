@@ -1,6 +1,38 @@
 import React from "react";
-import './style.css'
+import "./style.css";
+import Flip from "react-reveal/Flip";
+import { ArrayGet } from "../index";
+
 const WorkContent = () => {
+  const getContent = () => {
+    return ArrayGet.map((el, index) => (
+      <Flip left>
+        <div
+          className="grid-item aos-init aos-animate"
+          data-target="#work_detail_pop"
+          data-title={el.title}
+          data-clientnm={el.client}
+          data-idx="183"
+          data-toggle="modal"
+          key={index}
+        >
+          {" "}
+          <a id={el.id}>
+            {" "}
+            <div className="txt_con">
+              {" "}
+              <div>
+                {" "}
+                <p className="eng s_title">{el.title}</p>{" "}
+                <p className="title">{el.client}</p> <p className="more"></p>{" "}
+              </div>{" "}
+            </div>{" "}
+          </a>{" "}
+        </div>
+      </Flip>
+    ));
+  };
+
   return (
     <div id="sub_contents" style={{ paddingBottom: 0 + "px" }}>
       <div className="list_view_type  pl10 mb20 visible-xs">
@@ -13,140 +45,7 @@ const WorkContent = () => {
       </div>
 
       <div className="container_outer sub0101_wrap pageon">
-        <div className="grid clearfix">
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="한터 가입신청"
-            data-clientnm="너와 나의 만남"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka4" href="#">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">한터 가입신청</p>{" "}
-                  <p className="title">너와 나의 만남</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="벚꽃 사진전"
-            data-clientnm="너와, 기억"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka2">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">벚꽃 사진전</p>{" "}
-                  <p className="title">너와, 기억</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="아주인의 날"
-            data-clientnm="너와, 행사"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka3">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">아주인의 날</p>{" "}
-                  <p className="title">너와, 행사</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="스터디"
-            data-clientnm="너와, 발전"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka1">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">스터디</p>{" "}
-                  <p className="title">너와, 발전</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="봄 MT"
-            data-clientnm="너와, 추억"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka6">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">봄 MT</p>{" "}
-                  <p className="title">너와, 추억</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-          <div
-            className="grid-item aos-init aos-animate"
-            data-target="#work_detail_pop"
-            data-title="OB & YB"
-            data-clientnm="너와, 경험"
-            data-idx="183"
-            data-toggle="modal"
-          >
-            {" "}
-            <a id="aka5">
-              {" "}
-              <div className="txt_con">
-                {" "}
-                <div>
-                  {" "}
-                  <p className="eng s_title">OB & YB</p>{" "}
-                  <p className="title">너와, 경험</p>{" "}
-                  <p className="more"></p>{" "}
-                </div>{" "}
-              </div>{" "}
-            </a>{" "}
-          </div>
-        </div>
+        <div className="grid clearfix">{getContent()}</div>
         <div className="more more_list">
           <a href="#.">
             <span>더보기</span>

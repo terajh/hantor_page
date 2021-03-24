@@ -2,11 +2,11 @@ import React from "react";
 import LeftButton from "../LeftButton";
 import ContainerOuter from "../ContainerOuter";
 import './style.css'
-const HomeMain = () => {
+const HomeMain = (props) => {
   return (
     <div id="main_contents" >
       <LeftButton></LeftButton>
-      <ContainerOuter></ContainerOuter>
+      <ContainerOuter changeMode={props.changeMode}></ContainerOuter>
     </div>
   );
 };

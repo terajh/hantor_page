@@ -12,7 +12,7 @@ const App = () => {
   }
   const getContent = () => {
     if(mode === 'main') {
-      return <Home></Home>;
+      return <Home changeMode={toggleMode} mode={mode}></Home>;
     }else if(mode === 'contact') {
       return <Contact></Contact>;
     }else if(mode === 'about') {

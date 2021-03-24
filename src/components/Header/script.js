@@ -1,5 +1,3 @@
-$(document).ready(function () {
-    // Fake loading.
+$(document).ready(function(){
     main_ui_js();
-
 });
