@@ -1,15 +1,14 @@
-import React from 'react';
-import {Header, Footer, ContactContent} from '../../components';
+import React from "react";
+import { LeftButton, Footer, ContactContent } from "../../components";
 
 const Contact = () => {
-    return (
-        <div id="wrap" className="main_wrap">
-        
-
-            <ContactContent></ContactContent>
-            <Footer></Footer>
-            </div>
-    )
-}
+  return (
+    <>
+      <LeftButton></LeftButton>
+      <ContactContent></ContactContent>
+      <Footer></Footer>
+    </>
+  );
+};
 
 export default Contact;

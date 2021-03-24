@@ -53,15 +53,12 @@ const Contacts = () => {
               <div className="col-md-6">
                 <ul className="list-unstyled">
                   <li data-aos="fade-up" data-aos-delay="1500">
-                    {/* <a href="https://www.facebook.com/AjouHantor">
-                      <img clss='icon_list' src='web/img/icon/facebook.png'></img>
-                    </a> */}
-                    <a href="https://www.facebook.com/AjouHantor" class="fa fa-facebook"></a>
+                    <a href="https://www.facebook.com/AjouHantor" className="fa fa-facebook"></a>
                     <span>페이스북</span>
                     <br></br>
                   </li>
                   <li data-aos="fade-up" data-aos-delay="1700">
-                    <a href="#" class="fa fa-instagram"></a>
+                    <a href="#" className="fa fa-instagram"></a>
                     <span>인스타그램</span>
                     <br></br>
                   </li>

@@ -1,13 +1,14 @@
 import React from 'react';
-import {Header, Footer, NewsContent} from '../../components';
+import {LeftButton, Footer, NewsContent} from '../../components';
 
 
 const News = () => {
     return (
-        <div id="wrap" className="main_wrap">
+        <>
+            <LeftButton></LeftButton>
             <NewsContent></NewsContent>
             <Footer></Footer>
-        </div>
+        </>
     )
 }
 

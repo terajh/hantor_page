@@ -1,6 +1,8 @@
 import React from "react";
 import './style.css'
-import logo from "../../img/comm/logo.png"
+import logo from "../../assets/comm/logo.png"
+
+
 const ContainerOuter = () => {
   return (
     <div className="container_outer">
@@ -23,7 +25,7 @@ const ContainerOuter = () => {
         </h1>
 
         <p className="more_about" data-aos="fade-right" data-aos-delay="1000">
-          <a href="/Work">
+          <a href="#">
             More Work <i className="animate03"></i>
           </a>
         </p>
@@ -174,7 +176,7 @@ const ContainerOuter = () => {
           <ul className="list-unstyled clearfix m_list_type"></ul>
         </div>
         <p className="more_about more_work text-center pt40 visible-xs">
-          <a href="/about">
+          <a href="#">
             ABOUT US <i className="animate03"></i>
           </a>
         </p>

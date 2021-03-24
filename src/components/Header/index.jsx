@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import logo from "../../img/comm/logo.png"
+import React, { useState, useEffect} from "react";
+import logo from "../../assets/comm/logo.png";
+import {appendScript} from "../../js/utils/appenScript"
+
+const Header = (props) => {
+  const [mod, setMod] = useState('main');
+
+  useEffect(() => {
+    if(mod ==='main') appendScript("/start.js");
+    appendScript("/main_ui.js");
+    return ()=> {
+    };
+  },[props.mode]);
 
 
-const Header = () => {
-  
   return (
     <header
       className="header_main"
@@ -15,7 +24,10 @@ const Header = () => {
         <a href="#main_contents">본문바로가기</a>
       </div>
       <h1 className="logo" id="rev-1">
-        <a href="/">
+        <a href="#" onClick={()=>{
+          setMod('main');
+          props.changeMode('main');
+        }}>
           <img
             src={logo}
             className="wp100"
@@ -28,17 +40,28 @@ const Header = () => {
         <nav className="eng clearfix">
           <ul className="list-unstyled">
             <li id="01">
-              <a href="/work">WORK</a>
+              <a href="#" onClick={()=>{
+                setMod('work');
+                props.changeMode('work');
+              }}>WORK</a>
             </li>
             <li id="02">
-              <a href="/about">ABOUT</a>
-              
+              <a href="#" onClick={()=>{
+                setMod('about');
+                props.changeMode('about');
+              }}>ABOUT</a>
             </li>
             <li id="03">
-              <a href="/news">NEWS</a>
+              <a href="#" onClick={()=>{
+                setMod('news');
+                props.changeMode('news');
+              }} >NEWS</a>
             </li>
             <li id="04">
-              <a href="/contact">CONTACT</a>
+              <a href="#" onClick={()=>{
+                setMod('contact');
+                props.changeMode('contact');
+              }}>CONTACT</a>
             </li>
           </ul>
         </nav>
@@ -54,7 +77,7 @@ const Header = () => {
           </div>
         </div>
 
-        <a href="#." className="m_menu_close visible-xs">
+        <a href="#" className="m_menu_close visible-xs">
           <span>메뉴닫기</span>
           <i className="xi-close"></i>
         </a>
@@ -70,6 +93,7 @@ const Header = () => {
           </p>
         </a>
       </div>
+      <script src="./script.js" type="text/javascript"></script>
     </header>
   );
 };

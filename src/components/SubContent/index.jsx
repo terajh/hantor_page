@@ -67,26 +67,7 @@ const SubContent = () => {
             </div>
           </div>
         </div>
-        <div className="sec03 pl15-xs">
-          <div className="sec03_inner" data-aos="fade-left" data-aos-delay="">
-            <div className="container_outer">
-              <div className="container">
-                <h3 className="sub_title2">History</h3>
-                <div className="history_container">
-                  <div className="history">
-                    <div className="frame" id="basic">
-                    </div>
-                    <div className="scrollbar">
-                      <div className="handle">
-                        <div className="mousearea"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

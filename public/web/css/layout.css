@@ -65,7 +65,7 @@ header > h1{
 	text-align:left;
 	margin-left:-775px;
 	z-index:20;
-	opacity:0;
+	opacity:1;
 }
 header > h1.block-revealer,
 header > h1.sub_logo{

@@ -1,12 +1,15 @@
-import React from 'react';
-import {Header, Footer, SubContent } from '../../components';
+import React from "react";
+import { LeftButton, Footer, SubContent } from "../../components";
+
 const About = () => {
-    return (
-        <div id="wrap" className="main_wrap">
-            <SubContent></SubContent>
-            <Footer></Footer>
-        </div>
-    )
-}
+  return (
+    <>
+      <LeftButton></LeftButton>
+
+      <SubContent></SubContent>
+      <Footer></Footer>
+    </>
+  );
+};
 
 export default About;

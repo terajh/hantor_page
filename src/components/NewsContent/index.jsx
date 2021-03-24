@@ -6,7 +6,7 @@ const NewsContent = () => {
       <div className="sub0301_wrap ">
         <div className="new_list">
           <ul className="list-unstyled">
-            <li onclick="boardVieW('184')">
+            <li>
               <div className="date">
                 <p>14</p>
                 <p>2021.03</p>
@@ -41,7 +41,7 @@ const NewsContent = () => {
                   </p>
                   <p>
                     <iframe
-                      frameborder="0"
+                      frameBorder="0"
                       src="//www.youtube.com/embed/jrQ55Ueu7ws"
                       width="640"
                       height="360"
